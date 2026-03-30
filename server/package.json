@@ -17,6 +17,7 @@
   "author": "Elián Ibarra",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
@@ -27,6 +28,7 @@
     "sequelize-typescript": "^2.1.6"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/morgan": "^1.9.10",
