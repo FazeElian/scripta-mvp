@@ -1,9 +1,9 @@
 
 const DashboardView = () => {
     return (
-        <div>
+        <main className="admin-content">
             <h1>Dashboard View</h1>
-        </div>
+        </main>
     )
 }
 

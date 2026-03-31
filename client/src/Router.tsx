@@ -7,6 +7,7 @@ import RegisterView from "@/views/auth/RegisterView";
 
 import HomeView from "@/views/HomeView";
 import DashboardView from "@/views/admin/DashboardView";
+import { SideBar } from "./components/admin/SideBar";
 
 export default function Router () {
   return (
@@ -15,7 +16,10 @@ export default function Router () {
         <Route index element={<HomeView />} />
         <Route path="/auth/register" element={<RegisterView />} />
         <Route path="/auth/login" element={<LoginView />} />
-        <Route path="/dashboard" element={<DashboardView />} />
+
+        <Route element={<SideBar />}>
+          <Route path="/dashboard" element={<DashboardView />} />
+        </Route>
       </Routes>
     </Suspense>
   )
