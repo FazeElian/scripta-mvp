@@ -39,6 +39,24 @@ export class SnippetController {
         }
     };
 
+    static getByIdByOwner = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const snippet = await snippetService.getByIdByOwner(req.snippet!);
+            res.status(200).json(snippet);
+        } catch (error) {
+            handleError(error, res, next);
+        }
+    };
+
+    static updateById = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const result = await snippetService.updateById(req.snippet!, req.body);
+            res.status(200).json(result);
+        } catch (error) {
+            handleError(error, res, next);
+        }
+    };
+
     static deleteById = async (req: Request, res: Response, next: NextFunction) => {
         try {
             await snippetService.delete(req.snippet!);

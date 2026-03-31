@@ -31,3 +31,15 @@ export interface GetSnippetByIdResponse {
         diagramData: string;
     }
 };
+
+export interface SnippetByIdByOwnerResponse {
+    title: string;
+    description: string;
+    language: string;
+    visibility: string;
+    snippetContent: {
+        code: string;
+        documentation: string;
+        diagramData: string;
+    }
+};

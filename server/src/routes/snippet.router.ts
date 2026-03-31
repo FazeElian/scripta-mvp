@@ -38,6 +38,18 @@ router.get("/snippets/:id",
     SnippetController.getById
 );
 
+router.get("/snippets/editor/:id",
+    authenticate,
+    isSnippetOwner,
+    SnippetController.getByIdByOwner
+);
+
+router.put("/snippets/editor/:id",
+    authenticate,
+    isSnippetOwner,
+    SnippetController.updateById
+);
+
 router.delete("/snippets/:id",
     authenticate,
     isSnippetOwner,
