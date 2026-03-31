@@ -1,8 +1,12 @@
+import { Text, Box } from '@mantine/core'
+
 const DashboardView = () => {
     return (
-        <div>
-            <h1>Dashboard View</h1>
-        </div>
+        <Box className="bg-background p-6">
+            <Text size="xl" fw={600} c="brand.6">
+                Bienvenido a Scripta
+            </Text>
+        </Box>
     )
 }
 

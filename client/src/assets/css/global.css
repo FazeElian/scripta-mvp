@@ -1,33 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import "@mantine/core/styles.css";
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+:root {
+    --mantine-color-body: #030303;
+    --mantine-color-dark-7: #030303;
+    --mantine-color-dark-6: #060606;
+    --mantine-color-dark-5: #2A2A2A;
+    --mantine-color-dark-4: #949295;
+    --mantine-color-text: #F7F0EE;
+}
 
-@theme inline {
-    --font-sans: "JetBrains Mono", monospace;
-    --font-mono: "JetBrains Mono", monospace;
-    --font-heading: "JetBrains Mono", monospace;
+@theme {
+    /* Brand */
+    --color-brand-primary: #04BF7B;
+    --color-brand-dark: #0A190F;
 
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --color-card: var(--card);
-    --color-card-foreground: var(--card-foreground);
-    --color-popover: var(--popover);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-primary: var(--primary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-secondary: var(--secondary);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-muted: var(--muted);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-accent: var(--accent);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-destructive: var(--destructive);
-    --color-border: var(--border);
-    --color-input: var(--input);
-    --color-ring: var(--ring);
+    /* Backgrounds */
+    --color-background: #070707;
+    --color-background-dark: #030303;
+    --color-foreground: #F7F0EE;
+    --color-border: #2A2A2A;
+
+    /* Gray */
+    --color-gray-main: #2A2A2A;
+    --color-gray-secondary: #949295;
 
     /* Language colors */
     --color-orange-main: #BF4904;
@@ -49,64 +46,18 @@
     --color-yellow-main: #D9D930;
     --color-yellow-dark: #1D1D06;
 
-    /* Brand */
-    --color-brand-primary: #04BF7B;
-    --color-brand-dark: #0A190F;
-
-    /* Gray */
-    --color-gray-main: #2A2A2A;
-    --color-gray-secondary: #949295;
-
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
-    --radius-lg: var(--radius);
-}
-
-:root {
-    --background: #030303;
-    --foreground: #F7F0EE;
-    --card: #060606;
-    --card-foreground: #F7F0EE;
-    --popover: #060606;
-    --popover-foreground: #F7F0EE;
-    --primary: #04BF7B;
-    --primary-foreground: #030303;
-    --secondary: #060606;
-    --secondary-foreground: #F7F0EE;
-    --muted: #2A2A2A;
-    --muted-foreground: #949295;
-    --accent: #0A190F;
-    --accent-foreground: #F7F0EE;
-    --destructive: #830A1B;
-    --border: #2A2A2A;
-    --input: #2A2A2A;
-    --ring: #04BF7B;
-    --radius: 0.5rem;
-    --sidebar: #060606;
-    --sidebar-foreground: #F7F0EE;
-    --sidebar-primary: #04BF7B;
-    --sidebar-primary-foreground: #030303;
-    --sidebar-accent: #0A190F;
-    --sidebar-accent-foreground: #F7F0EE;
-    --sidebar-border: #2A2A2A;
-    --sidebar-ring: #04BF7B;
+    /* Typography */
+    --font-mono: "JetBrains Mono", monospace;
 }
 
 @layer base {
-    :root {
-        color-scheme: dark;
-    }
-
-    * {
-        @apply border-border outline-ring/50;
-    }
-
     body {
-        @apply antialiased bg-background text-foreground;
+        background-color: #030303;
+        color: #F7F0EE;
         font-family: "JetBrains Mono", monospace;
     }
 }
 
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { @apply bg-background; }
-::-webkit-scrollbar-thumb { @apply bg-muted rounded-full; }
+::-webkit-scrollbar-track { background: #030303; }
+::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 9999px; }
