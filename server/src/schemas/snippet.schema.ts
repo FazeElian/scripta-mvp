@@ -1,0 +1,22 @@
+import { z } from "zod";
+
+export const createSnippetSchema = z.object({
+    title: z
+        .string("Title is required")
+        .min(3, "Title must be at least 3 characters long")
+        .max(100, "Title is too long"),
+    
+    description: z
+        .string()
+        .max(255, "Description cannot exceed 255 characters")
+        .optional()
+        .or(z.literal("")),
+
+    language: z
+        .string("Language is required")
+        .min(1, "Please select a language"),
+
+    visibility: z
+        .enum(["public", "private"])
+        .default("private"),
+});

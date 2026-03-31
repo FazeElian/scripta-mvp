@@ -11,6 +11,7 @@ import { db } from "./config/db";
 
 // Routes
 import userRouter from "./routes/user.router";
+import snippetRouter from "./routes/snippet.router";
 
 async function connectDB () {
     try {
@@ -31,7 +32,8 @@ app.use(express.json())
 
 // Routes
 app.use("/api/v1",
-    userRouter
+    userRouter,
+    snippetRouter
 );
 
 export default app
