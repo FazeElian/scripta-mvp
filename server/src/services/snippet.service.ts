@@ -87,4 +87,8 @@ export default class SnippetService {
             }
         };
     };
+
+    async delete(snippet: Snippet) : Promise<void> {
+        await snippet.destroy();
+    };
 };

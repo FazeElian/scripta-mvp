@@ -38,4 +38,13 @@ export class SnippetController {
             handleError(error, res, next);
         }
     };
+
+    static deleteById = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            await snippetService.delete(req.snippet!);
+            res.status(200).json("Snippet deleted successfully");
+        } catch (error) {
+            handleError(error, res, next);
+        }
+    };
 };

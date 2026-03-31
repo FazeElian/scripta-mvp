@@ -5,11 +5,15 @@ import { SnippetController } from "../controllers/snippet.controller";
 
 // Middlewares
 import { validateInputErrors } from "../middlewares/validateInputErrors";
-import { authenticate} from "../middlewares/user";
+import { authenticate } from "../middlewares/user";
+import {
+    isSnippetOwner,
+    validateIfSnippetExits,
+    validateSnippetId
+} from "../middlewares/snippet";
 
 // Schemas
 import { createSnippetSchema } from "../schemas/snippet.schema";
-import { validateIfSnippetExits, validateSnippetId } from "../middlewares/snippet";
 
 // Router
 const router = Router();
@@ -32,6 +36,12 @@ router.get("/snippets",
 
 router.get("/snippets/:id",
     SnippetController.getById
+);
+
+router.delete("/snippets/:id",
+    authenticate,
+    isSnippetOwner,
+    SnippetController.deleteById
 );
 
 export default router;
