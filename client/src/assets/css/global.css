@@ -1,63 +1,52 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
-@import "@mantine/core/styles.css";
-@import "tailwindcss";
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 :root {
-    --mantine-color-body: #030303;
-    --mantine-color-dark-7: #030303;
-    --mantine-color-dark-6: #060606;
-    --mantine-color-dark-5: #2A2A2A;
-    --mantine-color-dark-4: #949295;
-    --mantine-color-text: #F7F0EE;
+    --bg-main: #030303;
+    --bg-secondary: #060606;
+    --brand-primary: #04BF7B;
+    --brand-dark: #0A190F;
+    --text-main: #F7F0EE;
+    --gray-main: #2A2A2A;
+    --gray-secondary: #949295;
+
+    --orange-main: #BF4904;
+    --orange-dark: #2D1A0F;
+    --red-main: #830A1B;
+    --red-dark: #1F0808;
+    --seagreen-main: #07B863;
+    --seagreen-dark: #0A1C12;
+    --green-main: #11A628;
+    --green-dark: #0B1A0D;
+    --sky-blue-main: #038498;
+    --sky-blue-dark: #05211C;
+    --blue-main: #1F5EB6;
+    --blue-dark: #0A0F1A;
+    --purple-main: #7C39BF;
+    --purple-dark: #1D0C1E;
+    --pink-main: #AF276E;
+    --pink-dark: #1A0A12;
+    --yellow-main: #D9D930;
+    --yellow-dark: #1D1D06;
+
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
 }
 
-@theme {
-    /* Brand */
-    --color-brand-primary: #04BF7B;
-    --color-brand-dark: #0A190F;
-
-    /* Backgrounds */
-    --color-background: #070707;
-    --color-background-dark: #030303;
-    --color-foreground: #F7F0EE;
-    --color-border: #2A2A2A;
-
-    /* Gray */
-    --color-gray-main: #2A2A2A;
-    --color-gray-secondary: #949295;
-
-    /* Language colors */
-    --color-orange-main: #BF4904;
-    --color-orange-dark: #2D1A0F;
-    --color-red-main: #830A1B;
-    --color-red-dark: #1F0808;
-    --color-seagreen-main: #07B863;
-    --color-seagreen-dark: #0A1C12;
-    --color-green-main: #11A628;
-    --color-green-dark: #0B1A0D;
-    --color-sky-blue-main: #038498;
-    --color-sky-blue-dark: #05211C;
-    --color-blue-main: #1F5EB6;
-    --color-blue-dark: #0A0F1A;
-    --color-purple-main: #7C39BF;
-    --color-purple-dark: #1D0C1E;
-    --color-pink-main: #AF276E;
-    --color-pink-dark: #1A0A12;
-    --color-yellow-main: #D9D930;
-    --color-yellow-dark: #1D1D06;
-
-    /* Typography */
-    --font-mono: "JetBrains Mono", monospace;
-}
-
-@layer base {
-    body {
-        background-color: #030303;
-        color: #F7F0EE;
-        font-family: "JetBrains Mono", monospace;
-    }
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    -webkit-font-smoothing: antialiased;
 }
 
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #030303; }
-::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 9999px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb { background: var(--gray-main); border-radius: 20px; }
