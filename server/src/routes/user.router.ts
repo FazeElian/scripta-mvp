@@ -6,12 +6,17 @@ import UserController from "../controllers/user.controller";
 // Schemas
 import {
     registerSchema,
-    loginSchema
+    loginSchema,
+    updateProfileSchema
 } from "../schemas/user.schema";
 
 // Middlewares
 import { validateInputErrors } from "../middlewares/validateInputErrors";
-import { authenticate, validateIfUserExists, validateUserId } from "../middlewares/user";
+import {
+    authenticate,
+    validateIfUserExists,
+    validateUserId
+} from "../middlewares/user";
 
 // Router
 const router = Router();
@@ -31,13 +36,24 @@ router.post("/users/login",
     UserController.login
 );
 
+router.get("/users/user/",
+    authenticate,
+    UserController.getAuthenticatedUser
+);
+
 router.get("/users/profile/:id",
     UserController.getProfile
 );
 
-router.get("/users/user/",
+router.put("/users/profile/:id",
     authenticate,
-    UserController.getAuthenticatedUser
+    validateInputErrors(updateProfileSchema),
+    UserController.updateProfile
+);
+
+router.delete("/users/:id",
+    authenticate,
+    UserController.deleteAccount
 );
 
 export default router;

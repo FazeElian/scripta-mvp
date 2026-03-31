@@ -6,10 +6,12 @@ import User from "../models/User";
 
 // DTO'S
 import {
-    AuthResponse,
+    LoginResponse,
     LoginUserRequest,
-    ProfileReponse,
-    RegisterUserRequest
+    RegisterUserRequest,
+    UpdateProfileRequest,
+    UpdateProfileResponse,
+    UserProfileResponse
 } from '../dtos/user.dto';
 
 // Utils
@@ -45,7 +47,7 @@ export default class UserService {
     }
 
     // Function to access to the platform
-    async login(data: LoginUserRequest): Promise<AuthResponse> {
+    async login(data: LoginUserRequest): Promise<LoginResponse> {
         const { identifier, password } = data;
 
         // Search user by email or userName
@@ -72,13 +74,13 @@ export default class UserService {
                 userName: user.userName,
                 fullName: user.fullName,
                 avatar: user.avatar,
-                createdAt: user.createdAt,
+                memberSince: user.createdAt,
             }
         };
     };
 
     // Function to view the profile of an user
-    async getProfile(id: string) : Promise<ProfileReponse> {
+    async getProfile(id: string) : Promise<UserProfileResponse> {
         // Search user
         const user = await User.findByPk(id, {
             attributes: { exclude: ["password"] } // don't return pass hashed
@@ -96,5 +98,34 @@ export default class UserService {
             githubUser: user.githubUser,
             memberSince: user.createdAt,
         };
+    };
+
+    // Function to update the profile (by the user itself)
+    async updateProfile(user: User, data: UpdateProfileRequest): Promise<UpdateProfileResponse> {
+        // Check that the new userName is not already taken by another user
+        if (data.userName && data.userName !== user.userName) {
+            const taken = await User.findOne({ where: { userName: data.userName } });
+            if (taken) throw new Error("Username already taken");
+        }
+
+        // Update user
+        await user.update(data);
+
+        // Return updated data
+        return {
+            message: "Profile updated successfully",
+            email: user.email,
+            userName: user.userName,
+            fullName: user.fullName,
+            bio: user.bio,
+            avatar: user.avatar,
+            website: user.website,
+            githubUser: user.githubUser
+        };
+    };
+
+    // Function to delete account by the user
+    async deleteAccount(user: User) : Promise<void> {
+        await user.destroy();
     };
 };

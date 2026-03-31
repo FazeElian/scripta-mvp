@@ -41,4 +41,22 @@ export default class UserController {
     static getAuthenticatedUser = async (req: Request, res: Response) => {
         res.json(req.user);
     };
+
+    static updateProfile = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const result = await userService.updateProfile(req.user!, req.body);
+            res.status(200).json(result);
+        } catch (error) {
+            handleError(error, res, next);
+        }
+    };
+
+    static deleteAccount = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            await userService.deleteAccount(req.user!);
+            res.status(200).json("Account deleted successfully");
+        } catch (error) {
+            handleError(error, res, next);
+        }
+    };
 };
