@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+    /* Backgrounds */
+    --color-background: #030303;
+    --color-foreground: #F7F0EE;
+    --color-border: #2A2A2A;
+    --color-input: #2A2A2A;
+    --color-ring: #04BF7B;
+
+    /* Shadcn tokens */
+    --color-primary: #04BF7B;
+    --color-primary-foreground: #030303;
+    --color-secondary: #060606;
+    --color-secondary-foreground: #F7F0EE;
+    --color-muted: #2A2A2A;
+    --color-muted-foreground: #949295;
+    --color-accent: #0A190F;
+    --color-accent-foreground: #F7F0EE;
+    --color-destructive: #830A1B;
+    --color-destructive-foreground: #F7F0EE;
+    --color-popover: #060606;
+    --color-popover-foreground: #F7F0EE;
+    --color-card: #060606;
+    --color-card-foreground: #F7F0EE;
+
+    /* Brand */
+    --color-brand-primary: #04BF7B;
+    --color-brand-dark: #0A190F;
+
+    /* Gray */
+    --color-gray-main: #2A2A2A;
+    --color-gray-secondary: #949295;
+
+    /* Language colors */
+    --color-orange-main: #BF4904;
+    --color-orange-dark: #2D1A0F;
+    --color-red-main: #830A1B;
+    --color-red-dark: #1F0808;
+    --color-seagreen-main: #07B863;
+    --color-seagreen-dark: #0A1C12;
+    --color-green-main: #11A628;
+    --color-green-dark: #0B1A0D;
+    --color-sky-blue-main: #038498;
+    --color-sky-blue-dark: #05211C;
+    --color-blue-main: #1F5EB6;
+    --color-blue-dark: #0A0F1A;
+    --color-purple-main: #7C39BF;
+    --color-purple-dark: #1D0C1E;
+    --color-pink-main: #AF276E;
+    --color-pink-dark: #1A0A12;
+    --color-yellow-main: #D9D930;
+    --color-yellow-dark: #1D1D06;
+
+    /* Typography */
+    /* --font-sans: "JetBrains Mono", sans-serif;
+    --font-mono: "JetBrains Mono", monospace; */
+
+    /* Border radius */
+    --radius-lg: 0.5rem;
+    --radius-md: calc(0.5rem - 2px);
+    --radius-sm: calc(0.5rem - 4px);
+}
+
+@layer base {
+    :root {
+        color-scheme: dark;
+        font-family: "JetBrains Mono", monospace;
+    }
+
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground antialiased;
+    }
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { @apply bg-background; }
+::-webkit-scrollbar-thumb { @apply bg-muted rounded-full; }
