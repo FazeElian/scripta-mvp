@@ -29,4 +29,13 @@ export class SnippetController {
             handleError(error, res, next);
         }
     };
+
+    static getById = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const snippet = await snippetService.getById(req.snippet!);
+            res.status(200).json(snippet);
+        } catch (error) {
+            handleError(error, res, next);
+        }
+    };
 };

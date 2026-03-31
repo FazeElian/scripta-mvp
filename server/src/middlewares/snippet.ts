@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 import Snippet from '../models/Snippet';
 
 // Schemas
+import { snippetIdSchema } from '../schemas/snippet.schema';
 
 declare global {
     namespace Express {
@@ -11,6 +12,16 @@ declare global {
             snippet?: Snippet
         }
     }
+}
+export const validateSnippetId = async (req: Request, res: Response, next: NextFunction) => {
+    const result = snippetIdSchema.safeParse(req.params);
+
+    if (!result.success) {
+        res.status(400).json({ errors: result.error });
+        return;
+    }
+
+    next();
 }
 
 export const validateIfSnippetExits = async (req: Request, res: Response, next: NextFunction) => {

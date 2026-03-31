@@ -3,10 +3,15 @@ import Snippet from "../models/Snippet";
 import SnippetContent from "../models/SnippetContent";
 
 // DTO'S
-import { AllSnippetsResponse, NewSnippetRequest } from "../dtos/snippet.dto";
+import {
+    AllSnippetsResponse,
+    GetSnippetByIdResponse,
+    NewSnippetRequest
+} from "../dtos/snippet.dto";
 
 // Database config
 import { db } from "../config/db";
+import User from "../models/User";
 
 export default class SnippetService {
     async create(data: NewSnippetRequest, userId: string) : Promise<string> {
@@ -50,5 +55,36 @@ export default class SnippetService {
             visibility: snippet.visibility,
             createdAt: snippet.createdAt,
         }));
+    };
+
+    async getById(snippet: Snippet) : Promise<GetSnippetByIdResponse> {
+        // Check is not private
+        if (snippet.visibility === "private") throw new Error("This snippet is private and cannot be accessed.");
+
+        // Find content
+        const snippetContent = await SnippetContent.findOne({
+            where: { snippetId: snippet.id }
+        });
+        if (!snippetContent) throw new Error("Snippet content not found");
+
+        // Find the owner
+        const owner = await User.findByPk(snippet.userId);
+        if (!owner) throw new Error("Owner not found");
+
+        // Object to be returned
+        return {
+            title: snippet.title,
+            language: snippet.language,
+            description: snippet.description,
+            ownerInfo: {
+                avatar: owner.avatar,
+                fullName: owner.fullName
+            },
+            snippetContent: {
+                code: snippetContent.code,
+                documentation: snippetContent.documentation,
+                diagramData: snippetContent.diagramData,
+            }
+        };
     };
 };
