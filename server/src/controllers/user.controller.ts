@@ -37,4 +37,8 @@ export default class UserController {
             handleError(error, res, next);
         }
     };
+
+    static getAuthenticatedUser = async (req: Request, res: Response) => {
+        res.json(req.user);
+    };
 };

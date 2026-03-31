@@ -11,7 +11,7 @@ import {
 
 // Middlewares
 import { validateInputErrors } from "../middlewares/validateInputErrors";
-import { validateIfUserExists, validateUserId } from "../middlewares/user";
+import { authenticate, validateIfUserExists, validateUserId } from "../middlewares/user";
 
 // Router
 const router = Router();
@@ -33,6 +33,11 @@ router.post("/users/login",
 
 router.get("/users/profile/:id",
     UserController.getProfile
+);
+
+router.get("/users/user/",
+    authenticate,
+    UserController.getAuthenticatedUser
 );
 
 export default router;
