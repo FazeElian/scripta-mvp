@@ -9,6 +9,9 @@ import { CORSConfig } from './config/cors';
 // Database config
 import { db } from "./config/db";
 
+// Routes
+import userRouter from "./routes/user.router";
+
 async function connectDB () {
     try {
         await db.authenticate();
@@ -25,5 +28,10 @@ const app = express()
 app.use(cors(CORSConfig))
 app.use(morgan('dev'))
 app.use(express.json())
+
+// Routes
+app.use("/api/v1",
+    userRouter
+);
 
 export default app

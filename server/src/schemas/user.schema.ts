@@ -1,0 +1,46 @@
+import { z } from "zod";
+
+export const userIdSchema = z.object({
+    params: z.object({
+        userId: z
+            .string("The user ID is required")
+            .uuid("The user ID is not in a valid format"),
+    }),
+});
+
+export const registerSchema = z.object({
+    email: z
+        .string("Email is required")
+        .email("Invalid email format")
+        .max(100, "Email is too long"),
+    password: z
+        .string("Password is required")
+        .min(8, "Password must be at least 8 characters long")
+        .max(30, "Password must not exceed 30 characters")
+        .regex(/[A-Z]/, "Must contain at least one uppercase letter")
+        .regex(/[0-9]/, "Must contain at least one number"),
+    confirmPassword: z
+        .string("You must confirm your password"),
+    userName: z
+        .string("Username is required")
+        .min(3, "Minimum 3 characters")
+        .max(15, "Maximum 15 characters")
+        .regex(/^[a-zA-Z0-9_]+$/, "Only letters, numbers, and underscores are allowed"),
+    fullName: z
+        .string("Full name is required")
+        .min(2, "Name is too short")
+        .max(60, "Maximum 60 characters"),
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+});
+
+export const loginSchema = z.object({
+    identifier: z
+        .string("Email or username is required")
+        .min(3, "Identifier is too short"),
+    
+    password: z
+        .string("Password is required")
+        .min(1, "Password cannot be empty")
+});
