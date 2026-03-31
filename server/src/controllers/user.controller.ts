@@ -27,4 +27,14 @@ export default class UserController {
             handleError(error, res, next);
         }
     };
+
+    static getProfile = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const { id } = req.params;
+            const result = await userService.getProfile(id as string);
+            res.status(200).json(result);
+        } catch (error) {
+            handleError(error, res, next);
+        }
+    };
 };

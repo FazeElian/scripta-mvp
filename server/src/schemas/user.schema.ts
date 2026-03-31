@@ -1,11 +1,9 @@
 import { z } from "zod";
 
 export const userIdSchema = z.object({
-    params: z.object({
-        userId: z
-            .string("The user ID is required")
-            .uuid("The user ID is not in a valid format"),
-    }),
+    id: z
+        .string("The user ID is required")
+        .uuid("The user ID is not in a valid format"),
 });
 
 export const registerSchema = z.object({

@@ -9,11 +9,16 @@ import {
     loginSchema
 } from "../schemas/user.schema";
 
-// Middleware
+// Middlewares
 import { validateInputErrors } from "../middlewares/validateInputErrors";
+import { validateIfUserExists, validateUserId } from "../middlewares/user";
 
 // Router
 const router = Router();
+
+// ID Param
+router.param("id", validateUserId);
+router.param("id", validateIfUserExists);
 
 // Routes
 router.post("/users/register",
@@ -24,6 +29,10 @@ router.post("/users/register",
 router.post("/users/login",
     validateInputErrors(loginSchema),
     UserController.login
+);
+
+router.get("/users/profile/:id",
+    UserController.getProfile
 );
 
 export default router;

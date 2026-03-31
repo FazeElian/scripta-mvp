@@ -27,3 +27,12 @@ export interface AuthResponse {
     token: string;
     user: UserProfileResponse;
 };
+
+export interface ProfileReponse {
+    userName: string;
+    fullName: string;
+    bio?: string;
+    website?: string;
+    githubUser?: string;
+    memberSince: Date;
+};

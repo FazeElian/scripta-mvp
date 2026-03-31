@@ -8,6 +8,7 @@ import User from "../models/User";
 import {
     AuthResponse,
     LoginUserRequest,
+    ProfileReponse,
     RegisterUserRequest
 } from '../dtos/user.dto';
 
@@ -15,6 +16,7 @@ import {
 import { generateToken } from '../utils/jwt';
 
 export default class UserService {
+    // Function to create account
     async register(data: RegisterUserRequest) : Promise<string> {
         // Find a user
         const existing = await User.findOne({
@@ -42,6 +44,7 @@ export default class UserService {
         return "You have successfully created your account, you can now login.";
     }
 
+    // Function to access to the platform
     async login(data: LoginUserRequest): Promise<AuthResponse> {
         const { identifier, password } = data;
 
@@ -71,6 +74,27 @@ export default class UserService {
                 avatar: user.avatar,
                 createdAt: user.createdAt,
             }
+        };
+    };
+
+    // Function to view the profile of an user
+    async getProfile(id: string) : Promise<ProfileReponse> {
+        // Search user
+        const user = await User.findByPk(id, {
+            attributes: { exclude: ["password"] } // don't return pass hashed
+        });
+
+        // Not found
+        if (!user) throw new Error("User not found");
+
+        // Found
+        return {
+            userName: user.userName,
+            fullName: user.fullName,
+            bio: user.bio,
+            website: user.website,
+            githubUser: user.githubUser,
+            memberSince: user.createdAt,
         };
     };
 };
