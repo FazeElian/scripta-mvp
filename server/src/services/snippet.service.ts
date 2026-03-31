@@ -40,7 +40,31 @@ export default class SnippetService {
         }
     };
 
-    async getAll(userId: string) : Promise<AllSnippetsResponse[]> {
+    async getAll() : Promise<AllSnippetsResponse[]> {
+        const snippets = await Snippet.findAll({ 
+            order: [["createdAt", "DESC"]],
+            include: [{
+                model: User,
+                as: 'user',
+                attributes: ['fullName']
+            }]
+        });
+
+        if (!snippets || snippets.length === 0) return [];
+
+        return snippets.map(snippet => ({
+            id: snippet.id,
+            title: snippet.title,
+            description: snippet.description,
+            language: snippet.language,
+            visibility: snippet.visibility,
+            createdAt: snippet.createdAt,
+            user: (snippet as any).user?.fullName || "Unknown",
+            type: "snippet"
+        }));
+    };
+
+    async getAllByOwner(userId: string) : Promise<AllSnippetsResponse[]> {
         const snippets = await Snippet.findAll({ 
             where: { userId: userId },
             order: [["createdAt", "DESC"]]

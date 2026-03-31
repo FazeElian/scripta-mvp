@@ -31,6 +31,10 @@ router.post("/snippets/create",
 
 router.get("/snippets",
     authenticate,
+    SnippetController.getAllByOwner
+);
+
+router.get("/snippets/explore",
     SnippetController.getAll
 );
 
