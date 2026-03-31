@@ -1,37 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-@theme {
-    /* Backgrounds */
-    --color-background: #030303;
-    --color-foreground: #F7F0EE;
-    --color-border: #2A2A2A;
-    --color-input: #2A2A2A;
-    --color-ring: #04BF7B;
+@custom-variant dark (&:is(.dark *));
 
-    /* Shadcn tokens */
-    --color-primary: #04BF7B;
-    --color-primary-foreground: #030303;
-    --color-secondary: #060606;
-    --color-secondary-foreground: #F7F0EE;
-    --color-muted: #2A2A2A;
-    --color-muted-foreground: #949295;
-    --color-accent: #0A190F;
-    --color-accent-foreground: #F7F0EE;
-    --color-destructive: #830A1B;
-    --color-destructive-foreground: #F7F0EE;
-    --color-popover: #060606;
-    --color-popover-foreground: #F7F0EE;
-    --color-card: #060606;
-    --color-card-foreground: #F7F0EE;
+@theme inline {
+    --font-sans: "JetBrains Mono", monospace;
+    --font-mono: "JetBrains Mono", monospace;
+    --font-heading: "JetBrains Mono", monospace;
 
-    /* Brand */
-    --color-brand-primary: #04BF7B;
-    --color-brand-dark: #0A190F;
-
-    /* Gray */
-    --color-gray-main: #2A2A2A;
-    --color-gray-secondary: #949295;
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
 
     /* Language colors */
     --color-orange-main: #BF4904;
@@ -53,28 +49,61 @@
     --color-yellow-main: #D9D930;
     --color-yellow-dark: #1D1D06;
 
-    /* Typography */
-    /* --font-sans: "JetBrains Mono", sans-serif;
-    --font-mono: "JetBrains Mono", monospace; */
+    /* Brand */
+    --color-brand-primary: #04BF7B;
+    --color-brand-dark: #0A190F;
 
-    /* Border radius */
-    --radius-lg: 0.5rem;
-    --radius-md: calc(0.5rem - 2px);
-    --radius-sm: calc(0.5rem - 4px);
+    /* Gray */
+    --color-gray-main: #2A2A2A;
+    --color-gray-secondary: #949295;
+
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+}
+
+:root {
+    --background: #030303;
+    --foreground: #F7F0EE;
+    --card: #060606;
+    --card-foreground: #F7F0EE;
+    --popover: #060606;
+    --popover-foreground: #F7F0EE;
+    --primary: #04BF7B;
+    --primary-foreground: #030303;
+    --secondary: #060606;
+    --secondary-foreground: #F7F0EE;
+    --muted: #2A2A2A;
+    --muted-foreground: #949295;
+    --accent: #0A190F;
+    --accent-foreground: #F7F0EE;
+    --destructive: #830A1B;
+    --border: #2A2A2A;
+    --input: #2A2A2A;
+    --ring: #04BF7B;
+    --radius: 0.5rem;
+    --sidebar: #060606;
+    --sidebar-foreground: #F7F0EE;
+    --sidebar-primary: #04BF7B;
+    --sidebar-primary-foreground: #030303;
+    --sidebar-accent: #0A190F;
+    --sidebar-accent-foreground: #F7F0EE;
+    --sidebar-border: #2A2A2A;
+    --sidebar-ring: #04BF7B;
 }
 
 @layer base {
     :root {
         color-scheme: dark;
-        font-family: "JetBrains Mono", monospace;
     }
 
     * {
-        @apply border-border;
+        @apply border-border outline-ring/50;
     }
 
     body {
-        @apply bg-background text-foreground antialiased;
+        @apply antialiased bg-background text-foreground;
+        font-family: "JetBrains Mono", monospace;
     }
 }
 
