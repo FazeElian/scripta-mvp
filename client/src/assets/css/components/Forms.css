@@ -92,8 +92,6 @@
             padding: 10px 14px 10px;
             font-size: 15px;
             background: transparent;
-            border: 1px solid var(--gray-main);
-            border-radius: 5px;
             /* outline-color: var(--seagreen-main); */
             /* outline-width: 1px; */
             outline: none;
@@ -101,70 +99,11 @@
             color: var(--text-main);
         }
 
-            .input-group--select-wrapper {
-                position: relative;
-                width: 100%;
-            }
-
-            .input-group--select-wrapper select {
-                appearance: none;
-                -webkit-appearance: none;
-                width: 100%;
-                padding-right: 2.5rem;
-            }
-
-            .input-group--select-arrow {
-                position: absolute;
-                right: 12px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 18px;
-                height: 18px;
-                color: var(--gray-secondary);
-                pointer-events: none;
-            }
-
-            .input-group--select-wrapper select:focus ~ .input-group--select-arrow {
-                transform: translateY(-50%) rotate(180deg);
-                transition: transform 0.2s ease;
-            }
-
-            .input-group--select-arrow {
-                transition: transform 0.2s ease;
-            }
-
-            .input-group input::-webkit-input-placeholder,
-            .input-group select::-webkit-input-placeholder,
-            .input-group textarea::-webkit-input-placeholder {
-                color: var(--gray-secondary);
-            }
-
-            .input-group select {
-                cursor: pointer;
-            }
-
-            .input-group select option {
-                background-color: var(--bg-secondary);
-                cursor: pointer;
-                color: var(--text-main);
-            }
-
-            select:invalid {
-                color: var(--gray-secondary);
-            }
-
             .input-group textarea {
                 min-height: 90px;
                 max-height: 150px;
                 min-width: 100%;
                 max-width: 100%;
-            }
-
-            .input-group input:focus,
-            .input-group select:focus,
-            .input-group textarea:focus { 
-                border: 1px solid var(--seagreen-main);
-                transition: .2s ease-in;
             }
 
             .option-gray {

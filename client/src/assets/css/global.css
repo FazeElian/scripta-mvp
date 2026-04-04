@@ -51,10 +51,74 @@ button, input, textarea, select {
     font-family: var(--font-mono);
 }
 
+input::-webkit-input-placeholder,
+select::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: var(--gray-secondary);
+}
+
 select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+    cursor: pointer;
+    width: 100%;
+    padding-right: 2.5rem;
+}
+
+select:invalid {
+    color: var(--gray-secondary);
+}
+
+select option {
+    background-color: var(--bg-secondary);
+    cursor: pointer;
+    color: var(--text-main);
+}
+
+input, select, textarea {
+    border: 1px solid var(--gray-main);
+    outline: none;
+    border-radius: 5px;
+}
+
+input:focus,
+select:focus,
+textarea:focus { 
+    border: 1px solid var(--seagreen-main);
+    transition: .2s ease-in;
+}
+
+.input-group--select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-group--select-wrapper select {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    padding-right: 2.5rem;
+}
+
+.input-group--select-arrow {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: var(--gray-secondary);
+    pointer-events: none;
+}
+
+.input-group--select-wrapper select:focus ~ .input-group--select-arrow {
+    transform: translateY(-50%) rotate(180deg);
+    transition: transform 0.2s ease;
+}
+
+.input-group--select-arrow {
+    transition: transform 0.2s ease;
 }
 
 .admin-content {
