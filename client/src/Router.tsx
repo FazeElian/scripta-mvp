@@ -12,6 +12,7 @@ import DashboardView from "@/views/admin/DashboardView";
 import FilesView from "./views/admin/FilesView";
 import AccountView from "./views/admin/AccountView";
 import ExploreView from "./views/admin/ExploreView";
+import NewSnippetView from "./views/admin/snippets/NewSnippetView";
 
 // Admin Layout Component
 import { SideBar } from "./components/admin/SideBar";
@@ -29,6 +30,7 @@ export default function Router () {
           <Route path="/files" element={<FilesView />} />
           <Route path="/account" element={<AccountView />} />
           <Route path="/explore" element={<ExploreView />} />
+          <Route path="/snippets/new" element={<NewSnippetView />} />
         </Route>
       </Routes>
     </Suspense>
