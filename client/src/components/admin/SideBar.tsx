@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet, useLocation } from "react-router-dom"
 
 // Styles
 import "@/assets/css/components/SideBar.css";
@@ -49,6 +49,8 @@ const listSideBar = [
 ];
 
 const SideBar = () => {
+    const location = useLocation()
+
     return (
         <>
             <nav className="side-bar">
@@ -59,7 +61,12 @@ const SideBar = () => {
                     {listSideBar.map((item) => (
                         <Link
                             to={item.link}
-                            className="item-list-side-bar"
+                            className={`
+                                ${location.pathname === item.link ?
+                                    "item-list-side-bar item-list-side-bar--active" :
+                                    "item-list-side-bar"
+                                }`
+                            }
                             key={item.name}
                         >
                             {<item.icon strokeWidth={item.strokeWidth} />}

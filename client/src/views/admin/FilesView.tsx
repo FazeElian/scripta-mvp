@@ -1,16 +1,15 @@
 // Components for this view
 import { PageTitle } from "@/components/admin/atoms/PageTitle"
 
-const DashboardView = () => {
+const FilesView = () => {
     return (
         <main className="admin-content">
             <PageTitle
-                title="Welcome Back, John"
-                subtitle="My Snippets"
-                button={true}
+                title="My Files"
+                subtitle="Organize your snippets into folders"
             />
         </main>
     )
 }
 
-export default DashboardView
+export default FilesView

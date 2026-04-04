@@ -6,7 +6,14 @@ import LoginView from "@/views/auth/LoginView";
 import RegisterView from "@/views/auth/RegisterView";
 
 import HomeView from "@/views/HomeView";
+
+// Admin views
 import DashboardView from "@/views/admin/DashboardView";
+import FilesView from "./views/admin/FilesView";
+import AccountView from "./views/admin/AccountView";
+import ExploreView from "./views/admin/ExploreView";
+
+// Admin Layout Component
 import { SideBar } from "./components/admin/SideBar";
 
 export default function Router () {
@@ -19,6 +26,9 @@ export default function Router () {
 
         <Route element={<SideBar />}>
           <Route path="/dashboard" element={<DashboardView />} />
+          <Route path="/files" element={<FilesView />} />
+          <Route path="/account" element={<AccountView />} />
+          <Route path="/explore" element={<ExploreView />} />
         </Route>
       </Routes>
     </Suspense>

@@ -46,7 +46,8 @@
             font-size: 16px;
         }
 
-            .item-list-side-bar:hover {
+            .item-list-side-bar:hover,
+            .item-list-side-bar--active {
                 background-color: var(--brand-dark);
                 transition: .2s ease-in;
             }
