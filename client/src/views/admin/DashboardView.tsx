@@ -1,6 +1,7 @@
 // Components for this view
 import { PageTitle } from "@/components/admin/atoms/PageTitle"
-import QuickStats from "@/components/admin/molecules/QuickStats"
+import { QuickStats } from "@/components/admin/molecules/QuickStats"
+import { SnippetsGallery } from "@/components/admin/molecules/SnippetsGallery"
 
 const DashboardView = () => {
     return (
@@ -11,6 +12,7 @@ const DashboardView = () => {
                 button={true}
             />
             <QuickStats />
+            <SnippetsGallery />
         </main>
     )
 }

@@ -33,15 +33,10 @@ const QuickStats = () => {
     return (
         <div className="quick-stats">
             {stats.map((item) => (
-                <QuickStatsItem
-                    key={item.title}
-                    title={item.title}
-                    icon={item.icon}
-                    value={item.value}
-                />
+                <QuickStatsItem key={item.title} {...item} />
             ))}
         </div>
     )
 }
 
-export default QuickStats
+export { QuickStats };
