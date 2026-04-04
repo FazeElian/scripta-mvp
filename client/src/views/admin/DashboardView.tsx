@@ -1,5 +1,6 @@
 // Components for this view
 import { PageTitle } from "@/components/admin/atoms/PageTitle"
+import QuickStats from "@/components/admin/molecules/QuickStats"
 
 const DashboardView = () => {
     return (
@@ -9,6 +10,7 @@ const DashboardView = () => {
                 subtitle="My Snippets"
                 button={true}
             />
+            <QuickStats />
         </main>
     )
 }
