@@ -153,6 +153,18 @@
     .snippets-gallery {
         grid-template-columns: repeat(3, 1fr);
     }
+
+    .snippet-card {
+        padding: 18px;
+    }
+
+    .top-snippet-card {
+        gap: 4px;
+    }
+
+    .top-head-snippet-card h1 {
+        font-size: 15px;
+    }
 }
 
 /* Responsive 1280px */
