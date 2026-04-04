@@ -1,5 +1,7 @@
 // Styles
 import "@/assets/css/components/SnippetsGallery.css";
+
+// Sub component
 import { SnippetCard } from "../atoms/SnippetCard";
 
 const snippets = [

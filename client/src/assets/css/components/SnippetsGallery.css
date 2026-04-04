@@ -77,6 +77,123 @@
         align-items: center;
     }
 
+    .snippet-card-author {
+        display: flex;
+        width: 100%;
+        height: auto;
+        align-items: center;
+        margin-top: 10px;
+        gap: 5px;
+        align-self: flex-end;
+    }
+
+        .btm-snippet-card-author--avatar {
+            display: flex;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            padding: 6.5px;
+        }
+
+            .btm-snippet-card-author--avatar svg {
+                stroke-width: 3;
+            }
+
+            /* Avatars colors */
+            .btm-snippet-card-author--avatar.avatar--yellow {
+                background-color: var(--yellow-main);
+                color: var(--bg-main);
+                filter: drop-shadow(0 0 .5rem var(--yellow-dark));
+            }
+
+                .btm-snippet-card-author--avatar.avatar--yellow svg {
+                    color: var(--bg-main) !important;
+                }
+                
+            .btm-snippet-card-author--avatar.avatar--pink {
+                background-color: var(--pink-main);
+                color: var(--bg-main);
+                filter: drop-shadow(0 0 .5rem var(--pink-dark));
+            }
+
+                .btm-snippet-card-author--avatar.avatar--pink svg {
+                    color: var(--text-main) !important;
+                }
+
+            .btm-snippet-card-author--avatar.avatar--purple {
+                background-color: var(--purple-main);
+                color: var(--bg-main);
+                filter: drop-shadow(0 0 .5rem var(--purple-dark));
+            }
+
+                .btm-snippet-card-author--avatar.avatar--purple svg {
+                    color: var(--text-main) !important;
+                    stroke-width: 2.5;
+                }
+
+            .btm-snippet-card-author--avatar.avatar--blue {
+                background-color: var(--blue-main);
+                color: var(--bg-main);
+                filter: drop-shadow(0 0 .5rem var(--blue-dark));
+            }
+
+                .btm-snippet-card-author--avatar.avatar--blue svg {
+                    color: var(--text-main) !important;
+                }
+
+            .btm-snippet-card-author--avatar.avatar--seagreen {
+                background-color: var(--seagreen-main);
+                color: var(--bg-main);
+                filter: drop-shadow(0 0 .5rem var(--seagreen-dark));
+            }
+
+                .btm-snippet-card-author--avatar.avatar--seagreen svg {
+                    color: var(--text-main) !important;
+                    stroke-width: 2.5;
+                }
+
+            .btm-snippet-card-author--avatar.avatar--sky-blue {
+                background-color: var(--sky-blue-main);
+                color: var(--text-main);
+                filter: drop-shadow(0 0 .5rem var(--sky-blue-dark));
+            }
+
+                .btm-snippet-card-author--avatar.avatar--sky-blue svg {
+                    color: var(--text-main) !important;
+                    stroke-width: 2.5;
+                }
+
+            .btm-snippet-card-author--avatar.avatar--red {
+                background-color: var(--red-main);
+                color: var(--text-main);
+                filter: drop-shadow(0 0 .5rem var(--red-dark));
+            }
+
+                .btm-snippet-card-author--avatar.avatar--red svg {
+                    color: var(--text-main) !important;
+                    stroke-width: 2.5;
+                }
+
+            .btm-snippet-card-author--avatar.avatar--orange {
+                background-color: var(--orange-main);
+                color: var(--text-main);
+                filter: drop-shadow(0 0 .5rem var(--orange-dark));
+            }
+
+                .btm-snippet-card-author--avatar.avatar--orange svg {
+                    color: var(--text-main) !important;
+                    stroke-width: 2.5;
+                }
+
+
+        .snippet-card-author h2 {
+            font-weight: 400;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
         .btm-snippet-card {
             display: flex;
             width: 100%;
@@ -84,7 +201,7 @@
             justify-content: space-between;
             margin-top: 8px;
         }
-
+    
             .btm-snippet-card-left {
                 display: flex;
                 gap: 3px;
