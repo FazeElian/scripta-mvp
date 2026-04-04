@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import { ChevronDown, type LucideIcon } from "lucide-react";
 
 type InputSelectGroupType = {
     label: string;
@@ -17,14 +17,17 @@ const InputSelectGroup = (props: InputSelectGroupType) => {
                     {props.label}
                 </label>
             </div>
-            <select name={props.name} required defaultValue="">
-                <option value="" disabled>{props.placeholder}</option>
-                {props.options.map((option) => (
-                    <option value={option} key={option}>
-                        {option}
-                    </option>
-                ))}
-            </select>
+            <div className="input-group--select-wrapper">
+                <select name={props.name} required defaultValue="">
+                    <option value="" disabled>{props.placeholder}</option>
+                    {props.options.map((option) => (
+                        <option value={option} key={option}>
+                            {option}
+                        </option>
+                    ))}
+                </select>
+                <ChevronDown className="input-group--select-arrow" />
+            </div>
         </div>
     )
 }

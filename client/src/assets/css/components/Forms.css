@@ -101,6 +101,38 @@
             color: var(--text-main);
         }
 
+            .input-group--select-wrapper {
+                position: relative;
+                width: 100%;
+            }
+
+            .input-group--select-wrapper select {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 100%;
+                padding-right: 2.5rem;
+            }
+
+            .input-group--select-arrow {
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 18px;
+                height: 18px;
+                color: var(--gray-secondary);
+                pointer-events: none;
+            }
+
+            .input-group--select-wrapper select:focus ~ .input-group--select-arrow {
+                transform: translateY(-50%) rotate(180deg);
+                transition: transform 0.2s ease;
+            }
+
+            .input-group--select-arrow {
+                transition: transform 0.2s ease;
+            }
+
             .input-group input::-webkit-input-placeholder,
             .input-group select::-webkit-input-placeholder,
             .input-group textarea::-webkit-input-placeholder {
