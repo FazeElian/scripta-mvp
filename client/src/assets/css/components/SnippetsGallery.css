@@ -188,11 +188,18 @@
                 }
 
 
-        .snippet-card-author h2 {
+        .snippet-card-author a {
             font-weight: 400;
             font-size: 14px;
             color: var(--text-main);
+            text-decoration: none;
+            transition: .15s ease-in-out;
         }
+
+            .snippet-card-author a:hover {
+                color: var(--seagreen-main);
+                transition: .15s ease-in;
+            }
 
         .btm-snippet-card {
             display: flex;

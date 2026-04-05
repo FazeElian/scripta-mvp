@@ -1,0 +1,199 @@
+.profile-top {
+    display: flex;
+    width: 100%;
+    height: auto;
+    align-content: center;
+    gap: 10px;
+    color: var(--gray-secondary);
+    font-size: 16px;
+    text-decoration: none;
+    opacity: 1;
+    transition: .3s ease-in-out;
+    font-weight: 500;
+}
+
+    .profile-top:hover {
+        opacity: .7;
+        transition: .3s ease-in;
+    }
+
+    .profile-top svg {
+        width: 22px;
+        height: 22px;
+    }
+
+.profile-info {
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding: 1.5rem;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--gray-main);
+    border-radius: 5px;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+    .profile-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background-color: var(--yellow-main);
+        color: var(--bg-main);
+        filter: drop-shadow(0 0 1rem var(--yellow-dark));
+    }
+
+        .profile-avatar svg {
+            width: 45px;
+            height: 45px;
+            stroke-width: 2.5;
+        }
+
+    .profile-txt {
+        display: flex;
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+    }
+
+        .profile-txt h1 {
+            font-size: 20px;
+            font-weight: 500;color: var(--text-main);
+        }
+
+        .profile-txt h2 {
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--gray-secondary);
+        }
+
+        .profile-txt p {
+            width: 90%;
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--gray-secondary);
+            margin-top: 8px;
+        }
+
+        .btm-profile-txt {
+            display: flex;
+            width: auto;
+            height: auto;
+            margin-top: 12px;
+            gap: 2rem;
+        }
+
+            .btm-profile-txt--item {
+                display: flex;
+                gap: 5px;
+                font-size: 15px;
+                align-items: center;
+                font-weight: light;
+            }
+
+                .btm-profile-txt--item svg {
+                    width: 16px;
+                    height: 16px;
+                    color: var(--seagreen-main);
+                    stroke-width: 2.5;
+                }
+
+    .btn-github-profile {
+        display: flex;
+        justify-self: flex-end;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        border: 1px solid var(--gray-main);
+        border-radius: 5px;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+        transition: .2s ease-in-out;
+        background: transparent;
+    }
+
+        .btn-github-profile:hover {
+            opacity: 1;
+            transition: .2s ease-in-out;
+            background-color: var(--gray-main);
+        }
+
+        .btn-github-profile img {
+            width: 24px;
+            height: 24px;
+        }
+
+.profile-snippets-title {
+    display: flex;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 2rem;
+}
+
+/* Responsive 1440px */
+@media(max-width: 1440px) {
+    .profile-top {
+        font-size: 14px;
+    }
+
+    .profile-top svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .profile-info {
+        margin-top: 1.2rem;
+    }
+
+    .profile-avatar {
+        min-width: 80px;
+        height: 80px;
+    }
+
+        .profile-avatar svg {
+            width: 38px;
+            height: 38px;
+        }
+
+    .profile-txt h1 {
+        font-size: 17px;
+    }
+
+    .profile-txt h2 {
+        font-size: 14px;
+    }
+
+    .profile-txt p{
+        font-size: 14px;
+    }
+
+    .btm-profile-txt--item {
+        font-size: 13px;
+        align-items: center;
+    }
+
+    .btm-profile-txt--item svg {
+        width: 13px;
+        height: 13px;
+    }
+
+    .btn-github-profile {
+        width: 35px;
+        height: 35px;
+    }
+
+    .btn-github-profile img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .profile-snippets-title {
+        margin-top: 1.5rem;
+        font-size: 16px;
+    }
+}

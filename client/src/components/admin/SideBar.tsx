@@ -83,7 +83,7 @@ const SideBar = () => {
                                 <h2>john@example.com</h2>
                             </div>
                         </div>
-                        <Link to="/profile">
+                        <Link to="/profile/johndoe" target="_blank">
                             <ExternalLink />
                         </Link>
                     </div>

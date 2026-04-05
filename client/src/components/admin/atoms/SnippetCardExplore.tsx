@@ -68,7 +68,7 @@ const SnippetCardExplore = (props : SnippetCardExploreType) => {
                 <div className={`btm-snippet-card-author--avatar ${avatar.className}`}>
                     <AvatarIcon />
                 </div>
-                <h2>{props.authorName}</h2>
+                <Link to="/profile/johndoe">{props.authorName}</Link>
             </div>
             <div className="btm-snippet-card">
                 <div className="btm-snippet-card-left">
