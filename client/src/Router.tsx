@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
+import { Toaster } from "sonner";
 
 // Views
 import LoginView from "@/views/auth/LoginView";
@@ -18,12 +19,16 @@ import NotFoundView from "./views/NotFoundView";
 
 // app Layout Component
 import { SideBar } from "./components/app/SideBar";
-import AppNotFoundView from "./views/AppNotFoundView";
-import { Toaster } from "sonner";
+
+// Not found
+import { AppNotFoundView } from "./views/AppNotFoundView";
+
+// Loader comp
+import { PageLoader } from "./components/app/atoms/PageLoader";
 
 export default function Router () {
   return (
-    <Suspense fallback={<h1>Loading...</h1>}>
+    <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route index element={<HomeView />} />
         <Route path="/auth/register" element={<RegisterView />} />

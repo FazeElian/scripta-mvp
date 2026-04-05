@@ -20,7 +20,12 @@ import { useGetAuthenticatedUser } from "@/services/users/queries";
 
 // Type
 import type { User } from "@/types/users.types";
+
+// Context for user
 import { UserContext } from "@/services/users/context";
+
+// Loader comp
+import { PageLoader } from "./atoms/PageLoader";
 
 const listSideBar = [
     {
@@ -68,7 +73,7 @@ const SideBar = () => {
     const { data: userResult, isError, isLoading } = useGetAuthenticatedUser();
 
     if (isLoading) {
-        return "Loading...";
+        return <PageLoader />;
     }
 
     if (isError) {

@@ -1,10 +1,10 @@
-import { BookText, Braces, Globe, NotepadText, type LucideIcon } from 'lucide-react';
+import { Braces, Globe, NotepadText, type LucideIcon } from 'lucide-react';
 
 // Styles
 import "@/assets/css/components/Forms.css";
 
 // Subcomponents
-import { InputTextGroup } from "@/components/app/atoms/InputTextGroup";
+// import { InputTextGroup } from "@/components/app/atoms/InputTextGroup";
 import { InputSelectGroup } from '../atoms/InputSelectGroup';
 import { InputTextAreaGroup } from '../atoms/InputTextAreaGroup';
 import { Link } from 'react-router-dom';
@@ -65,12 +65,12 @@ const NewSnippetForm = ({ title, subtitle, icon: Icon } : NewSnippetFormType) =>
             </div>
             <div className="form-body">
                 <div className="input-group-3">
-                    <InputTextGroup
+                    {/* <InputTextGroup
                         label="Title"
                         name="title"
                         icon={BookText}
                         placeholder="Example: Binary Search Implementation"
-                    />
+                    /> */}
                     <InputSelectGroup
                         label="Select Language"
                         name="lang"

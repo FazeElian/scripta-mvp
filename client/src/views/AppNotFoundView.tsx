@@ -21,4 +21,4 @@ const AppNotFoundView = () => {
     )
 }
 
-export default AppNotFoundView
+export { AppNotFoundView };

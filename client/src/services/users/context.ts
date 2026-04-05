@@ -1,8 +1,8 @@
-import type { LoginUserResponse } from "@/types/users.types";
+import type { User } from "@/types/users.types";
 import { createContext, useContext } from "react";
 
 interface UserContextType {
-    user: LoginUserResponse | null;
+    user: User | null;
 }
 
 export const UserContext = createContext<UserContextType>({
