@@ -52,10 +52,11 @@ const avatarConfig: Record<string, AvatarConfig> = {
 };
 
 const AccountForm = () => {
-    const [selectedAvatar, setSelectedAvatar] = useState("Terminal");
-    const CurrentIcon = avatarConfig[selectedAvatar].icon;
     const { user } = useUser();
-
+    const defaultAvatar = (user?.avatar as AvatarId) ?? "Terminal";
+    const [selectedAvatar, setSelectedAvatar] = useState(defaultAvatar);
+    const CurrentIcon = avatarConfig[selectedAvatar].icon;
+    
     type UpdateProfileForm = z.infer<typeof updateProfileSchema>;
     const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<UpdateProfileForm>({
         resolver: zodResolver(updateProfileSchema),
