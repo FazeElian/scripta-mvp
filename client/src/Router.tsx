@@ -14,9 +14,11 @@ import AccountView from "./views/admin/AccountView";
 import ExploreView from "./views/admin/ExploreView";
 import NewSnippetView from "./views/admin/snippets/NewSnippetView";
 import ProfileView from "./views/admin/ProfileView";
+import NotFoundView from "./views/NotFoundView";
 
 // Admin Layout Component
 import { SideBar } from "./components/admin/SideBar";
+import AppNotFoundView from "./views/AppNotFoundView";
 
 export default function Router () {
   return (
@@ -26,14 +28,17 @@ export default function Router () {
         <Route path="/auth/register" element={<RegisterView />} />
         <Route path="/auth/login" element={<LoginView />} />
 
-        <Route element={<SideBar />}>
-          <Route path="/dashboard" element={<DashboardView />} />
-          <Route path="/files" element={<FilesView />} />
-          <Route path="/account" element={<AccountView />} />
-          <Route path="/explore" element={<ExploreView />} />
-          <Route path="/snippets/new" element={<NewSnippetView />} />
-          <Route path="/profile/:userName" element={<ProfileView />} />
+        <Route element={<SideBar />} path="/app/*">
+          <Route path="dashboard" element={<DashboardView />} />
+          <Route path="files" element={<FilesView />} />
+          <Route path="account" element={<AccountView />} />
+          <Route path="explore" element={<ExploreView />} />
+          <Route path="snippets/new" element={<NewSnippetView />} />
+          <Route path="profile/:userName" element={<ProfileView />} />
+          <Route path="*" element={<AppNotFoundView />} />
         </Route>
+
+        <Route path="*" element={<NotFoundView />} />
       </Routes>
     </Suspense>
   )

@@ -5,7 +5,7 @@ const HomeView = () => {
         <div>
             <h1>Home View</h1>
                 <div className="flex flex-col mt-2">
-                    <Link to="/dashboard">Dashboard</Link>
+                    <Link to="/app/dashboard">Dashboard</Link>
                     <Link to="/auth/login">Login</Link>
                     <Link to="/auth/register">Register</Link>
                 </div>

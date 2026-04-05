@@ -19,31 +19,31 @@ const listSideBar = [
     {
         name: "My Snippets",
         icon: Code,
-        link: "/dashboard",
+        link: "/app/dashboard",
         strokeWidth: 2.4
     },
     {
         name: "My Files",
         icon: FolderOpen,
-        link: "/files",
+        link: "/app/files",
         strokeWidth: 2.4
     },
     {
         name: "New Snippet",
         icon: FilePlus,
-        link: "/snippets/new",
+        link: "/app/snippets/new",
         strokeWidth: 2.4
     },
     {
         name: "Explore Community",
         icon: Telescope,
-        link: "/explore",
+        link: "/app/explore",
         strokeWidth: 2
     },
     {
         name: "Manage Account",
         icon: UserRoundCog,
-        link: "/account",
+        link: "/app/account",
         strokeWidth: 2.4
     },
 ];
@@ -83,7 +83,7 @@ const SideBar = () => {
                                 <h2>john@example.com</h2>
                             </div>
                         </div>
-                        <Link to="/profile/johndoe" target="_blank">
+                        <Link to="/app/profile/johndoe" target="_blank">
                             <ExternalLink />
                         </Link>
                     </div>
