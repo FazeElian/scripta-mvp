@@ -111,7 +111,7 @@ const snippets = [
         lang: "Typescript",
         updatedAt: "2026-02-12",
         authorName: "Carlos Ruiz",
-        authorAvatar: "Database"
+        authorAvatar: "GitGraph"
     },
 ];
 

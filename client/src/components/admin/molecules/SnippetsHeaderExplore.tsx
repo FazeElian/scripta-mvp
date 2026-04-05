@@ -48,7 +48,7 @@ const SnippetsHeaderExplore = () => {
 
     return (
         <form className="snippets-header" method="post">
-            <SearchBar placeholder="Search Community Snippets......" />
+            <SearchBar placeholder="Search Community Snippets..." />
             <div className="snippets-filters">
                 <SortByRecency options={recencySortOptions} />
                 <SortByLang options={langSortOptions} />
