@@ -19,7 +19,7 @@ const PageTitle = ({ title, subtitle, button } : PageTitleType) => {
                 <h2>{subtitle}</h2>
             </div>
             {button &&
-                <Link to="/snippets/new" className="title-btn">
+                <Link to="/app/snippets/new" className="title-btn">
                     <FilePlus />
                     New Snippet
                 </Link>

@@ -11,7 +11,7 @@ import { PublicSnippetsGallery } from "@/components/app/molecules/PublicSnippets
 const ProfileView = () => {
     return (
         <main className="app-content">
-            <Link to="/explore" className="profile-top">
+            <Link to="/app/explore" className="profile-top">
                 <MoveLeft />
                 Come Back to Explore
             </Link>

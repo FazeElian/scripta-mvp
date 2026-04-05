@@ -29,3 +29,15 @@ export async function login(userData: LoginUser) {
         throw new Error(`Unexpected error: ${error}`);
     }
 }
+
+export async function getAuthenticatedUser() {
+    try {
+        const { data } = await api.get("/users/user");
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+        throw new Error(`Unexpected error: ${error}`);
+    }
+}

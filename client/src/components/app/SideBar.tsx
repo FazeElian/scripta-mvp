@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from "react-router-dom"
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
 
 // Styles
 import "@/assets/css/components/SideBar.css";
@@ -14,6 +14,13 @@ import {
     ExternalLink
 } from "lucide-react";
 import Logo from "@/assets/img/logo.png";
+
+// Query
+import { useGetAuthenticatedUser } from "@/services/users/queries";
+
+// Type
+import type { User } from "@/types/users.types";
+import { UserContext } from "@/services/users/context";
 
 const listSideBar = [
     {
@@ -49,10 +56,29 @@ const listSideBar = [
 ];
 
 const SideBar = () => {
-    const location = useLocation()
+    const location = useLocation();
+    const redirect = useNavigate();
+
+    const logOut = () => {
+        localStorage.removeItem("AUTH_TOKEN");
+        redirect("/auth/login/");
+    }
+
+    // get authenticated user result from query
+    const { data: userResult, isError, isLoading } = useGetAuthenticatedUser();
+
+    if (isLoading) {
+        return "Loading...";
+    }
+
+    if (isError) {
+        redirect("/auth/login")
+    }
+
+    const user = userResult as User;
 
     return (
-        <>
+        <UserContext.Provider value={{ user }}>
             <nav className="side-bar">
                 <div className="top-side-bar">
                     <img src={Logo} alt="" />
@@ -79,16 +105,20 @@ const SideBar = () => {
                         <div className="avatar-side-bar">
                             <img src="https://cdn.dribbble.com/userupload/26458491/file/still-b40631fe6510df808dfe57d8ae67cb72.png?resize=400x0" alt="" />
                             <div className="txt-user-side-bar">
-                                <h1>John Doe</h1>
-                                <h2>john@example.com</h2>
+                                <h1>{user?.fullName}</h1>
+                                <h2>{user?.email}</h2>
                             </div>
                         </div>
-                        <Link to="/app/profile/johndoe" target="_blank">
+                        <Link to={`/app/profile/${user?.userName}`} target="_blank">
                             <ExternalLink />
                         </Link>
                     </div>
                     <div className="logout-side-bar">
-                        <button className="btn-logout">
+                        <button
+                            className="btn-logout"
+                            onClick={logOut}
+                            type="button"
+                        >
                             <SquareArrowRightExit />
                             Log Out
                         </button>
@@ -96,7 +126,7 @@ const SideBar = () => {
                 </div>
             </nav>
             <Outlet />
-        </>
+        </UserContext.Provider>
     )
 }
 
