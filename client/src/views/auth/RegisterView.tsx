@@ -10,11 +10,13 @@ import "@/assets/css/components/Auth.css";
 import { AuthBackground } from "@/components/admin/molecules/AuthBackground";
 import { InputTextGroup } from "@/components/admin/atoms/InputTextGroup";
 import { InputPasswordGroup } from "@/components/admin/atoms/InputPasswordGroup";
+import { ComeBackAuth } from "@/components/admin/atoms/ComeBackAuth";
 
 const RegisterView = () => {
     return (
         <div className="auth-page">
             <AuthBackground />
+            <ComeBackAuth />
             <form className="form-auth form" method="POST">
                 <div className="form-auth-wrapper">
                     <div className="head-form-auth">

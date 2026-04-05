@@ -359,6 +359,17 @@
         font-size: 14px;
     }
 }
+/* Responsive 1280px */
+@media(max-width: 1280px) {
+    .form-auth {
+        position: absolute;
+        top: 5rem;
+    }
+
+    .auth-page {
+        margin-bottom: 5rem;
+    }
+}
 
 /* Responsive 1024px */
 @media(max-width: 1024px) {
@@ -391,5 +402,16 @@
 @media(max-width: 600px) {
     .form-auth {
         width: 90%;
+    }
+
+    .btns-head-form-auth {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    .btns-head-form-auth button {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
     }
 }
