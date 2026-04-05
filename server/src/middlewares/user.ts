@@ -5,6 +5,9 @@ import jwt from 'jsonwebtoken';
 // Schemas
 import { userIdSchema } from '../schemas/user.schema';
 
+// Errors
+import { ConflictError, NotFoundError, UnauthorizedError } from '../utils/handleError';
+
 declare global {
     namespace Express {
         interface Request {
@@ -17,14 +20,14 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
     const bearer = req.headers.authorization;
 
     if(!bearer) {
-        const error = new Error("Not Authorized");
+        const error = new UnauthorizedError("Not Authorized");
         res.status(401).json({ error: error.message });
         return;
     }
 
     const [ , token] = bearer.split(" ");
     if(!token) {
-        const error = new Error("Token not valid");
+        const error = new ConflictError("Token not valid");
         res.status(401).json({ error: error.message });
         return;
     }
@@ -84,7 +87,7 @@ export const validateIfUserExists = async (req: Request, res: Response, next: Ne
         const user = await User.findByPk(id as string)
 
         if (!user) {
-            const error = new Error("User not found");
+            const error = new NotFoundError("User not found");
             res.status(404).json({ error: error.message });
             return;
         }

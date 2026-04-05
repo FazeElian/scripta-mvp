@@ -19,6 +19,7 @@ import NotFoundView from "./views/NotFoundView";
 // app Layout Component
 import { SideBar } from "./components/app/SideBar";
 import AppNotFoundView from "./views/AppNotFoundView";
+import { Toaster } from "sonner";
 
 export default function Router () {
   return (
@@ -40,6 +41,7 @@ export default function Router () {
 
         <Route path="*" element={<NotFoundView />} />
       </Routes>
+      <Toaster richColors position="top-center" />
     </Suspense>
   )
 }

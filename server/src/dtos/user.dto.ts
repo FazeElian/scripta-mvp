@@ -1,9 +1,8 @@
 // Request Dto's
 export interface RegisterUserRequest {
     email: string;
-    userName: string;
     password: string;
-    confirmPassword: string;
+    userName: string;
     fullName: string;
 };
 

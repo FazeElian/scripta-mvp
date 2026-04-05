@@ -283,6 +283,11 @@
                 text-decoration: underline;
             }
 
+    .input-group--error-msg {
+        color: var(--red-main);
+        font-size: 14px;
+    }
+
 .auth-divider {
     display: flex;
     align-items: center;

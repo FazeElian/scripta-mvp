@@ -1,46 +1,56 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import type { UseFormRegister, FieldError, Path, FieldValues } from "react-hook-form";
 
-type InputPasswordGroupType = {
+type InputPasswordGroupType<T extends FieldValues> = {
     label: string;
-    name: string;
+    name: Path<T>;
     icon?: LucideIcon;
     placeholder: string;
-    isPassword?: boolean;
     forgotPassword?: boolean;
+    register: UseFormRegister<T>;
+    error?: FieldError;
 };
 
-const InputPasswordGroup = ({ icon: Icon, isPassword, ...props }: InputPasswordGroupType) => {
+const InputPasswordGroup = <T extends FieldValues>({
+    icon: Icon,
+    label,
+    name,
+    placeholder,
+    forgotPassword,
+    register,
+    error,
+}: InputPasswordGroupType<T>) => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-        <div className="input-group" key={props.name}>
+        <div className={`input-group ${error ? "input-group--error" : ""}`}>
             <div className="input-group--label">
                 {Icon && <Icon />}
-                <label htmlFor={props.name}>
-                    {props.label}
-                </label>
+                <label htmlFor={name}>{label}</label>
             </div>
-            <div className={isPassword ? "input-group--password-wrapper" : ""}>
+            <div className="input-group--password-wrapper">
                 <input
-                    required
-                    id={props.name}
-                    type={isPassword && !showPassword ? "password" : "text"}
-                    name={props.name}
-                    placeholder={props.placeholder}
+                    id={name}
+                    type={showPassword ? "text" : "password"}
+                    placeholder={placeholder}
+                    {...register(name)}
                 />
-                {isPassword && (
-                    <button
-                        type="button"
-                        className="input-group--password-toggle"
-                        onClick={() => setShowPassword(prev => !prev)}
-                    >
-                        {showPassword ? <EyeOff /> : <Eye />}
-                    </button>
-                )}
+                <button
+                    type="button"
+                    className="input-group--password-toggle"
+                    onClick={() => setShowPassword(prev => !prev)}
+                >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                </button>
             </div>
-            {props.forgotPassword && <h2 className="forgot-pass-txt">Forgot Password?</h2>}
+            {error && (
+                <span className="input-group--error-msg">
+                    {error.message}
+                </span>
+            )}
+            {forgotPassword && <h2 className="forgot-pass-txt">Forgot Password?</h2>}
         </div>
     );
 };

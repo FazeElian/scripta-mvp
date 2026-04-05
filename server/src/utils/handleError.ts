@@ -25,4 +25,4 @@ export const handleError = (error: unknown, res: Response, next: NextFunction): 
         return;
     }
     next(error); // Errores inesperados → middleware global de Express
-};
+}; 

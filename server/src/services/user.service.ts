@@ -1,5 +1,6 @@
 import { Op } from 'sequelize';
 import bcrypt from "bcrypt";
+import { ConflictError, NotFoundError, UnauthorizedError } from '../utils/handleError';
 
 // Model
 import User from "../models/User";
@@ -27,8 +28,8 @@ export default class UserService {
 
         // Check if already exists
         if (existing) {
-            const field = existing.email === data.email ? "email" : "userName";
-            throw new Error(`${field} is already in use`);
+            const field = existing.email === data.email ? "Email" : "User Name";
+            throw new ConflictError(`${field} is already in use`);
         }
 
         // Hash user password
@@ -55,12 +56,12 @@ export default class UserService {
         const user = await User.findOne({
             where: isEmail ? { email: identifier } : { userName: identifier },
         });
+    
+        if (!user) throw new NotFoundError("User not found");
 
         // Check passwords
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch || !user) {
-            throw new Error("Incorrect credentials");
-        }
+        if (!isMatch) throw new UnauthorizedError("Incorrect credentials");
 
         // Generate auth token
         const token = generateToken(user);

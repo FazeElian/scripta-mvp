@@ -37,19 +37,3 @@ export const loginSchema = z.object({
         .string("Password is required")
         .min(1, "Password cannot be empty")
 });
-
-export const updateProfileSchema = z.object({
-    userName: z.string({ message: "Username must be a string" })
-        .min(3, { message: "Username must be at least 3 characters" })
-        .optional(),
-    fullName: z.string({ message: "Full name must be a string" })
-        .min(3, { message: "Full name must be at least 3 characters" })
-        .optional(),
-    bio: z.string({ message: "Bio must be a string" })
-        .optional(),
-    website: z.string({ message: "Website must be a string" })
-        .url({ message: "Website must be a valid URL" })
-        .optional(),
-    githubUser: z.string({ message: "GitHub username must be a string" })
-        .optional(),
-});
