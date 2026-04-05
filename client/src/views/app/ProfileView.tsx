@@ -6,11 +6,11 @@ import Github from "@/assets/img/github.png";
 import "@/assets/css/components/Profile.css";
 
 // Components
-import { PublicSnippetsGallery } from "@/components/admin/molecules/PublicSnippetsGallery";
+import { PublicSnippetsGallery } from "@/components/app/molecules/PublicSnippetsGallery";
 
 const ProfileView = () => {
     return (
-        <main className="admin-content">
+        <main className="app-content">
             <Link to="/explore" className="profile-top">
                 <MoveLeft />
                 Come Back to Explore

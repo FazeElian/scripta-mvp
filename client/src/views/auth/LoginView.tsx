@@ -7,10 +7,10 @@ import Google from "@/assets/img/google.png";
 import "@/assets/css/components/Auth.css";
 
 // Components
-import { AuthBackground } from "@/components/admin/molecules/AuthBackground";
-import { InputTextGroup } from "@/components/admin/atoms/InputTextGroup";
-import { InputPasswordGroup } from "@/components/admin/atoms/InputPasswordGroup";
-import { ComeBackAuth } from "@/components/admin/atoms/ComeBackAuth";
+import { AuthBackground } from "@/components/app/molecules/AuthBackground";
+import { InputTextGroup } from "@/components/app/atoms/InputTextGroup";
+import { InputPasswordGroup } from "@/components/app/atoms/InputPasswordGroup";
+import { ComeBackAuth } from "@/components/app/atoms/ComeBackAuth";
 
 const LoginView = () => {
     return (

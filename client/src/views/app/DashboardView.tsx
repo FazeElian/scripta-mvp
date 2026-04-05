@@ -1,12 +1,12 @@
 // Components for this view
-import { PageTitle } from "@/components/admin/atoms/PageTitle"
-import { QuickStats } from "@/components/admin/molecules/QuickStats"
-import { SnippetsGallery } from "@/components/admin/molecules/SnippetsGallery"
-import { SnippetsHeader } from "@/components/admin/molecules/SnippetsHeader"
+import { PageTitle } from "@/components/app/atoms/PageTitle"
+import { QuickStats } from "@/components/app/molecules/QuickStats"
+import { SnippetsGallery } from "@/components/app/molecules/SnippetsGallery"
+import { SnippetsHeader } from "@/components/app/molecules/SnippetsHeader"
 
 const DashboardView = () => {
     return (
-        <main className="admin-content">
+        <main className="app-content">
             <PageTitle
                 title="Welcome Back, John"
                 subtitle="My Snippets"

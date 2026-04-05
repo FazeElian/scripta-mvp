@@ -163,14 +163,14 @@ textarea:focus {
     align-self: flex-end;
 }
 
-.admin-content {
+.app-content {
     margin-left: 315px;
     padding: 2.5rem 2.5rem 2rem;
 }
 
 /* Responsive 1440px */
 @media(max-width: 1440px) {
-    .admin-content {
+    .app-content {
         margin-left: 280px;
     }
 }

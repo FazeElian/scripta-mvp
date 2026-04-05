@@ -5,7 +5,7 @@ import { MoveLeft } from "lucide-react";
 import "@/assets/css/components/NotFound.css";
 
 // Background comp
-import { AuthBackground } from "@/components/admin/molecules/AuthBackground"
+import { AuthBackground } from "@/components/app/molecules/AuthBackground"
 
 const AppNotFoundView = () => {
     return (

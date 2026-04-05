@@ -4,7 +4,7 @@ import { BookText, Braces, Globe, NotepadText, type LucideIcon } from 'lucide-re
 import "@/assets/css/components/Forms.css";
 
 // Subcomponents
-import { InputTextGroup } from "@/components/admin/atoms/InputTextGroup";
+import { InputTextGroup } from "@/components/app/atoms/InputTextGroup";
 import { InputSelectGroup } from '../atoms/InputSelectGroup';
 import { InputTextAreaGroup } from '../atoms/InputTextAreaGroup';
 import { Link } from 'react-router-dom';

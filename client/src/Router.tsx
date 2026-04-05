@@ -7,17 +7,17 @@ import RegisterView from "@/views/auth/RegisterView";
 
 import HomeView from "@/views/HomeView";
 
-// Admin views
-import DashboardView from "@/views/admin/DashboardView";
-import FilesView from "./views/admin/FilesView";
-import AccountView from "./views/admin/AccountView";
-import ExploreView from "./views/admin/ExploreView";
-import NewSnippetView from "./views/admin/snippets/NewSnippetView";
-import ProfileView from "./views/admin/ProfileView";
+// app views
+import DashboardView from "@/views/app/DashboardView";
+import FilesView from "./views/app/FilesView";
+import AccountView from "./views/app/AccountView";
+import ExploreView from "./views/app/ExploreView";
+import NewSnippetView from "./views/app/snippets/NewSnippetView";
+import ProfileView from "./views/app/ProfileView";
 import NotFoundView from "./views/NotFoundView";
 
-// Admin Layout Component
-import { SideBar } from "./components/admin/SideBar";
+// app Layout Component
+import { SideBar } from "./components/app/SideBar";
 import AppNotFoundView from "./views/AppNotFoundView";
 
 export default function Router () {
