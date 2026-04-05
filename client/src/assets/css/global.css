@@ -121,6 +121,48 @@ textarea:focus {
     transition: transform 0.2s ease;
 }
 
+.input-group--password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-group--password-wrapper input {
+    width: 100%;
+    padding-right: 2.8rem;
+}
+
+.input-group--password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none !important;
+    color: var(--gray-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+    .input-group--password-toggle:hover {
+        color: var(--text-main);
+    }
+
+    .input-group--password-toggle svg {
+        width: 18px;
+        height: 18px;
+    }
+
+.forgot-pass-txt {
+    display: flex;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--seagreen-main);
+    align-self: flex-end;
+}
+
 .admin-content {
     margin-left: 315px;
     padding: 2.5rem 2.5rem 2rem;
