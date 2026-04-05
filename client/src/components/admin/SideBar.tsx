@@ -13,7 +13,7 @@ import {
     SquareArrowRightExit,
     ExternalLink
 } from "lucide-react";
-import Logo from "@/assets/img/Logo.png";
+import Logo from "@/assets/img/logo.png";
 
 const listSideBar = [
     {
