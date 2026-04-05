@@ -9,6 +9,8 @@ type InputTextGroupType<T extends FieldValues> = {
     register: UseFormRegister<T>;
     error?: FieldError;
     type?: "text" | "email" | "password" | "number";
+    isDisabled?: boolean;
+    defaultValue?: string;
 };
 
 const InputTextGroup = <T extends FieldValues>({
@@ -19,6 +21,8 @@ const InputTextGroup = <T extends FieldValues>({
     register,
     error,
     type = "text",
+    isDisabled,
+    defaultValue,
 }: InputTextGroupType<T>) => {
     return (
         <div className={`input-group ${error ? "input-group--error" : ""}`}>
@@ -33,6 +37,8 @@ const InputTextGroup = <T extends FieldValues>({
                 type={type}
                 placeholder={placeholder}
                 {...register(name)}
+                disabled={isDisabled}
+                defaultValue={defaultValue}
             />
             {error && (
                 <span className="input-group--error-msg">

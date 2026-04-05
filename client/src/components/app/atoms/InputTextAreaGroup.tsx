@@ -1,27 +1,43 @@
 import type { LucideIcon } from "lucide-react";
+import type { UseFormRegister, FieldError, Path, FieldValues } from "react-hook-form";
 
-type InputTextAreaGroupType = {
+type InputTextAreaGroupType<T extends FieldValues> = {
     label: string;
-    name: string;
+    name: Path<T>;
     icon?: LucideIcon;
     placeholder: string;
+    register: UseFormRegister<T>;
+    error?: FieldError;
 };
 
-const InputTextAreaGroup = (props: InputTextAreaGroupType) => {
+const InputTextAreaGroup = <T extends FieldValues>({
+    label,
+    name,
+    icon: Icon,
+    placeholder,
+    register,
+    error,
+}: InputTextAreaGroupType<T>) => {
     return (
-        <div className="input-group" key={props.name}>
+        <div className={`input-group ${error ? "input-group--error" : ""}`}>
             <div className="input-group--label">
-                {props.icon && <props.icon />}
-                <label htmlFor={props.name}>
-                    {props.label}
+                {Icon && <Icon />}
+                <label htmlFor={name}>
+                    {label}
                 </label>
             </div>
             <textarea
-                name={props.name}
-                placeholder={props.placeholder}
+                id={name}
+                placeholder={placeholder}
+                {...register(name)}
             />
+            {error && (
+                <span className="input-group--error-msg">
+                    {error.message}
+                </span>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export { InputTextAreaGroup };

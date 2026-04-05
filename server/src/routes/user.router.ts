@@ -45,7 +45,7 @@ router.get("/users/profile/:id",
     UserController.getProfile
 );
 
-router.put("/users/profile/:id",
+router.put("/users/profile",
     authenticate,
     validateInputErrors(updateProfileSchema),
     UserController.updateProfile

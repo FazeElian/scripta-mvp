@@ -88,7 +88,7 @@ export default class UserService {
         });
 
         // Not found
-        if (!user) throw new Error("User not found");
+        if (!user) throw new NotFoundError("User not found");
 
         // Found
         return {
@@ -106,7 +106,7 @@ export default class UserService {
         // Check that the new userName is not already taken by another user
         if (data.userName && data.userName !== user.userName) {
             const taken = await User.findOne({ where: { userName: data.userName } });
-            if (taken) throw new Error("Username already taken");
+            if (taken) throw new ConflictError("Username already taken");
         }
 
         // Update user

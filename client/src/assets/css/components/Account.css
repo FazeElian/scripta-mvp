@@ -85,9 +85,10 @@
 
     .account-save-btn {
         display: flex;
+        height: auto;
         align-items: center;
         gap: 8px;
-        padding: 10px 2rem;
+        padding: 10px 2.5rem;
         background-color: var(--seagreen-main);
         color: var(--bg-main);
         border: none;

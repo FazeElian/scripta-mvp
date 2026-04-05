@@ -42,7 +42,7 @@ class User extends Model {
     @Column(DataType.STRING(60))
     declare fullName: string;
 
-    @Column(DataType.ENUM("shell", "object", "core", "tag", "hash", "bug", "binary", "commit"))
+    @Column(DataType.ENUM("Terminal", "Braces", "Cpu", "Code", "Hash", "Bug", "Binary", "GitGraph"))
     declare avatar: string;
 
     @Column(DataType.STRING(200))

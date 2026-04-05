@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 // Types
-import { type RegisterUser, type LoginUser } from "@/types/users.types";
+import { type RegisterUser, type LoginUser, type UpdateProfile } from "@/types/users.types";
 
 // API Calls
-import { register, login } from "./api";
+import { register, login, updateProfile } from "./api";
+
+// Queries
+import { useGetAuthenticatedUser } from "./queries";
 
 // Register user mutation
 export const useRegisterMutation = () => {
@@ -51,6 +54,33 @@ export const useLoginMutation = () => {
 
             // Redirect to app dashboard
             redirect("/app/dashboard")
+        },
+        onError: (error: Error) => {
+            const message = error.message;
+            toast.error(message);
+        },
+    })
+}
+
+// Update profilr
+export const useUpdateProfileMutation = () => {
+    // Redirection
+    const redirect = useNavigate()
+
+    // Refetch user info
+    const { refetch } = useGetAuthenticatedUser()
+
+    return useMutation({
+        mutationFn: (data: UpdateProfile) => updateProfile(data),
+        onSuccess: (response) => {
+            // Sucess toast
+            toast.success(response.message);
+
+            // Refetch user
+            refetch()
+
+            // Redirection to account main view
+            redirect("/app/account")
         },
         onError: (error: Error) => {
             const message = error.message;

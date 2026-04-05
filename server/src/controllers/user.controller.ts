@@ -48,6 +48,7 @@ export default class UserController {
             res.status(200).json(result);
         } catch (error) {
             handleError(error, res, next);
+            console.log(error)
         }
     };
 

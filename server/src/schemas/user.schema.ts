@@ -45,11 +45,21 @@ export const updateProfileSchema = z.object({
     fullName: z.string({ message: "Full name must be a string" })
         .min(3, { message: "Full name must be at least 3 characters" })
         .optional(),
-    bio: z.string({ message: "Bio must be a string" })
-        .optional(),
-    website: z.string({ message: "Website must be a string" })
-        .url({ message: "Website must be a valid URL" })
-        .optional(),
-    githubUser: z.string({ message: "GitHub username must be a string" })
-        .optional(),
+    bio: z
+        .string()
+        .optional().or(z.literal(""))
+        .nullable(),
+    website:z
+        .string().url({ message: "Website must be a valid URL" })
+        .optional()
+        .or(z.literal(""))
+        .nullable(),
+    githubUser: z
+        .string()
+        .optional()
+        .or(z.literal(""))
+        .nullable(),
+    avatar: z.enum(["Terminal", "Braces", "Cpu", "Code", "Hash", "Bug", "Binary", "GitGraph"], {
+        message: "Invalid avatar"
+    }),
 });

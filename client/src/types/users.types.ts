@@ -33,3 +33,12 @@ export interface LoginUserResult {
     avatar: string;
     memberSince: Date;
 };
+
+export interface UpdateProfile {
+    bio?: string | null;
+    website?: string | null;
+    githubUser?: string | null;
+    userName?: string;
+    fullName?: string;
+    avatar: string;
+}
