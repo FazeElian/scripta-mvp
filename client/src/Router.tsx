@@ -46,7 +46,15 @@ export default function Router () {
 
         <Route path="*" element={<NotFoundView />} />
       </Routes>
-      <Toaster richColors position="top-center" />
+      <Toaster 
+        position="top-center" 
+        richColors 
+        toastOptions={{
+          style: {
+            fontFamily: "var(--font-mono)",
+          }
+        }}
+      />
     </Suspense>
   )
 }
