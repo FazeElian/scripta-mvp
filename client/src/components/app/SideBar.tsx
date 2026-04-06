@@ -11,7 +11,15 @@ import {
     Telescope,
     UserRoundCog,
     SquareArrowRightExit,
-    ExternalLink
+    ExternalLink,
+    type LucideIcon,
+    Terminal,
+    Braces,
+    Cpu,
+    Hash,
+    Bug,
+    Binary,
+    GitGraph
 } from "lucide-react";
 import Logo from "@/assets/img/logo.png";
 
@@ -60,6 +68,22 @@ const listSideBar = [
     },
 ];
 
+type AvatarConfig = {
+    icon: LucideIcon;
+    className: string;
+}
+
+const avatarConfig: Record<string, AvatarConfig> = {
+    Terminal: { icon: Terminal, className: "avatar--yellow" },
+    Braces:   { icon: Braces,   className: "avatar--pink" },
+    Cpu:      { icon: Cpu,      className: "avatar--purple" },
+    Code:     { icon: Code,     className: "avatar--blue" },
+    Hash:     { icon: Hash,     className: "avatar--sky-blue" },
+    Bug:      { icon: Bug,      className: "avatar--seagreen" },
+    Binary:   { icon: Binary,   className: "avatar--orange" },
+    GitGraph: { icon: GitGraph, className: "avatar--red" },
+};
+
 const SideBar = () => {
     const location = useLocation();
     const redirect = useNavigate();
@@ -81,6 +105,9 @@ const SideBar = () => {
     }
 
     const user = userResult as User;
+    const avatarKey = user?.avatar ?? "Terminal";
+    const AvatarIcon = avatarConfig[avatarKey]?.icon ?? Terminal;
+    const avatarClass = avatarConfig[avatarKey]?.className ?? "avatar--yellow";
 
     return (
         <UserContext.Provider value={{ user }}>
@@ -108,13 +135,15 @@ const SideBar = () => {
                 <div className="btm-side-bar">
                     <div className="user-side-bar">
                         <div className="avatar-side-bar">
-                            <img src="https://cdn.dribbble.com/userupload/26458491/file/still-b40631fe6510df808dfe57d8ae67cb72.png?resize=400x0" alt="" />
+                            <div className={`avatar-icon-side-bar btm-snippet-card-author--avatar ${avatarClass}`}>
+                                <AvatarIcon />
+                            </div>
                             <div className="txt-user-side-bar">
-                                <h1>{user?.fullName}</h1>
-                                <h2>{user?.email}</h2>
+                                <h1>{user.fullName}</h1>
+                                <h2>{user.email}</h2>
                             </div>
                         </div>
-                        <Link to={`/app/profile/${user?.userName}`} target="_blank">
+                        <Link to={`/app/profile/${user.userName}`} target="_blank">
                             <ExternalLink />
                         </Link>
                     </div>
