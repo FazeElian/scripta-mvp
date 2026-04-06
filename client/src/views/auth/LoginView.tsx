@@ -24,6 +24,10 @@ import { loginSchema } from "@/schemas/user.schema";
 // Mutation
 import { useLoginMutation } from "@/services/users/mutations";
 
+// Utils
+import { handleGoogleAuth } from "@/utils/handleGoogleAuth";
+import { handleGithubAuth } from "@/utils/handleGithubAuth";
+
 const LoginView = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginUser>({
         resolver: zodResolver(loginSchema)
@@ -48,11 +52,11 @@ const LoginView = () => {
                         <h1>Welcome Back!</h1>
                         <h2>Sign in to your account to continue</h2>
                         <div className="btns-head-form-auth">
-                            <button type="button">
+                            <button type="button" onClick={handleGoogleAuth}>
                                 <img src={Google} alt="Google" />
                                 Google
                             </button>
-                            <button type="button">
+                            <button type="button" onClick={handleGithubAuth}>
                                 <img src={Github} alt="Github" />
                                 Github
                             </button>

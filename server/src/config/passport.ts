@@ -2,9 +2,13 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
+import bcrypt from "bcrypt";
 
 // Models
 import User from "../models/User";
+
+const randomPassword = crypto.randomBytes(16).toString("hex");
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID!,
@@ -22,8 +26,8 @@ passport.use(new GoogleStrategy({
                 email,
                 fullName: profile.displayName,
                 userName: email.split("@")[0],
-                password: "oauth",
-                avatar: "shell",
+                password: await bcrypt.hash(randomPassword, 10),
+                avatar: "Terminal",
             });
         }
 
@@ -40,7 +44,6 @@ passport.use(new GitHubStrategy({
 }, async (accessToken: string, refreshToken: string, profile: any, done: any) => {
     try {
         const email = profile.emails?.[0]?.value ?? `${profile.username}@github.com`;
-
         let user = await User.findOne({ where: { email } });
 
         if (!user) {
@@ -48,8 +51,8 @@ passport.use(new GitHubStrategy({
                 email,
                 fullName: profile.displayName || profile.username,
                 userName: profile.username,
-                password: "oauth",
-                avatar: "shell",
+                password: await bcrypt.hash(randomPassword, 10),
+                avatar: "Terminal",
             });
         }
 

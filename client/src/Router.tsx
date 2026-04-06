@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 // Views
 import LoginView from "@/views/auth/LoginView";
 import RegisterView from "@/views/auth/RegisterView";
+import AuthCallbackView from "./views/auth/AuthCallbackView";
 
 import HomeView from "@/views/HomeView";
 
@@ -33,6 +34,7 @@ export default function Router () {
         <Route index element={<HomeView />} />
         <Route path="/auth/register" element={<RegisterView />} />
         <Route path="/auth/login" element={<LoginView />} />
+        <Route path="/auth/callback" element={<AuthCallbackView />} />
 
         <Route element={<SideBar />} path="/app/*">
           <Route path="dashboard" element={<DashboardView />} />

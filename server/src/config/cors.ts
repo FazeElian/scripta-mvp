@@ -2,7 +2,10 @@ import { CorsOptions } from "cors";
 
 export const CORSConfig : CorsOptions = {
     origin: function (origin, callback) {
-        const whiteList = [process.env.VITE_URL]
+        const whiteList = [
+            process.env.VITE_URL,
+            undefined, // allows redirection directly from the browser
+        ];
 
         if (process.argv[2] === "--api"){
             whiteList.push(undefined);
@@ -13,5 +16,6 @@ export const CORSConfig : CorsOptions = {
         } else {
             callback(new Error("CORS Error"));
         }
-    }
+    },
+    credentials: true
 }

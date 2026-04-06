@@ -55,7 +55,7 @@ const AccountForm = () => {
     const { user } = useUser();
     const defaultAvatar = (user?.avatar as AvatarId) ?? "Terminal";
     const [selectedAvatar, setSelectedAvatar] = useState(defaultAvatar);
-    const CurrentIcon = avatarConfig[selectedAvatar].icon;
+    const CurrentIcon = avatarConfig[selectedAvatar].icon ?? Terminal;
     
     type UpdateProfileForm = z.infer<typeof updateProfileSchema>;
     const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<UpdateProfileForm>({
