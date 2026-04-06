@@ -52,6 +52,9 @@ export default function Router () {
         toastOptions={{
           style: {
             fontFamily: "var(--font-mono)",
+            backgroundColor: "var(--bg-secondary)",
+            border: "1px solid var(--gray-main)",
+            fontWeight: "500",
           }
         }}
       />
