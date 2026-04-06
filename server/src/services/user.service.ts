@@ -81,10 +81,10 @@ export default class UserService {
     };
 
     // Function to view the profile of an user
-    async getProfile(id: string) : Promise<UserProfileResponse> {
+    async getProfile(userName: string) : Promise<UserProfileResponse> {
         // Search user
-        const user = await User.findByPk(id, {
-            attributes: { exclude: ["password"] } // don't return pass hashed
+        const user = await User.findOne({ 
+            where: { userName: userName }
         });
 
         // Not found
@@ -98,6 +98,7 @@ export default class UserService {
             website: user.website,
             githubUser: user.githubUser,
             memberSince: user.createdAt,
+            avatar: user.avatar
         };
     };
 

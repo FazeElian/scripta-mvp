@@ -41,7 +41,7 @@ router.get("/users/user/",
     UserController.getAuthenticatedUser
 );
 
-router.get("/users/profile/:id",
+router.get("/users/profile/:userName",
     UserController.getProfile
 );
 

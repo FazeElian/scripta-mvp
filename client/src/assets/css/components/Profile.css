@@ -86,12 +86,18 @@
             gap: 2rem;
         }
 
+            .btm-profile-txt a:hover {
+                text-decoration: underline;
+            }
+
             .btm-profile-txt--item {
                 display: flex;
                 gap: 5px;
                 font-size: 15px;
                 align-items: center;
                 font-weight: light;
+                text-decoration: none;
+                color: var(--text-main);
             }
 
                 .btm-profile-txt--item svg {

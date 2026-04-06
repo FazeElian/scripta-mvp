@@ -53,3 +53,15 @@ export async function updateProfile(userData: UpdateProfile) {
         throw new Error(`Unexpected error: ${error}`);
     }
 }
+
+export async function getProfile(userName: string) {
+    try {
+        const { data } = await api.get(`/users/profile/${userName}`);
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+        throw new Error(`Unexpected error: ${error}`);
+    }
+}

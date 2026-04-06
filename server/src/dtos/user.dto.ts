@@ -48,6 +48,7 @@ export interface UserProfileResponse {
     website?: string;
     githubUser?: string;
     memberSince: Date;
+    avatar: string;
 };
 
 // Info returned after the profile is updated by the user
