@@ -1,11 +1,5 @@
 import { z } from "zod";
 
-export const snippetIdSchema = z.object({
-    id: z
-        .string("The snippet ID is required")
-        .uuid("The snippet ID is not in a valid format"),
-});
-
 export const createSnippetSchema = z.object({
     title: z
         .string("Title is required")
@@ -22,6 +16,5 @@ export const createSnippetSchema = z.object({
         .min(1, "Please select a language"),
 
     visibility: z
-        .enum(["public", "private", "notListed"], "Please select a valid visibility option")
-        .default("private"),
+        .enum(["public", "private", "unListed"], "Please select a valid visibility option")
 });

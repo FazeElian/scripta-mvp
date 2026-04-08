@@ -2,7 +2,7 @@
 export interface NewSnippetRequest {
     title: string;
     description: string;
-    language: string;
+    lang: string;
     visibility: string;
     userId: string;
 };
@@ -12,7 +12,7 @@ export interface AllSnippetsResponse {
     id: string;
     title: string;
     description: string;
-    language: string;
+    lang: string;
     visibility: string;
     createdAt: Date;
 };
@@ -20,7 +20,7 @@ export interface AllSnippetsResponse {
 export interface GetSnippetByIdResponse {
     title: string;
     description: string;
-    language: string;
+    lang: string;
     ownerInfo: {
         avatar: string;
         fullName: string;
@@ -35,7 +35,7 @@ export interface GetSnippetByIdResponse {
 export interface SnippetByIdByOwnerResponse {
     title: string;
     description: string;
-    language: string;
+    lang: string;
     visibility: string;
     snippetContent: {
         code: string;

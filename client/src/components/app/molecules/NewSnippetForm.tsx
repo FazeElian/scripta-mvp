@@ -1,16 +1,28 @@
-import { Braces, Globe, NotepadText, type LucideIcon } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { BookText, Braces, Globe, NotepadText, type LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Styles
 import "@/assets/css/components/Forms.css";
 
 // Subcomponents
-// import { InputTextGroup } from "@/components/app/atoms/InputTextGroup";
+import { InputTextGroup } from "@/components/app/atoms/InputTextGroup";
 import { InputSelectGroup } from '../atoms/InputSelectGroup';
 import { InputTextAreaGroup } from '../atoms/InputTextAreaGroup';
 
-// Langs
+// Langs & visiblity
 import { langOptions } from '@/lib/langs';
+import { visibilityMapping } from '@/lib/visibility';
+
+// Validation schema
+import { createSnippetSchema } from '@/schemas/snippet.schema';
+
+// Form type
+import type { NewSnippet } from '@/types/snippets.type';
+
+// Mutation
+import { useNewSnippetMutation } from '@/services/snippets/mutations';
 
 type NewSnippetFormType = {
     title: string;
@@ -18,15 +30,34 @@ type NewSnippetFormType = {
     icon: LucideIcon;
 };
 
-const visibilityOptions = [
-    "🌐 Public (Anyone can see this snippet)",
-    "🔒 Private (Only you can see this snippet)",
-    "🔗 Unlisted (Only people with the link can see)",
-];
+const visibilityOptions = Object.keys(visibilityMapping); // ["public", "private", "unListed"]
 
 const NewSnippetForm = ({ title, subtitle, icon: Icon } : NewSnippetFormType) => {
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<NewSnippet>({
+        resolver: zodResolver(createSnippetSchema),
+        defaultValues: {
+            title: "",
+            description: "",
+            lang: "",
+            visibility: "private",
+        }
+    });
+
+    const mutation = useNewSnippetMutation();
+    const onSubmit = (formData: NewSnippet) => {
+        mutation.mutate(formData, {
+            onSuccess: () => {
+                reset()
+            }
+        })
+    }
+
     return (
-        <form method="POST" className="form">
+        <form
+            method="POST"
+            className="form"
+            onSubmit={handleSubmit(onSubmit)}
+        >
             <div className="form-head">
                 <div className="form-head--title">
                     {<Icon />}
@@ -36,18 +67,22 @@ const NewSnippetForm = ({ title, subtitle, icon: Icon } : NewSnippetFormType) =>
             </div>
             <div className="form-body">
                 <div className="input-group-3">
-                    {/* <InputTextGroup
+                    <InputTextGroup
                         label="Title"
                         name="title"
                         icon={BookText}
                         placeholder="Example: Binary Search Implementation"
-                    /> */}
+                        register={register}
+                        error={errors.title}
+                    />
                     <InputSelectGroup
                         label="Select Language"
                         name="lang"
                         icon={Braces}
                         placeholder="Select a language"
                         options={langOptions}
+                        register={register}
+                        error={errors.lang}
                     />
                     <InputSelectGroup
                         label="Visibility"
@@ -55,6 +90,8 @@ const NewSnippetForm = ({ title, subtitle, icon: Icon } : NewSnippetFormType) =>
                         icon={Globe}
                         options={visibilityOptions}
                         placeholder="Select who can view your snippet"
+                        register={register}
+                        error={errors.visibility}
                     />
                 </div>
                 <InputTextAreaGroup
@@ -62,11 +99,13 @@ const NewSnippetForm = ({ title, subtitle, icon: Icon } : NewSnippetFormType) =>
                     name="description"
                     icon={NotepadText}
                     placeholder="A brief description of what this snippet does..."
+                    register={register}
+                    error={errors.description}
                 />
             </div>
             <div className="form-actions">
                 <Link
-                    to="/dashboard"
+                    to="/app/dashboard"
                     className="form-actions--btn-cancel"
                 >
                     Cancel

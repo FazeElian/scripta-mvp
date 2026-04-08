@@ -35,7 +35,7 @@ class Snippet extends Model {
 
     @AllowNull(false)
     @Column(DataType.STRING(30))
-    declare language: string;
+    declare lang: string;
 
     @Default(false)
     @Column(DataType.BOOLEAN)

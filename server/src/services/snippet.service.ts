@@ -56,7 +56,7 @@ export default class SnippetService {
             id: snippet.id,
             title: snippet.title,
             description: snippet.description,
-            language: snippet.language,
+            lang: snippet.lang,
             visibility: snippet.visibility,
             createdAt: snippet.createdAt,
             user: (snippet as any).user?.fullName || "Unknown",
@@ -76,7 +76,7 @@ export default class SnippetService {
             id: snippet.id,
             title: snippet.title,
             description: snippet.description,
-            language: snippet.language,
+            lang: snippet.lang,
             visibility: snippet.visibility,
             createdAt: snippet.createdAt,
         }));
@@ -99,7 +99,7 @@ export default class SnippetService {
         // Object to be returned
         return {
             title: snippet.title,
-            language: snippet.language,
+            lang: snippet.lang,
             description: snippet.description,
             ownerInfo: {
                 avatar: owner.avatar,
@@ -121,7 +121,7 @@ export default class SnippetService {
 
         return {
             title: snippet.title,
-            language: snippet.language,
+            lang: snippet.lang,
             description: snippet.description,
             visibility: snippet.visibility,
             snippetContent: {
@@ -139,7 +139,7 @@ export default class SnippetService {
             await snippet.update({
                 title: newData.title,
                 description: newData.description,
-                language: newData.language,
+                lang: newData.lang,
                 visibility: newData.visibility,
             }, { transaction: transaction });
 
@@ -155,7 +155,7 @@ export default class SnippetService {
             // Return udpated data
             // return {
             //     title: snippet.title,
-            //     language: snippet.language,
+            //     lang: snippet.lang,
             //     description: snippet.description,
             //     visibility: snippet.visibility,
             //     snippetContent: {

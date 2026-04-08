@@ -1,35 +1,70 @@
+import { visibilityMapping } from "@/lib/visibility";
 import { ChevronDown, type LucideIcon } from "lucide-react";
+import type { FieldError, FieldValues, Path, UseFormRegister } from "react-hook-form";
 
-type InputSelectGroupType = {
+type InputSelectGroupType<T extends FieldValues> = {
     label: string;
-    name: string;
+    name: Path<T>;
     icon?: LucideIcon;
     placeholder?: string;
     options: string[];
+    register: UseFormRegister<T>;
+    error?: FieldError;
 };
 
-const InputSelectGroup = (props: InputSelectGroupType) => {
+const InputSelectGroup = <T extends FieldValues>({
+    label,
+    name,
+    icon: Icon,
+    placeholder,
+    options,
+    register,
+    error
+}: InputSelectGroupType<T>) => {
     return (
-        <div className="input-group" key={props.name}>
+        <div className="input-group" key={name}>
             <div className="input-group--label">
-                {props.icon && <props.icon />}
-                <label htmlFor={props.name}>
-                    {props.label}
-                </label>
+                {Icon && <Icon />}
+                <label htmlFor={name}>{label}</label>
             </div>
+
             <div className="input-group--select-wrapper">
-                <select name={props.name} required defaultValue="">
-                    <option value="" disabled>{props.placeholder}</option>
-                    {props.options.map((option) => (
-                        <option value={option} key={option}>
-                            {option}
-                        </option>
-                    ))}
+                <select
+                    id={name}
+                    {...register(name)}
+                >
+                    <option value="" disabled>{placeholder}</option>
+                    {options.map((option) => {
+                        let displayLabel = option;
+                        let technicalValue = option;
+
+                        if (visibilityMapping[option as keyof typeof visibilityMapping]) {
+                            displayLabel = visibilityMapping[option as keyof typeof visibilityMapping];
+                            technicalValue = option; 
+                        } 
+                        
+                        else {
+                            displayLabel = option;
+                            technicalValue = option.replace(/^[^\w\s]*\s*/, '').trim();
+                        }
+
+                        return (
+                            <option value={technicalValue} key={option}>
+                                {displayLabel}
+                            </option>
+                        );
+                    })}
                 </select>
                 <ChevronDown className="input-group--select-arrow" />
             </div>
+
+            {error && (
+                <span className="input-group--error-msg">
+                    {error.message}
+                </span>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export { InputSelectGroup };
