@@ -1,4 +1,5 @@
 import { Braces, Globe, NotepadText, type LucideIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // Styles
 import "@/assets/css/components/Forms.css";
@@ -7,7 +8,9 @@ import "@/assets/css/components/Forms.css";
 // import { InputTextGroup } from "@/components/app/atoms/InputTextGroup";
 import { InputSelectGroup } from '../atoms/InputSelectGroup';
 import { InputTextAreaGroup } from '../atoms/InputTextAreaGroup';
-import { Link } from 'react-router-dom';
+
+// Langs
+import { langOptions } from '@/lib/langs';
 
 type NewSnippetFormType = {
     title: string;
@@ -15,38 +18,6 @@ type NewSnippetFormType = {
     icon: LucideIcon;
 };
 
-const langOptions = [
-    "🐍 Python",
-    "🟨 JavaScript",
-    "🔷 TypeScript",
-    "☕ Java",
-    "⚙️ C",
-    "⚡ C++",
-    "🟣 C#",
-    "🐹 Go",
-    "🦀 Rust",
-    "💎 Ruby",
-    "🐘 PHP",
-    "🍎 Swift",
-    "🤖 Kotlin",
-    "🎯 Dart",
-    "📊 R",
-    "🔴 Scala",
-    "🐪 Perl",
-    "λ Haskell",
-    "🌙 Lua",
-    "🖥️ Shell / Bash",
-    "💙 PowerShell",
-    "🗄️ SQL",
-    "🌐 HTML",
-    "🎨 CSS",
-    "💅 SASS / SCSS",
-    "◈ GraphQL",
-    "📄 YAML",
-    "📦 JSON",
-    "📰 XML",
-    "❓ Not Listed",
-];
 const visibilityOptions = [
     "🌐 Public (Anyone can see this snippet)",
     "🔒 Private (Only you can see this snippet)",

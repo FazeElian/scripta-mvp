@@ -1,6 +1,9 @@
 import { Dot, Ellipsis, Globe, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 
+// Langs
+import { langsColors } from "@/lib/langs";
+
 type SnippetCardType = {
     title: string;
     description: string;
@@ -8,18 +11,6 @@ type SnippetCardType = {
     updatedAt: string;
     visibility: string;
 }
-
-const langColors: Record<string, string> = {
-    Python: "btm-snippet-card-left--lang--purple",
-    "C#": "btm-snippet-card-left--lang--purple",
-    Javascript: "btm-snippet-card-left--lang--yellow",
-    Typescript: "btm-snippet-card-left--lang--blue",
-    SQL: "btm-snippet-card-left--lang--sky-blue",
-    Java: "btm-snippet-card-left--lang--orange",
-    "C++": "btm-snippet-card-left--lang--red",
-    CSS: "btm-snippet-card-left--lang--pink",
-    SASS: "btm-snippet-card-left--lang--pink",
-};
 
 const SnippetCard = (props : SnippetCardType) => {
     const handleDetail = (e: React.MouseEvent) => {
@@ -42,7 +33,7 @@ const SnippetCard = (props : SnippetCardType) => {
             <div className="btm-snippet-card">
                 <div className="btm-snippet-card-left">
                     <span className={`
-                        btm-snippet-card-left--lang ${langColors[props.lang] ??
+                        btm-snippet-card-left--lang ${langsColors[props.lang] ??
                         "btm-snippet-card-left--lang--default"}`}
                     >
                         {props.lang}

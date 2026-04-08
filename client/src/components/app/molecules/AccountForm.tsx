@@ -4,19 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type z from "zod";
 import {
     Terminal,
-    Braces,
-    Cpu,
-    Hash,
-    Bug,
-    Binary,
-    type LucideIcon,
     Save,
     Link,
     User,
     Mail,
     Contact,
-    Code,
-    GitGraph,
     Loader,
 } from "lucide-react";
 
@@ -34,28 +26,13 @@ import { updateProfileSchema } from "@/schemas/user.schema";
 import { useUpdateProfileMutation } from "@/services/users/mutations";
 
 // Avatar config
-type AvatarConfig = {
-    icon: LucideIcon;
-    className: string;
-}
-type AvatarId = "Terminal" | "Braces" | "Cpu" | "Code" | "Hash" | "Bug" | "Binary" | "GitGraph";
-
-const avatarConfig: Record<string, AvatarConfig> = {
-    Terminal: { icon: Terminal, className: "avatar--yellow" },
-    Braces:   { icon: Braces,   className: "avatar--pink" },
-    Cpu:      { icon: Cpu,      className: "avatar--purple" },
-    Code:     { icon: Code,     className: "avatar--blue" },
-    Hash:     { icon: Hash,     className: "avatar--sky-blue" },
-    Bug:      { icon: Bug,      className: "avatar--seagreen" },
-    Binary:   { icon: Binary,   className: "avatar--orange" },
-    GitGraph: { icon: GitGraph, className: "avatar--red" },
-};
+import { type AvatarId, avatars } from "@/lib/avatars";
 
 const AccountForm = () => {
     const { user } = useUser();
     const defaultAvatar = (user?.avatar as AvatarId) ?? "Terminal";
     const [selectedAvatar, setSelectedAvatar] = useState(defaultAvatar);
-    const CurrentIcon = avatarConfig[selectedAvatar].icon ?? Terminal;
+    const CurrentIcon = avatars[selectedAvatar].icon ?? Terminal;
     
     type UpdateProfileForm = z.infer<typeof updateProfileSchema>;
     const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<UpdateProfileForm>({
@@ -97,19 +74,19 @@ const AccountForm = () => {
                 </div>
                 <div className="account-avatars">
                     <div className="account-avatar-current-wrapper">
-                        <div className={`account-avatar-item account-avatar-current btm-snippet-card-author--avatar ${avatarConfig[selectedAvatar].className}`}>
+                        <div className={`account-avatar-item account-avatar-current btm-snippet-card-author--avatar ${avatars[selectedAvatar].className}`}>
                             <CurrentIcon size={30} />
                         </div>
                         <span>Current Avatar</span>
                     </div>
                     <div className="account-avatars-list">
-                        {Object.keys(avatarConfig).map(id => {
-                            const Icon = avatarConfig[id].icon;
+                        {Object.keys(avatars).map(id => {
+                            const Icon = avatars[id].icon;
                             return (
                                 <button
                                     key={id}
                                     type="button"
-                                    className={`account-avatar-item btm-snippet-card-author--avatar ${avatarConfig[id].className} ${selectedAvatar === id ? "account-avatar-active" : ""}`}
+                                    className={`account-avatar-item btm-snippet-card-author--avatar ${avatars[id].className} ${selectedAvatar === id ? "account-avatar-active" : ""}`}
                                     onClick={() => {
                                         setSelectedAvatar(id as AvatarId);
                                         setValue("avatar", id as AvatarId);
