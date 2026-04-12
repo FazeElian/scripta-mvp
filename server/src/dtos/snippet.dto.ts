@@ -17,6 +17,14 @@ export interface AllSnippetsResponse {
     updatedAt: Date;
 };
 
+export interface PublicSnippet {
+    id: string;
+    title: string;
+    description: string;
+    lang: string;
+    updatedAt: Date;
+};
+
 export interface GetSnippetByIdResponse {
     title: string;
     description: string;

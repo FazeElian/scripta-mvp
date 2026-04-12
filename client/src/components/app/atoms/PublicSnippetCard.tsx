@@ -4,16 +4,19 @@ import { Link } from "react-router-dom";
 // Langs
 import { langsColors } from "@/lib/langs";
 
-type PublicSnippetCardType = {
-    title: string;
-    description: string;
-    lang: string;
-    updatedAt: string;
-}
+// Type
+import type { PublicSnippet } from "@/types/snippets.type";
 
-const PublicSnippetCard = (props : PublicSnippetCardType) => {
+// Utils
+import { formatSnippetDate } from "@/utils/formatSnippetDate";
+
+const PublicSnippetCard = (props : PublicSnippet) => {
     return (
-        <Link to={`/snippets/editor/${props.title}`} className="snippet-card">
+        <Link
+            to={`/snippets/editor/${props.title}`}
+            className="snippet-card"
+            key={props.id}
+        >
             <div className="top-snippet-card">
                 <div className="top-head-snippet-card">
                     <h1>{props.title}</h1>
@@ -29,7 +32,7 @@ const PublicSnippetCard = (props : PublicSnippetCardType) => {
                         {props.lang}
                     </span>
                     <Dot />
-                    {props.updatedAt}
+                    {formatSnippetDate(props.updatedAt)}
                 </div>
             </div>
         </Link>

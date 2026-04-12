@@ -2,8 +2,9 @@ import { Op } from 'sequelize';
 import bcrypt from "bcrypt";
 import { ConflictError, NotFoundError, UnauthorizedError } from '../utils/handleError';
 
-// Model
+// Models
 import User from "../models/User";
+import Snippet from '../models/Snippet';
 
 // DTO'S
 import {
@@ -17,6 +18,9 @@ import {
 
 // Utils
 import { generateToken } from '../utils/jwt';
+
+// Types
+import { PublicSnippet } from '../dtos/snippet.dto';
 
 export default class UserService {
     // Function to create account
@@ -89,6 +93,22 @@ export default class UserService {
 
         // Not found
         if (!user) throw new NotFoundError("User not found");
+    
+        // Search public snippets
+        const snippets = await Snippet.findAll({
+            where: {
+                userId: user.id,
+                visibility: "public"
+            }
+        });
+        const publicSnippets: PublicSnippet[] = snippets.map((snippet) => ({
+            id: snippet.id,
+            title: snippet.title,
+            description: snippet.description,
+            lang: snippet.lang,
+            updatedAt: snippet.updatedAt
+        }));
+    
 
         // Found
         return {
@@ -98,7 +118,8 @@ export default class UserService {
             website: user.website,
             githubUser: user.githubUser,
             memberSince: user.createdAt,
-            avatar: user.avatar
+            avatar: user.avatar,
+            snippets: publicSnippets
         };
     };
 

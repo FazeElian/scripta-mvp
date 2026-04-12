@@ -99,7 +99,7 @@ const ProfileView = () => {
                 }
             </div>
 
-            <PublicSnippetsGallery snippets={[]} />
+            <PublicSnippetsGallery snippets={data.snippets} />
         </main>
     )
 }

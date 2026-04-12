@@ -1,3 +1,5 @@
+import { PublicSnippet } from "./snippet.dto";
+
 // Request Dto's
 export interface RegisterUserRequest {
     email: string;
@@ -49,6 +51,7 @@ export interface UserProfileResponse {
     githubUser?: string;
     memberSince: Date;
     avatar: string;
+    snippets: PublicSnippet[]
 };
 
 // Info returned after the profile is updated by the user

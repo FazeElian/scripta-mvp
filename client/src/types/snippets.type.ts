@@ -10,4 +10,12 @@ export interface SnippetByOwner {
     updatedAt: Date;
 };
 
+export interface PublicSnippet {
+    id: string;
+    title: string;
+    description: string;
+    lang: string;
+    updatedAt: Date;
+};
+
 export type NewSnippet = z.infer<typeof createSnippetSchema>;
