@@ -35,6 +35,7 @@ export default class SnippetService {
             await transaction.commit();
             return `Snippet created: ${data.title}`;
         } catch (error) {
+            console.log(error)
             await transaction.rollback(); // if something fails, all is discarded
             throw new Error("An error has ocurred: Could not create snippet");
         }
@@ -58,7 +59,7 @@ export default class SnippetService {
             description: snippet.description,
             lang: snippet.lang,
             visibility: snippet.visibility,
-            createdAt: snippet.createdAt,
+            updatedAt: snippet.updatedAt,
             user: (snippet as any).user?.fullName || "Unknown",
             type: "snippet"
         }));
@@ -67,7 +68,7 @@ export default class SnippetService {
     async getAllByOwner(userId: string) : Promise<AllSnippetsResponse[]> {
         const snippets = await Snippet.findAll({ 
             where: { userId: userId },
-            order: [["createdAt", "DESC"]]
+            order: [["updatedAt", "DESC"]]
         });
 
         if(!snippets || snippets.length === 0) return null;
@@ -78,7 +79,7 @@ export default class SnippetService {
             description: snippet.description,
             lang: snippet.lang,
             visibility: snippet.visibility,
-            createdAt: snippet.createdAt,
+            updatedAt: snippet.updatedAt,
         }));
     };
 

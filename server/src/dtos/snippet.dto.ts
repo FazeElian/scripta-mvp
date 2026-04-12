@@ -14,7 +14,7 @@ export interface AllSnippetsResponse {
     description: string;
     lang: string;
     visibility: string;
-    createdAt: Date;
+    updatedAt: Date;
 };
 
 export interface GetSnippetByIdResponse {

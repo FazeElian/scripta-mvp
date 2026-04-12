@@ -96,8 +96,14 @@
 
                 .txt-user-side-bar h2 {
                     font-size: 13px;
+                    width: 95%;
                     font-weight: 400;
                     color: var(--gray-secondary);
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;  
+                    overflow: hidden;
+                    word-break: break-word;
                 }
             
             .user-side-bar a {

@@ -1,75 +1,39 @@
+import { Link } from "react-router-dom";
+import { FileCode } from 'lucide-react';
+
 // Styles
 import "@/assets/css/components/SnippetsGallery.css";
 
 // Sub component
 import { SnippetCard } from "../atoms/SnippetCard";
-
-const snippets = [
-    {
-        title: "🐍 Binary Search",
-        description: "Classic divide-and-conquer search algorithm",
-        visibility: "Public",
-        lang: "Python",
-        updatedAt: "2026-01-15"
-    },
-    {
-        title: "⚡ React useEffect Hook",
-        description: "Side effect management in React components",
-        visibility: "Private",
-        lang: "Javascript",
-        updatedAt: "2026-01-15"
-    },
-    {
-        title: "🗂️ SQL Joins Cheatsheet",
-        description: "Visual guide to INNER, LEFT, RIGHT, FULL joins",
-        visibility: "Public",
-        lang: "SQL",
-        updatedAt: "2026-01-15"
-    },
-    {
-        title: "🐹 Merge Sort Implementation",
-        description: "Efficient O(n log n) sorting algorithm",
-        visibility: "Public",
-        lang: "Java",
-        updatedAt: "2026-01-15"
-    },
-    {
-        title: "🎨 CSS Grid Layout",
-        description: "Modern two-dimensional layout system",
-        visibility: "Public",
-        lang: "CSS",
-        updatedAt: "2026-01-15"
-    },
-    {
-        title: "⚙️ Linked List",
-        description: "Dynamic data structure with pointer-based nodes",
-        visibility: "Private",
-        lang: "C++",
-        updatedAt: "2026-01-15"
-    },
-    {
-        title: "🐍 Graph BFS",
-        description: "Breadth-first search for graph traversal",
-        visibility: "Public",
-        lang: "Python",
-        updatedAt: "2026-01-15"
-    },
-    {
-        title: "💎 Quick Sort",
-        description: "Partition-based efficient sorting",
-        visibility: "Private",
-        lang: "Typescript",
-        updatedAt: "2026-01-15"
-    },
-];
+import { useGetAllSnippetsByOwner } from "@/services/snippets/queries";
 
 const SnippetsGallery = () => {
+    const { data: snippets, isError, error } = useGetAllSnippetsByOwner()
+
+    if(isError) return null;
     return (
-        <section className="snippets-gallery">
-            {snippets.map((item) => (
-                <SnippetCard key={item.title} {...item} />
-            ))}
-        </section>
+        <>
+            {snippets && snippets.length > 0 ? (
+                <section className="snippets-gallery">
+                    {snippets.map((item) => (
+                        <SnippetCard key={item.id || item.title} {...item} />
+                    ))}
+                </section>
+            ) : isError ? (
+                <div>
+                    {error}
+                </div>
+            ) : (
+                <div className="no-snippets">
+                    <FileCode />
+                    <div className="no-snippets-txt">
+                        You haven't created your first snippet.
+                        <Link to="/snippets/new">Create Snippet</Link>
+                    </div>
+                </div>
+            )}
+        </>
     )
 }
 

@@ -16,6 +16,7 @@ export class SnippetController {
             const result = await snippetService.create(req.body, userId);
             res.status(201).json(result);
         } catch (error) {
+            console.log(error)
             handleError(error, res, next);
         }
     };

@@ -30,7 +30,7 @@ class Snippet extends Model {
     @Column(DataType.STRING(50))
     declare title: string;
 
-    @Column(DataType.STRING(100))
+    @Column(DataType.TEXT)
     declare description: string;
 
     @AllowNull(false)
@@ -41,7 +41,7 @@ class Snippet extends Model {
     @Column(DataType.BOOLEAN)
     declare isTemplate: boolean;
 
-    @Column(DataType.ENUM("public", "private", "not-listed"))
+    @Column(DataType.ENUM("public", "private", "unListed"))
     declare visibility: string;
 
     // User relation

@@ -242,6 +242,51 @@ textarea:focus {
         stroke-width: 2.5;
     }
 
+.no-snippets {
+    display: grid;
+    width: 100%;
+    height: auto;
+    padding: 2.5rem 1rem 2.5rem;
+    place-items: center;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--gray-secondary);
+    font-weight: 500;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--gray-main);
+    margin-top: 1rem;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 5px;
+}
+
+    .no-snippets svg {
+        width: 60px;
+        height: 60px;
+        stroke-width: 1.5;
+        color: var(--green-main);
+    }
+
+    .no-snippets-txt {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 8px;
+    }
+    
+    .no-snippets a {
+        color: var(--green-main);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+        .no-snippets a:hover {
+            text-decoration: underline;
+        }
+
 /* Responsive 1440px */
 @media(max-width: 1440px) {
     .app-content {

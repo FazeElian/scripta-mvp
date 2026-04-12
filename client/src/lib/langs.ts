@@ -48,8 +48,8 @@ export const langOptions = [
 export const langsColors: Record<string, string> = {
     Python: "btm-snippet-card-left--lang--purple",
     "C#": "btm-snippet-card-left--lang--purple",
-    Javascript: "btm-snippet-card-left--lang--yellow",
-    Typescript: "btm-snippet-card-left--lang--blue",
+    JavaScript: "btm-snippet-card-left--lang--yellow",
+    TypeScript: "btm-snippet-card-left--lang--blue",
     SQL: "btm-snippet-card-left--lang--sky-blue",
     Java: "btm-snippet-card-left--lang--orange",
     "C++": "btm-snippet-card-left--lang--red",

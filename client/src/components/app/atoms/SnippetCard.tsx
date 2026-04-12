@@ -1,14 +1,17 @@
-import { Dot, Ellipsis, Globe, Lock } from "lucide-react";
+import { Dot, Ellipsis, Globe, Lock, Link as LinkIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Langs
 import { langsColors } from "@/lib/langs";
 
+// Utils
+import { formatSnippetDate } from "@/utils/formatSnippetDate";
+
 type SnippetCardType = {
     title: string;
     description: string;
     lang: string;
-    updatedAt: string;
+    updatedAt: Date;
     visibility: string;
 }
 
@@ -39,11 +42,11 @@ const SnippetCard = (props : SnippetCardType) => {
                         {props.lang}
                     </span>
                     <Dot />
-                    {props.updatedAt}
+                    {formatSnippetDate(props.updatedAt)}
                 </div>
                 <div className="btm-snippet-card-visibility">
-                    {props.visibility === "Public" ? <Globe /> : <Lock />}
-                    {props.visibility}
+                    {props.visibility === "Public" ? <Globe /> : props.visibility === "unListed" ? <LinkIcon /> : <Lock />}
+                    {props.visibility.charAt(0).toUpperCase() + props.visibility.slice(1)}
                 </div>
             </div>
         </Link>

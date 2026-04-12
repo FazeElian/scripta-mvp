@@ -22,6 +22,6 @@ export const createSnippetSchema = z.object({
         .min(1, "Please select a language"),
 
     visibility: z
-        .enum(["public", "private", "notListed"], "Please select a valid visibility option")
+        .enum(["public", "private", "unListed"], "Please select a valid visibility option")
         .default("private"),
 });
