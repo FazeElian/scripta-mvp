@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FileCode } from 'lucide-react';
+import { FilePlus } from 'lucide-react';
 
 // Styles
 import "@/assets/css/components/SnippetsGallery.css";
@@ -26,10 +26,10 @@ const SnippetsGallery = () => {
                 </div>
             ) : (
                 <div className="no-snippets">
-                    <FileCode />
+                    <FilePlus />
                     <div className="no-snippets-txt">
                         You haven't created your first snippet.
-                        <Link to="/snippets/new">Create Snippet</Link>
+                        <Link to="/app/snippets/new">Create Snippet</Link>
                     </div>
                 </div>
             )}

@@ -29,3 +29,15 @@ export async function newSnippet(snippetData: NewSnippet) {
         throw new Error(`Unexpected error: ${error}`);
     }
 }
+
+export async function deleteSnippet(id: string) {
+    try {
+        const { data } = await api.delete(`/snippets/${id}`);
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+        throw new Error(`Unexpected error: ${error}`);
+    }
+}

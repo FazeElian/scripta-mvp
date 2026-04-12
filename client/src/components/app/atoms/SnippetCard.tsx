@@ -7,6 +7,8 @@ import { langsColors } from "@/lib/langs";
 
 // Utils
 import { formatSnippetDate } from "@/utils/formatSnippetDate";
+import { useDeleteSnippetMutation } from "@/services/snippets/mutations";
+import { toast } from "sonner";
 
 type SnippetCardType = {
     id: string;
@@ -45,11 +47,39 @@ const SnippetCard = (props : SnippetCardType) => {
         alert(`You pressed the button to edit the snippet with the id: ${id}`)
     }
 
+    const deleteMutation = useDeleteSnippetMutation();
+
     const handleDelete = (id: string, e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        alert(`You pressed the button to delete the snippet with the id: ${id}`)
-    }
+
+        toast.warning(`¿Are you sure you want to delete this snippet: "${props.title}"?`, {
+            action: (
+                <button
+                    onClick={() => {
+                        toast.dismiss();
+
+                        const loadingToast = toast.loading("Deleting snippet...", {
+                            style: { color: "--var(--gray-secondary)" }
+                        });
+                        deleteMutation.mutate(id, {
+                            onSuccess: () => {
+                                toast.dismiss(loadingToast);
+                                toast.success("Snippet deleted successfully");
+                            },
+                            onError: () => {
+                                toast.dismiss(loadingToast);
+                                toast.error("Failed to delete snippet");
+                            },
+                        });
+                    }}
+                    className="btn-confirm-delete"
+                >
+                    Delete
+                </button>
+            ),
+        });
+    };
 
     return (
         <Link to={`/snippets/editor/${props.title}`} className="snippet-card">

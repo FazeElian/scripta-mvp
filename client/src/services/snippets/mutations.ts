@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { type NewSnippet } from "@/types/snippets.type";
 
 // API Calls
-import { newSnippet } from "./api";
+import { deleteSnippet, newSnippet } from "./api";
 
 export const useNewSnippetMutation = () => {
     // Query client
@@ -13,6 +13,27 @@ export const useNewSnippetMutation = () => {
 
     return useMutation({
         mutationFn: (data: NewSnippet) => newSnippet(data),
+        onSuccess: (response) => {
+            // Sucess toast
+            toast.success(response);
+
+            // Invalidate queries
+            queryClient.invalidateQueries({
+                queryKey: ["snippets"]
+            })
+        },
+        onError: (error: Error) => {
+            toast.error(error.message);
+        },
+    })
+}
+
+export const useDeleteSnippetMutation = () => {
+    // Query client
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: (id: string) => deleteSnippet(id),
         onSuccess: (response) => {
             // Sucess toast
             toast.success(response);

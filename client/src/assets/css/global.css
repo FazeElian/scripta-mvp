@@ -287,6 +287,22 @@ textarea:focus {
             text-decoration: underline;
         }
 
+.btn-confirm-delete {
+    display: flex;
+    background: var(--red-dark);
+    height: auto;
+    border: none;
+    color: var(--red-main);
+    cursor: pointer;
+    min-width: 80px;
+    font-weight: 600;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+}
+
 /* Responsive 1440px */
 @media(max-width: 1440px) {
     .app-content {
