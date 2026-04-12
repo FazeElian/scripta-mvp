@@ -189,6 +189,60 @@
                     height: 15px;
                 }
 
+    .snippet-options {
+        display: flex;
+        position: absolute;
+        right: 1.5rem;
+        top: 3rem;
+        width: auto;
+        height: auto;
+        background-color: var(--bg-secondary);
+        border: 1px solid var(--gray-main);
+        padding: 8px;
+        border-radius: 5px;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+        .snippet-options button {
+            display: flex;
+            width: auto;
+            height: auto;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            padding: 3px 10px 3px;
+            font-weight: 500;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background 0.2s;
+            gap: 4px;
+        }
+
+            .snippet-options svg {
+                width: 15px;
+                height: 15px;
+                stroke-width: 2.2;
+            }
+
+            .btn-edit-snippet-options {
+                background: transparent;
+            }
+                
+            .btn-edit-snippet-options:hover {
+                background-color: var(--green-main);
+                transition: .15s ease-in;
+                color: var(--bg-main);
+            }
+
+            .btn-delete-snippet-options {
+                background-color: var(--red-dark);
+                transition: .15s ease-in;
+                color: var(--red-main) !important;
+            }
+
 /* Responsive 1600px */
 @media (max-width: 1600px) {
     .snippets-gallery {

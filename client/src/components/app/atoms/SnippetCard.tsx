@@ -1,4 +1,5 @@
-import { Dot, Ellipsis, Globe, Lock, Link as LinkIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Dot, Ellipsis, Globe, Lock, Link as LinkIcon, Pencil, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Langs
@@ -8,6 +9,7 @@ import { langsColors } from "@/lib/langs";
 import { formatSnippetDate } from "@/utils/formatSnippetDate";
 
 type SnippetCardType = {
+    id: string;
     title: string;
     description: string;
     lang: string;
@@ -16,11 +18,38 @@ type SnippetCardType = {
 }
 
 const SnippetCard = (props : SnippetCardType) => {
+    const [snippetOptions, setSnippetOptions] = useState(false);
+    const optionsRef = useRef<HTMLDivElement>(null);
     const handleDetail = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        alert("Snippet detail button pressed")
+        setSnippetOptions(prev => !prev);
     };
+
+    useEffect(() => {
+        if (!snippetOptions) return;
+
+        const handleClickOutside = (e: MouseEvent) => {
+            if (optionsRef.current && !optionsRef.current.contains(e.target as Node)) {
+                setSnippetOptions(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [snippetOptions]);
+
+    const handleEdit = (id: string, e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        alert(`You pressed the button to edit the snippet with the id: ${id}`)
+    }
+
+    const handleDelete = (id: string, e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        alert(`You pressed the button to delete the snippet with the id: ${id}`)
+    }
 
     return (
         <Link to={`/snippets/editor/${props.title}`} className="snippet-card">
@@ -33,6 +62,26 @@ const SnippetCard = (props : SnippetCardType) => {
                 </div>
                 <p>{props.description}</p>
             </div>
+            {snippetOptions && (
+                <div className="snippet-options" ref={optionsRef}>
+                    <button
+                        type="button"
+                        className="btn-edit-snippet-options"
+                        onClick={(e) => handleEdit(props.id, e)}
+                    >
+                        <Pencil />
+                        Edit
+                    </button>
+                    <button
+                        type="button"
+                        className="btn-delete-snippet-options"
+                        onClick={(e) => handleDelete(props.id, e)}
+                    >
+                        <Trash />
+                        Delete
+                    </button>
+                </div>
+            )}
             <div className="btm-snippet-card">
                 <div className="btm-snippet-card-left">
                     <span className={`
