@@ -63,9 +63,9 @@ const SnippetCard = (props : SnippetCardType) => {
                             style: { color: "--var(--gray-secondary)" }
                         });
                         deleteMutation.mutate(id, {
-                            onSuccess: () => {
+                            onSuccess: (res) => {
                                 toast.dismiss(loadingToast);
-                                toast.success("Snippet deleted successfully");
+                                toast.success(res);
                             },
                             onError: () => {
                                 toast.dismiss(loadingToast);

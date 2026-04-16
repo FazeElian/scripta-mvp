@@ -34,10 +34,7 @@ export const useDeleteSnippetMutation = () => {
 
     return useMutation({
         mutationFn: (id: string) => deleteSnippet(id),
-        onSuccess: (response) => {
-            // Sucess toast
-            toast.success(response);
-
+        onSuccess: () => {
             // Invalidate queries
             queryClient.invalidateQueries({
                 queryKey: ["snippets"]
