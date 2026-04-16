@@ -24,10 +24,6 @@ import { registerSchema } from "@/schemas/user.schema";
 // Mutation
 import { useRegisterMutation } from "@/services/users/mutations";
 
-// Utils
-import { handleGoogleAuth } from "@/utils/handleGoogleAuth";
-import { handleGithubAuth } from "@/utils/handleGithubAuth";
-
 const RegisterView = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<RegisterUser>({
         resolver: zodResolver(registerSchema)
@@ -56,14 +52,14 @@ const RegisterView = () => {
                         <h1>Create An Account</h1>
                         <h2>Get started with Scripta today</h2>
                         <div className="btns-head-form-auth">
-                            <button type="button" onClick={handleGoogleAuth}>
+                            <Link to={`${import.meta.env.VITE_API_URL}/auth/google`}>
                                 <img src={Google} alt="Google" />
                                 Google
-                            </button>
-                            <button type="button" onClick={handleGithubAuth}>
+                            </Link>
+                            <Link to={`${import.meta.env.VITE_API_URL}/auth/github`}>
                                 <img src={Github} alt="Github" />
                                 Github
-                            </button>
+                            </Link>
                         </div>
                     </div>
                     <div className="auth-divider">

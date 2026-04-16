@@ -21,7 +21,7 @@ router.get("/auth/github/callback",
     passport.authenticate("github", { failureRedirect: `${process.env.VITE_URL}/login`, session: false }),
     (req: Request, res: Response) => {
         const token = generateOAuthToken(req.user as User);
-        res.redirect(`${process.env.VITE_URL}?token=${token}`);
+        res.redirect(`${process.env.VITE_URL}/auth/callback?token=${token}`);
     }
 );
 
