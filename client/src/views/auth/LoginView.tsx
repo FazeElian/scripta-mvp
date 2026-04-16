@@ -48,14 +48,14 @@ const LoginView = () => {
                         <h1>Welcome Back!</h1>
                         <h2>Sign in to your account to continue</h2>
                         <div className="btns-head-form-auth">
-                            <Link to={`${import.meta.env.VITE_API_URL}/auth/google`}>
+                            <a href={`${import.meta.env.VITE_API_URL}/auth/google`}>
                                 <img src={Google} alt="Google" />
                                 Google
-                            </Link>
-                            <Link to={`${import.meta.env.VITE_API_URL}/auth/github`}>
+                            </a>
+                            <a href={`${import.meta.env.VITE_API_URL}/auth/github`}>
                                 <img src={Github} alt="Github" />
                                 Github
-                            </Link>
+                            </a>
                         </div>
                     </div>
                     <div className="auth-divider">

@@ -52,14 +52,14 @@ const RegisterView = () => {
                         <h1>Create An Account</h1>
                         <h2>Get started with Scripta today</h2>
                         <div className="btns-head-form-auth">
-                            <Link to={`${import.meta.env.VITE_API_URL}/auth/google`}>
+                            <a href={`${import.meta.env.VITE_API_URL}/auth/google`}>
                                 <img src={Google} alt="Google" />
                                 Google
-                            </Link>
-                            <Link to={`${import.meta.env.VITE_API_URL}/auth/github`}>
+                            </a>
+                            <a href={`${import.meta.env.VITE_API_URL}/auth/github`}>
                                 <img src={Github} alt="Github" />
                                 Github
-                            </Link>
+                            </a>
                         </div>
                     </div>
                     <div className="auth-divider">
