@@ -48,10 +48,9 @@ app.use(passport.session());
 
 // Routes
 app.use("/api/v1",
+    authRouter,
     userRouter,
-    snippetRouter
+    snippetRouter,
 );
-
-app.use(authRouter);
 
 export default app
