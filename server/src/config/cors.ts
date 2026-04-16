@@ -4,6 +4,7 @@ export const CORSConfig : CorsOptions = {
     origin: function (origin, callback) {
         const whiteList = [
             process.env.VITE_URL,
+            "http://localhost",
             undefined, // allows redirection directly from the browser
         ];
 
