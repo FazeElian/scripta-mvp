@@ -5,6 +5,7 @@ import User from "../models/User";
 
 // DTO'S
 import {
+    AllSnippetsByOwnerResponse,
     AllSnippetsResponse,
     SnippetByIdByOwnerResponse,
     GetSnippetByIdResponse,
@@ -47,8 +48,9 @@ export default class SnippetService {
             include: [{
                 model: User,
                 as: 'user',
-                attributes: ['fullName']
-            }]
+                attributes: ['fullName', 'userName', 'avatar']
+            }],
+            where: { visibility: "public" }
         });
 
         if (!snippets || snippets.length === 0) return [];
@@ -58,14 +60,14 @@ export default class SnippetService {
             title: snippet.title,
             description: snippet.description,
             lang: snippet.lang,
-            visibility: snippet.visibility,
             updatedAt: snippet.updatedAt,
-            user: (snippet as any).user?.fullName || "Unknown",
-            type: "snippet"
+            ownerName: (snippet as any).user?.fullName || "Unknown",
+            ownerAvatar: (snippet as any).user?.avatar || "Terminal",
+            ownerUserName: (snippet as any).user?.userName || "Unknown",
         }));
     };
 
-    async getAllByOwner(userId: string) : Promise<AllSnippetsResponse[]> {
+    async getAllByOwner(userId: string) : Promise<AllSnippetsByOwnerResponse[]> {
         const snippets = await Snippet.findAll({ 
             where: { userId: userId },
             order: [["updatedAt", "DESC"]]

@@ -8,13 +8,24 @@ export interface NewSnippetRequest {
 };
 
 // Response Dto's
-export interface AllSnippetsResponse {
+export interface AllSnippetsByOwnerResponse {
     id: string;
     title: string;
     description: string;
     lang: string;
     visibility: string;
     updatedAt: Date;
+};
+
+export interface AllSnippetsResponse {
+    id: string;
+    title: string;
+    description: string;
+    lang: string;
+    updatedAt: Date;
+    ownerName: string;
+    ownerAvatar: string;
+    ownerUserName: string;
 };
 
 export interface PublicSnippet {

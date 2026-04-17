@@ -21,7 +21,7 @@ const SnippetsGallery = () => {
                     ))}
                 </section>
             ) : isError ? (
-                <div>
+                <div className="no-snippets">
                     {error}
                 </div>
             ) : (

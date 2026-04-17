@@ -1,28 +1,27 @@
 import {
-    Code,
     Dot,
-    Globe,
-    Lock
+    Terminal,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Avatars & langs colors
 import { avatars  } from "@/lib/avatars";
 import { langsColors } from "@/lib/langs";
+import { formatSnippetDate } from "@/utils/formatSnippetDate";
 
 type SnippetCardExploreType = {
+    id: string;
     title: string;
     description: string;
     lang: string;
-    updatedAt: string;
-    visibility: string;
-    authorName: string;
-    authorAvatar: string;
+    updatedAt: Date;
+    ownerName: string;
+    ownerAvatar: string;
+    ownerUserName: string;
 }
 
-
 const SnippetCardExplore = (props : SnippetCardExploreType) => {
-    const avatar = avatars[props.authorAvatar] ?? { icon: Code, className: "avatar--default" };
+    const avatar = avatars[props.ownerAvatar] ?? { icon: Terminal, className: "avatar--yellow" };
     const AvatarIcon = avatar.icon;
 
     return (
@@ -37,7 +36,7 @@ const SnippetCardExplore = (props : SnippetCardExploreType) => {
                 <div className={`btm-snippet-card-author--avatar ${avatar.className}`}>
                     <AvatarIcon />
                 </div>
-                <Link to="/app/profile/johndoe">{props.authorName}</Link>
+                <Link to={`/app/profile/${props.ownerUserName}`}>{props.ownerName}</Link>
             </div>
             <div className="btm-snippet-card">
                 <div className="btm-snippet-card-left">
@@ -48,11 +47,7 @@ const SnippetCardExplore = (props : SnippetCardExploreType) => {
                         {props.lang}
                     </span>
                     <Dot />
-                    {props.updatedAt}
-                </div>
-                <div className="btm-snippet-card-visibility">
-                    {props.visibility === "Public" ? <Globe /> : <Lock />}
-                    {props.visibility}
+                    {formatSnippetDate(props.updatedAt)}
                 </div>
             </div>
         </Link>
