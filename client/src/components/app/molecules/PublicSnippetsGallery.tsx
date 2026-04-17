@@ -7,10 +7,10 @@ import "@/assets/css/components/SnippetsGallery.css";
 import { PublicSnippetCard } from "../atoms/PublicSnippetCard";
 
 // Type
-import type { PublicSnippet } from "@/types/snippets.type";
+import type { AllSnippets } from "@/types/snippets.type";
 
 type PublicSnippetsGalleryType = {
-    snippets: PublicSnippet[]
+    snippets: AllSnippets[]
 }
 
 const PublicSnippetsGallery = ({ snippets } : PublicSnippetsGalleryType) => {

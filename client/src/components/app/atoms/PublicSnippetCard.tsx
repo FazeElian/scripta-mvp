@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 import { langsColors } from "@/lib/langs";
 
 // Type
-import type { PublicSnippet } from "@/types/snippets.type";
+import type { AllSnippets } from "@/types/snippets.type";
 
 // Utils
 import { formatSnippetDate } from "@/utils/formatSnippetDate";
 
-const PublicSnippetCard = (props : PublicSnippet) => {
+const PublicSnippetCard = (props : AllSnippets) => {
     return (
         <Link
             to={`/snippets/editor/${props.title}`}
