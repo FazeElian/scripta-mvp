@@ -154,6 +154,7 @@
         overflow: hidden;
         padding: 1rem;
         color: var(--seagreen-main);
+        flex-direction: column;
     }
 
 .code-editor-container {
