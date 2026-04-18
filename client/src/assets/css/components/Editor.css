@@ -1,0 +1,171 @@
+.top-bar--editor {
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding: 1rem 2rem 1rem;
+    background-color: var(--bg-secondary);
+    padding-left: 350px;
+    border-bottom: 1px solid var(--gray-main);
+    align-items: center;
+    justify-content: space-between;
+}
+
+.name-top-bar--editor {
+    display: flex;
+    width: 25%;
+    gap: 1rem;
+    align-items: center;
+}
+
+    .name-top-bar--editor a,
+    .name-top-bar--editor input,
+    .ops-top-bar--editor select,
+    .ops-top-bar--editor button {
+        color: var(--text-main);
+        font-size: 14px;
+    }
+
+    .name-top-bar--editor a svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .name-top-bar--editor input,
+    .ops-top-bar--editor select {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg-main);
+        padding: 10px 14px 10px;
+    }
+
+.ops-top-bar--editor {
+    display: flex;
+    width: auto;
+    height: 100%;
+}
+
+    .ops-top-bar--editor select {
+        width: auto;
+        margin-right: 14px;
+    }
+
+    .ops-top-bar--editor button {
+        display: flex;
+        width: auto;
+        height: auto;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        gap: 8px;
+        cursor: pointer;
+        margin: 0 12px 0;
+        background-color: var(--bg-secondary);
+    }
+
+        .ops-top-bar--editor button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+    .btn-run-code--editor {
+        background: var(--seagreen-main) !important;
+        padding: 0 1.5rem 0;
+        border-radius: 5px;
+        color: var(--bg-main) !important;
+        font-weight: 700;
+    }
+
+        .btn-run-code--editor svg {
+            stroke-width: 2.5;
+        }
+
+.editor-wrapper {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 74px);
+}
+
+.code-editor {
+    display: flex;
+    width: 65%;
+    height: auto;
+    padding-left: 315px;
+    flex-direction: column;
+}
+
+    .top-editor-titles {
+        display: flex;
+        width: 100%;
+        height: auto;
+    }
+
+        .top-editor-titles button {
+            cursor: pointer;
+            border: none;
+            border-right: 1px solid var(--gray-main);
+            text-align: center;
+            justify-content: center;
+        }
+
+        .top-editor-titles div {
+            justify-content: center;
+            text-align: center;
+        }
+
+    .top-editor--title {
+        display: flex;
+        width: 100%;
+        height: auto;
+        align-items: center;
+        padding: 10.5px 12px 10.5px;
+        color: var(--gray-secondary);
+        background-color: var(--bg-secondary);
+        border: 1px solid var(--gray-main);
+        border-top: none;
+        border-left: none;
+        font-size: 13.5px;
+        gap: 8px;
+    }
+
+        .top-editor-selected--title {
+            background-color: var(--seagreen-dark);
+            color: var(--text-main);
+        }
+
+        .top-editor--title svg {
+            width: 18px;
+            height: 18px;
+        }
+
+.editor-output-container {
+    display: flex;
+    width: 35%;
+    height: auto;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+    .output-result-container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        border: 1px solid var(--gray-main);
+        overflow: hidden;
+        padding: 1rem;
+        color: var(--seagreen-main);
+    }
+
+.code-editor-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.code-editor-container .cm-editor {
+    height: 100%;
+}
+
+.code-editor-container .cm-scroller {
+    font-family: "Fira Code", "Cascadia Code", monospace;
+}

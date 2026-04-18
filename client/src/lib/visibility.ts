@@ -3,3 +3,9 @@ export const visibilityMapping = {
     private: "🔒 Private (Only you can see this snippet)",
     unListed: "🔗 Unlisted (Only people with the link can see)",
 };
+
+export const editorVisibilityMapping = {
+    public: "🌐 Public",
+    private: "🔒 Private",
+    unListed: "🔗 Unlisted",
+};

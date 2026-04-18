@@ -15,6 +15,7 @@ import FilesView from "./views/app/FilesView";
 import AccountView from "./views/app/AccountView";
 import ExploreView from "./views/app/ExploreView";
 import NewSnippetView from "./views/app/snippets/NewSnippetView";
+import EditorView from "./views/app/EditorView";
 import ProfileView from "./views/app/ProfileView";
 import NotFoundView from "./views/NotFoundView";
 
@@ -42,6 +43,7 @@ export default function Router () {
           <Route path="account" element={<AccountView />} />
           <Route path="explore" element={<ExploreView />} />
           <Route path="snippets/new" element={<NewSnippetView />} />
+          <Route path="snippets/editor/:id" element={<EditorView />} />
           <Route path="profile/:userName" element={<ProfileView />} />
           <Route path="*" element={<AppNotFoundView />} />
         </Route>

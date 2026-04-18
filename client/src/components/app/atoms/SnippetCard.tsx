@@ -83,7 +83,7 @@ const SnippetCard = ({ id, title, description, lang, updatedAt, visibility, onEd
     };
 
     return (
-        <Link to={`/snippets/editor/${title}`} className="snippet-card">
+        <Link to={`/app/snippets/editor/${id}`} className="snippet-card">
             <div className="top-snippet-card">
                 <div className="top-head-snippet-card">
                     <h1>{title}</h1>
