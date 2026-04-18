@@ -67,8 +67,9 @@ export const runCode = async (code: string, lang: string): Promise<RunResult> =>
             isError,
         };
     } catch (error) {
+        const message = error instanceof Error ? error.message : "Unknown error";
         return {
-            output: [`Network error: ${error.message}`],
+            output: [`Network error: ${message}`],
             isError: true,
         };
     }
