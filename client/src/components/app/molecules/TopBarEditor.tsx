@@ -8,13 +8,22 @@ import { editorVisibilityMapping } from "@/lib/visibility";
 const visibilityOptions = Object.entries(editorVisibilityMapping);
 
 type TopBarEditorType = {
+    title: string;
+    onTitleChange: (val: string) => void;
+    visibility: string;
+    onVisibilityChange: (val: string) => void;
     lang: string;
     onLangChange: (lang: string) => void;
     onRun: () => void;
+    onSave: () => void;
     running: boolean;
 }
 
-const TopBarEditor = ({ lang, onLangChange, running, onRun } : TopBarEditorType) => {
+const TopBarEditor = ({ 
+    title, onTitleChange, 
+    visibility, onVisibilityChange, 
+    lang, onLangChange, 
+    running, onRun, onSave }: TopBarEditorType) => {
     return (
         <div className="top-bar--editor">
             <div className="name-top-bar--editor">
@@ -24,7 +33,8 @@ const TopBarEditor = ({ lang, onLangChange, running, onRun } : TopBarEditorType)
                 <input
                     type="text"
                     placeholder="Snippet name..."
-                    value="Binary Search"
+                    value={title}
+                    onChange={(e) => onTitleChange(e.target.value)}
                 />
             </div>
             <div className="ops-top-bar--editor">
@@ -33,18 +43,16 @@ const TopBarEditor = ({ lang, onLangChange, running, onRun } : TopBarEditorType)
                         <option key={l} value={l}>{l}</option>
                     ))}
                 </select>
-                <select>
+                <select value={visibility} onChange={(e) => onVisibilityChange(e.target.value)}>
                     {visibilityOptions.map(([key, label]) => (
-                        <option key={key} value={key}>
-                            {label}
-                        </option>
+                        <option key={key} value={key}>{label}</option>
                     ))}
                 </select>
                 <button type="button">
                     <Copy />
                     Copy code
                 </button>
-                <button type="button">
+                <button type="button" onClick={onSave}>
                     <Save />
                     Save
                 </button>

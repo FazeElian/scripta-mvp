@@ -13,13 +13,14 @@ import MarkdownComponents from "../atoms/MarkdownComponents";
 type OutputPanelType = {
     result: RunResult | null;
     running: boolean;
+    markdown: string;
+    onMarkdownChange: (val: string) => void;
 };
 
 type TabType = "console" | "docs" | "diagram";
 
-const OutputPanel = ({ result, running }: OutputPanelType) => {
+const OutputPanel = ({ result, running, markdown, onMarkdownChange }: OutputPanelType) => {
     const [selectedTab, setSelectedTab] = useState<TabType>("console");
-    const [markdown, setMarkdown] = useState("");
 
     const getButtonClass = (tab: TabType) =>
         `top-editor--title ${
@@ -86,7 +87,7 @@ const OutputPanel = ({ result, running }: OutputPanelType) => {
                         <div className="cont-editor-doc cont-editor-doc--code">
                             <textarea
                                 value={markdown}
-                                onChange={(e) => setMarkdown(e.target.value)}
+                                onChange={(e) => onMarkdownChange(e.target.value)}
                             />
                         </div>
                         <div className="cont-editor-doc">
