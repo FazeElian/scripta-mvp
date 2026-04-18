@@ -8,7 +8,7 @@ import rehypeRaw from "rehype-raw";
 import type { RunResult } from "@/lib/runCode";
 
 // markdown custom comps
-import { MarkdownComponents } from "../atoms/markdownComponents";
+import MarkdownComponents from "../atoms/MarkdownComponents";
 
 type OutputPanelType = {
     result: RunResult | null;

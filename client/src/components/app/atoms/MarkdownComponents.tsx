@@ -1,7 +1,6 @@
 import type { Components } from "react-markdown";
 
-export const MarkdownComponents: Components = {
-    // ... tus otros componentes se mantienen igual
+const MarkdownComponents: Components = {
     h1: (props) => <h1 className="md-h1" {...props} />,
     h2: (props) => <h2 className="md-h2" {...props} />,
     h3: (props) => <h3 className="md-h3" {...props} />,
@@ -32,3 +31,5 @@ export const MarkdownComponents: Components = {
         );
     }
 };
+
+export default MarkdownComponents;
