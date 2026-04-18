@@ -17,9 +17,10 @@ type SnippetCardType = {
     lang: string;
     updatedAt: Date;
     visibility: string;
+    onEdit: () => void;
 }
 
-const SnippetCard = (props : SnippetCardType) => {
+const SnippetCard = ({ id, title, description, lang, updatedAt, visibility, onEdit } : SnippetCardType) => {
     const [snippetOptions, setSnippetOptions] = useState(false);
     const optionsRef = useRef<HTMLDivElement>(null);
     const handleDetail = (e: React.MouseEvent) => {
@@ -41,10 +42,10 @@ const SnippetCard = (props : SnippetCardType) => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [snippetOptions]);
 
-    const handleEdit = (id: string, e: React.MouseEvent) => {
+    const handleEdit = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        alert(`You pressed the button to edit the snippet with the id: ${id}`)
+        onEdit()
     }
 
     const deleteMutation = useDeleteSnippetMutation();
@@ -53,7 +54,7 @@ const SnippetCard = (props : SnippetCardType) => {
         e.preventDefault();
         e.stopPropagation();
 
-        toast.warning(`¿Are you sure you want to delete this snippet: "${props.title}"?`, {
+        toast.warning(`¿Are you sure you want to delete this snippet: "${title}"?`, {
             action: (
                 <button
                     onClick={() => {
@@ -82,22 +83,22 @@ const SnippetCard = (props : SnippetCardType) => {
     };
 
     return (
-        <Link to={`/snippets/editor/${props.title}`} className="snippet-card">
+        <Link to={`/snippets/editor/${title}`} className="snippet-card">
             <div className="top-snippet-card">
                 <div className="top-head-snippet-card">
-                    <h1>{props.title}</h1>
+                    <h1>{title}</h1>
                     <button type="button" onClick={handleDetail}>
                         <Ellipsis />
                     </button>
                 </div>
-                <p>{props.description}</p>
+                <p>{description}</p>
             </div>
             {snippetOptions && (
                 <div className="snippet-options" ref={optionsRef}>
                     <button
                         type="button"
                         className="btn-edit-snippet-options"
-                        onClick={(e) => handleEdit(props.id, e)}
+                        onClick={(e) => handleEdit(e)}
                     >
                         <Pencil />
                         Edit
@@ -105,7 +106,7 @@ const SnippetCard = (props : SnippetCardType) => {
                     <button
                         type="button"
                         className="btn-delete-snippet-options"
-                        onClick={(e) => handleDelete(props.id, e)}
+                        onClick={(e) => handleDelete(id, e)}
                     >
                         <Trash />
                         Delete
@@ -115,17 +116,17 @@ const SnippetCard = (props : SnippetCardType) => {
             <div className="btm-snippet-card">
                 <div className="btm-snippet-card-left">
                     <span className={`
-                        btm-snippet-card-left--lang ${langsColors[props.lang] ??
+                        btm-snippet-card-left--lang ${langsColors[lang] ??
                         "btm-snippet-card-left--lang--default"}`}
                     >
-                        {props.lang}
+                        {lang}
                     </span>
                     <Dot />
-                    {formatSnippetDate(props.updatedAt)}
+                    {formatSnippetDate(updatedAt)}
                 </div>
                 <div className="btm-snippet-card-visibility">
-                    {props.visibility === "Public" ? <Globe /> : props.visibility === "unListed" ? <LinkIcon /> : <Lock />}
-                    {props.visibility.charAt(0).toUpperCase() + props.visibility.slice(1)}
+                    {visibility === "Public" ? <Globe /> : visibility === "unListed" ? <LinkIcon /> : <Lock />}
+                    {visibility.charAt(0).toUpperCase() + visibility.slice(1)}
                 </div>
             </div>
         </Link>

@@ -135,7 +135,27 @@ export default class SnippetService {
         };
     };
 
-    async updateById(snippet: Snippet, newData: SnippetByIdByOwnerResponse) : Promise<string> {
+    async updateById(snippet: Snippet, newData: Pick<SnippetByIdByOwnerResponse, "title" | "description" | "lang" | "visibility">) : Promise<any> {
+        const transaction = await db.transaction();
+
+        try {
+            await snippet.update({
+                title: newData.title,
+                description: newData.description,
+                lang: newData.lang,
+                visibility: newData.visibility,
+            }, { transaction });
+
+            await transaction.commit();
+            return "Snippet updated successfully"
+        } catch (error) {
+            await transaction.rollback();
+            console.error(error);
+            throw error;
+        }
+    };
+
+    async updateByIdOnEditor(snippet: Snippet, newData: SnippetByIdByOwnerResponse) : Promise<string> {
         const transaction = await db.transaction();
 
         try {
@@ -168,7 +188,7 @@ export default class SnippetService {
             //     }
             // };
 
-            return "Snippet updated successfully";
+            return "Changes were saved successfully";
         } catch (error) {
             await transaction.rollback(); // if something fails, all is discarded
             console.error(error); 

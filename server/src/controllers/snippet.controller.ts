@@ -58,7 +58,16 @@ export class SnippetController {
         }
     };
 
-    static updateById = async (req: Request, res: Response, next: NextFunction) => {
+    static updateByIdOnEditor = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const result = await snippetService.updateByIdOnEditor(req.snippet!, req.body);
+            res.status(200).json(result);
+        } catch (error) {
+            handleError(error, res, next);
+        }
+    };
+
+    static updateById= async (req: Request, res: Response, next: NextFunction) => {
         try {
             const result = await snippetService.updateById(req.snippet!, req.body);
             res.status(200).json(result);

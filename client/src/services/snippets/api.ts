@@ -6,7 +6,7 @@ import { api } from "../../config/axios";
 // Types
 import {
     type AllSnippets,
-    type NewSnippet,
+    type FormSnippet,
     type SnippetByOwner
 } from "@/types/snippets.type";
 
@@ -34,9 +34,21 @@ export async function getAllSnippets() {
     }
 }
 
-export async function newSnippet(snippetData: NewSnippet) {
+export async function newSnippet(snippetData: FormSnippet) {
     try {
         const { data } = await api.post("/snippets/create", snippetData);
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+        throw new Error(`Unexpected error: ${error}`);
+    }
+}
+
+export async function updateSnippet(id: string, snippetData: FormSnippet) {
+    try {
+        const { data } = await api.put(`/snippets/${id}`, snippetData);
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {

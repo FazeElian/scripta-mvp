@@ -16,10 +16,10 @@ import { langOptions } from '@/lib/langs';
 import { visibilityMapping } from '@/lib/visibility';
 
 // Validation schema
-import { createSnippetSchema } from '@/schemas/snippet.schema';
+import { formSnippetSchema } from '@/schemas/snippet.schema';
 
 // Form type
-import type { NewSnippet } from '@/types/snippets.type';
+import type { FormSnippet } from '@/types/snippets.type';
 
 // Mutation
 import { useNewSnippetMutation } from '@/services/snippets/mutations';
@@ -33,8 +33,8 @@ type NewSnippetFormType = {
 const visibilityOptions = Object.keys(visibilityMapping); // ["public", "private", "unListed"]
 
 const NewSnippetForm = ({ title, subtitle, icon: Icon } : NewSnippetFormType) => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<NewSnippet>({
-        resolver: zodResolver(createSnippetSchema),
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSnippet>({
+        resolver: zodResolver(formSnippetSchema),
         defaultValues: {
             title: "",
             description: "",
@@ -44,7 +44,7 @@ const NewSnippetForm = ({ title, subtitle, icon: Icon } : NewSnippetFormType) =>
     });
 
     const mutation = useNewSnippetMutation();
-    const onSubmit = (formData: NewSnippet) => {
+    const onSubmit = (formData: FormSnippet) => {
         mutation.mutate(formData, {
             onSuccess: () => {
                 reset()

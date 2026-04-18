@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const createSnippetSchema = z.object({
+export const formSnippetSchema = z.object({
     title: z
         .string("Title is required")
         .min(3, "Title must be at least 3 characters long")

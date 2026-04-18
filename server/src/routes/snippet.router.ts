@@ -51,6 +51,12 @@ router.get("/snippets/editor/:id",
 router.put("/snippets/editor/:id",
     authenticate,
     isSnippetOwner,
+    SnippetController.updateByIdOnEditor
+);
+
+router.put("/snippets/:id",
+    authenticate,
+    isSnippetOwner,
     SnippetController.updateById
 );
 

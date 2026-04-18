@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FilePlus } from 'lucide-react';
 
@@ -8,22 +9,40 @@ import "@/assets/css/components/SnippetsGallery.css";
 import { SnippetCard } from "../atoms/SnippetCard";
 import { useGetAllSnippetsByOwner } from "@/services/snippets/queries";
 
-const SnippetsGallery = () => {
-    const { data: snippets, isError, error } = useGetAllSnippetsByOwner()
+// Custom hook
+import { useHandleModalForm } from "@/hooks/useHandleModalForm";
+import { EditSnippetModalForm } from "./EditSnippetModalForm";
+import type { SnippetCardType } from "@/types/snippets.type";
 
-    if(isError) return null;
+const SnippetsGallery = () => {
+    const [activeSnippet, setActiveSnippet] = useState<Omit<SnippetCardType, "onEdit"> | null>(null);
+    const formRef = useRef<HTMLFormElement>(null);
+    const modalForm = activeSnippet ? `edit ${activeSnippet.id}` as `edit ${string}` : null;
+
+    useHandleModalForm({
+        modalForm,
+        setModalForm: (value) => {
+            if (!value) setActiveSnippet(null);
+        },
+        formRef
+    });
+
+    const { data: snippets, isError } = useGetAllSnippetsByOwner();
+
+    if (isError) return null;
+
     return (
         <>
             {snippets && snippets.length > 0 ? (
                 <section className="snippets-gallery">
                     {snippets.map((item) => (
-                        <SnippetCard key={item.id || item.title} {...item} />
+                        <SnippetCard
+                            key={item.id || item.title}
+                            {...item}
+                            onEdit={() => setActiveSnippet(item)}
+                        />
                     ))}
                 </section>
-            ) : isError ? (
-                <div className="no-snippets">
-                    {error}
-                </div>
             ) : (
                 <div className="no-snippets">
                     <FilePlus />
@@ -33,8 +52,16 @@ const SnippetsGallery = () => {
                     </div>
                 </div>
             )}
-        </>
-    )
-}
 
-export { SnippetsGallery }
+            {activeSnippet && (
+                <EditSnippetModalForm
+                    snippet={activeSnippet}
+                    formRef={formRef}
+                    onClose={() => setActiveSnippet(null)}
+                />
+            )}
+        </>
+    );
+};
+
+export { SnippetsGallery };

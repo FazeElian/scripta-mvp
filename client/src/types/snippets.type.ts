@@ -1,5 +1,5 @@
 import type z from "zod";
-import { createSnippetSchema } from "@/schemas/snippet.schema";
+import { formSnippetSchema } from "@/schemas/snippet.schema";
 
 export interface SnippetByOwner {
     id: string;
@@ -21,4 +21,20 @@ export interface AllSnippets {
     ownerUserName: string;
 };
 
-export type NewSnippet = z.infer<typeof createSnippetSchema>;
+export interface SnippetCardType {
+    id: string;
+    title: string;
+    description: string;
+    lang: string;
+    updatedAt: Date;
+    visibility: string;
+    onEdit: () => void;
+}
+
+export interface EditSnippetModal {
+    snippet: Omit<SnippetCardType, "onEdit">;
+    formRef: React.RefObject<HTMLFormElement | null>;
+    onClose: () => void;
+}
+
+export type FormSnippet = z.infer<typeof formSnippetSchema>;
