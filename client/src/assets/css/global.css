@@ -303,6 +303,138 @@ textarea:focus {
     border-radius: 5px;
 }
 
+pre {
+    all: unset;
+    background: var(--bg-secondary);
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+    border: 1px solid var(--gray-main);
+}
+
+code {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+}
+
+.cont-editor-doc-view {
+    padding: 20px;
+    overflow-y: auto;
+    height: 50%;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
+
+.placeholder-text {
+    color: var(--gray-secondary);
+    font-style: italic;
+}
+
+.md-h1 {
+    color: var(--text-main);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--gray-main);
+}
+
+.md-h3 {
+    color: var(--text-main);
+}
+
+.md-h3 {
+    color: var(--text-main);
+}
+
+.md-h2 {
+    color: var(--text-main);
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.md-p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.md-ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.md-li {
+    margin-bottom: 0.25rem;
+    color: var(--text-main)
+}
+
+.md-link {
+    color: var(--sky-blue-main);
+    text-decoration: underline;
+}
+
+.md-quote {
+    border-left: 4px solid var(--seagreen-main);
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    margin: 1rem 0;
+    color: var(--gray-secondary);
+}
+
+.md-hr {
+    border: 0;
+    border-top:
+    1px solid var(--gray-main);
+    margin: 2rem 0;
+}
+
+.md-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.md-th {
+    border-bottom: 2px solid var(--gray-main);
+    padding: 12px;
+    text-align: left;
+    color: var(--brand-primary);
+    font-weight: 700;
+}
+
+.md-td {
+    border-bottom: 1px solid var(--gray-main);
+    padding: 10px 12px;
+    color: var(--text-main);
+}
+
+.md-code-block-container {
+    background-color: #0a0a0a;
+    border: 1px solid var(--gray-main);
+    border-radius: var(--radius-md);
+    margin: 1.5rem 0;
+    overflow: hidden;
+}
+
+.md-code-block {
+    display: block;
+    padding: 1.5rem;
+    color: var(--seagreen-main);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+.md-code-inline {
+    background: var(--gray-main);
+    color: var(--yellow-main);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+}
+
 /* Responsive 1440px */
 @media(max-width: 1440px) {
     .app-content {

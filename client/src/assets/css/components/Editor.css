@@ -152,9 +152,12 @@
         height: 100%;
         border: 1px solid var(--gray-main);
         overflow: hidden;
-        padding: 1rem;
         color: var(--seagreen-main);
         flex-direction: column;
+    }
+
+    .cont-editor-console {
+        padding: 1rem;
     }
 
 .code-editor-container {
@@ -170,3 +173,37 @@
 .code-editor-container .cm-scroller {
     font-family: "Fira Code", "Cascadia Code", monospace;
 }
+
+.editor-doc {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    padding: 0;
+}
+
+    .cont-editor-doc--code {
+        border-bottom: 1px solid var(--gray-main);
+    }
+
+    .cont-editor-doc--code textarea {
+        display: flex;
+        min-width: 100%;
+        min-height: 100%;
+        outline: none;
+        background: transparent;
+        color: var(--gray-secondary);
+        border: none;
+        resize: none;
+        padding: 10px;
+    }
+    
+    .cont-editor-doc {
+        display: flex;
+        width: 100%;
+        height: 50%;
+        flex-direction: column;
+        border-bottom: 1px solid var(--gray-main);
+        padding: 10px;
+        overflow-y: scroll;
+    }
