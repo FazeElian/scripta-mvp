@@ -17,6 +17,11 @@ export interface AllSnippetsByOwnerResponse {
     updatedAt: Date;
 };
 
+export interface NewSnippetResponse {
+    id: string;
+    message: string;
+};
+
 export interface AllSnippetsResponse {
     id: string;
     title: string;

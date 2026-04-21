@@ -88,15 +88,23 @@ const Editor = ({ value, onChange, lang, theme = "dark", readOnly = false }: Edi
         };
     }, [lang, theme, readOnly]);
 
-    // Sincroniza valor externo sin recrear el editor
     useEffect(() => {
         const view = viewRef.current;
         if (!view) return;
 
         const current = view.state.doc.toString();
-        if (current !== value) {
+        
+        const normalizedValue = (value || "")
+            .replace(/\\n/g, '\n')
+            .replace(/\\"/g, '"'); 
+
+        if (current !== normalizedValue) {
             view.dispatch({
-                changes: { from: 0, to: current.length, insert: value },
+                changes: { 
+                    from: 0, 
+                    to: current.length, 
+                    insert: normalizedValue 
+                },
             });
         }
     }, [value]);

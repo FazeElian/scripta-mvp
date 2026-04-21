@@ -10,6 +10,31 @@ export interface SnippetByOwner {
     updatedAt: Date;
 };
 
+export interface SnippetByIdByOwner {
+    id: string;
+    title: string;
+    description?: string;
+    lang: string;
+    visibility: string;
+    snippetContent: {
+        code: string,
+        documentation: string,
+        diagramData: string,
+    }
+};
+
+export interface EditorSnippetForm {
+    title: string;
+    description?: string;
+    lang: string;
+    visibility: string;
+    snippetContent: {
+        code: string,
+        documentation: string,
+        diagramData: string,
+    }
+};
+
 export interface AllSnippets {
     id: string;
     title: string;

@@ -2,10 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 // Types
-import { type FormSnippet } from "@/types/snippets.type";
+import { type FormSnippet, type EditorSnippetForm } from "@/types/snippets.type";
 
 // API Calls
-import { deleteSnippet, newSnippet, updateSnippet } from "./api";
+import { deleteSnippet, newSnippet, updateByIdOnEditor, updateSnippet } from "./api";
 
 export const useNewSnippetMutation = () => {
     // Query client
@@ -15,7 +15,7 @@ export const useNewSnippetMutation = () => {
         mutationFn: (data: FormSnippet) => newSnippet(data),
         onSuccess: (response) => {
             // Sucess toast
-            toast.success(response);
+            toast.success(response.message);
 
             // Invalidate queries
             queryClient.invalidateQueries({
@@ -27,6 +27,7 @@ export const useNewSnippetMutation = () => {
         },
     })
 }
+
 export const useUpdateSnippetMutation = (id: string) => {
     // Query client
     const queryClient = useQueryClient()
@@ -41,6 +42,26 @@ export const useUpdateSnippetMutation = (id: string) => {
             queryClient.invalidateQueries({
                 queryKey: ["snippets"]
             })
+        },
+        onError: (error: Error) => {
+            toast.error(error.message);
+        },
+    })
+}
+
+export const useUpdateEditorSnippetMutation = (id: string) => {
+    // Query client
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: (data: EditorSnippetForm) => updateByIdOnEditor(id, data),
+        onSuccess: (response) => {
+            // Sucess toast
+            toast.success(response);
+
+            // Invalidate queries
+            queryClient.invalidateQueries({ queryKey: ["snippet-editor", id] });
+            queryClient.invalidateQueries({ queryKey: ["snippets"] });
         },
         onError: (error: Error) => {
             toast.error(error.message);

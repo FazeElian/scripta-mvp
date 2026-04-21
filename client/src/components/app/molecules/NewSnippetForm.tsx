@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BookText, Braces, Globe, NotepadText, type LucideIcon } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Styles
 import "@/assets/css/components/Forms.css";
@@ -33,7 +33,7 @@ type NewSnippetFormType = {
 const visibilityOptions = Object.keys(visibilityMapping); // ["public", "private", "unListed"]
 
 const NewSnippetForm = ({ title, subtitle, icon: Icon } : NewSnippetFormType) => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSnippet>({
+    const { register, handleSubmit, formState: { errors } } = useForm<FormSnippet>({
         resolver: zodResolver(formSnippetSchema),
         defaultValues: {
             title: "",
@@ -43,11 +43,12 @@ const NewSnippetForm = ({ title, subtitle, icon: Icon } : NewSnippetFormType) =>
         }
     });
 
+    const redirect = useNavigate();
     const mutation = useNewSnippetMutation();
     const onSubmit = (formData: FormSnippet) => {
         mutation.mutate(formData, {
-            onSuccess: () => {
-                reset()
+            onSuccess: (res) => {
+                redirect(`/app/snippets/editor/${res.id}`)
             }
         })
     }
@@ -114,7 +115,7 @@ const NewSnippetForm = ({ title, subtitle, icon: Icon } : NewSnippetFormType) =>
                     type="submit"
                     className="form-actions--btn-submit"
                 >
-                    Create & Open Editor
+                    {mutation.isPending ? "Preparating your snippet..." : "Create & Open Editor"}
                 </button>
             </div>
         </form>

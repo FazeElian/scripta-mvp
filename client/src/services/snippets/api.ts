@@ -6,13 +6,27 @@ import { api } from "../../config/axios";
 // Types
 import {
     type AllSnippets,
+    type EditorSnippetForm,
     type FormSnippet,
+    type SnippetByIdByOwner,
     type SnippetByOwner
 } from "@/types/snippets.type";
 
 export async function getAllSnippetsByOwner() {
     try {
         const { data } = await api.get<SnippetByOwner[]>("/snippets/");
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+        throw new Error(`Unexpected error: ${error}`);
+    }
+}
+
+export async function getSnippetByIdByOwner(id: string) {
+    try {
+        const { data } = await api.get<SnippetByIdByOwner>(`/snippets/editor/${id}`);
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {
@@ -49,6 +63,18 @@ export async function newSnippet(snippetData: FormSnippet) {
 export async function updateSnippet(id: string, snippetData: FormSnippet) {
     try {
         const { data } = await api.put(`/snippets/${id}`, snippetData);
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+        throw new Error(`Unexpected error: ${error}`);
+    }
+}
+
+export async function updateByIdOnEditor(id: string, snippetData: EditorSnippetForm) {
+    try {
+        const { data } = await api.put(`/snippets/editor/${id}`, snippetData);
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {

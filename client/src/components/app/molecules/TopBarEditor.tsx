@@ -17,13 +17,14 @@ type TopBarEditorType = {
     onRun: () => void;
     onSave: () => void;
     running: boolean;
+    saving: boolean;
 }
 
 const TopBarEditor = ({ 
     title, onTitleChange, 
     visibility, onVisibilityChange, 
     lang, onLangChange, 
-    running, onRun, onSave }: TopBarEditorType) => {
+    running, onRun, onSave, saving }: TopBarEditorType) => {
     return (
         <div className="top-bar--editor">
             <div className="name-top-bar--editor">
@@ -52,9 +53,9 @@ const TopBarEditor = ({
                     <Copy />
                     Copy code
                 </button>
-                <button type="button" onClick={onSave}>
+                <button type="button" onClick={onSave} disabled={saving}>
                     <Save />
-                    Save
+                    {saving ? "Saving..." : "Save"}
                 </button>
                 <button type="button">
                     <Share2 />

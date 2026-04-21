@@ -9,14 +9,15 @@ import {
     AllSnippetsResponse,
     SnippetByIdByOwnerResponse,
     GetSnippetByIdResponse,
-    NewSnippetRequest
+    NewSnippetRequest,
+    NewSnippetResponse
 } from "../dtos/snippet.dto";
 
 // Database config
 import { db } from "../config/db";
 
 export default class SnippetService {
-    async create(data: NewSnippetRequest, userId: string) : Promise<string> {
+    async create(data: NewSnippetRequest, userId: string) : Promise<NewSnippetResponse> {
         const transaction = await db.transaction(); // initialize transaction
 
         try {
@@ -34,7 +35,10 @@ export default class SnippetService {
 
             // Save changes
             await transaction.commit();
-            return `Snippet created: ${data.title}`;
+            return {
+                id: snippet.id,
+                message: `Snippet created: ${data.title}`
+            };
         } catch (error) {
             console.log(error)
             await transaction.rollback(); // if something fails, all is discarded
