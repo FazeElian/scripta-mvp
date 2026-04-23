@@ -24,7 +24,7 @@ export const useRegisterMutation = () => {
 
             // Invalidate queries
             queryClient.invalidateQueries({
-                queryKey: ["users"]
+                queryKey: ["user"]
             })
         },
         onError: (error: Error) => {
@@ -49,7 +49,7 @@ export const useLoginMutation = () => {
 
             // Invalidate queries
             queryClient.invalidateQueries({
-                queryKey: ["users"]
+                queryKey: ["user"]
             })
 
             // Redirect to app dashboard

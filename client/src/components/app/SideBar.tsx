@@ -1,4 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
+import { useQueryClient } from "@tanstack/react-query";
 
 // Styles
 import "@/assets/css/components/SideBar.css";
@@ -11,14 +12,7 @@ import {
     UserRoundCog,
     SquareArrowRightExit,
     ExternalLink,
-    type LucideIcon,
     Terminal,
-    Braces,
-    Cpu,
-    Hash,
-    Bug,
-    Binary,
-    GitGraph
 } from "lucide-react";
 import Logo from "@/assets/img/logo.png";
 
@@ -33,6 +27,7 @@ import { UserContext } from "@/services/users/context";
 
 // Loader comp
 import { PageLoader } from "./atoms/PageLoader";
+import { avatars } from "@/lib/avatars";
 
 const listSideBar = [
     {
@@ -61,28 +56,17 @@ const listSideBar = [
     },
 ];
 
-type AvatarConfig = {
-    icon: LucideIcon;
-    className: string;
-}
-
-const avatarConfig: Record<string, AvatarConfig> = {
-    Terminal: { icon: Terminal, className: "avatar--yellow" },
-    Braces:   { icon: Braces,   className: "avatar--pink" },
-    Cpu:      { icon: Cpu,      className: "avatar--purple" },
-    Code:     { icon: Code,     className: "avatar--blue" },
-    Hash:     { icon: Hash,     className: "avatar--sky-blue" },
-    Bug:      { icon: Bug,      className: "avatar--seagreen" },
-    Binary:   { icon: Binary,   className: "avatar--orange" },
-    GitGraph: { icon: GitGraph, className: "avatar--red" },
-};
-
 const SideBar = () => {
     const location = useLocation();
     const redirect = useNavigate();
+    const queryClient = useQueryClient();
 
     const logOut = () => {
         localStorage.removeItem("AUTH_TOKEN");
+
+        // Invalidate all
+        queryClient.clear();
+
         redirect("/auth/login/");
     }
 
@@ -99,8 +83,8 @@ const SideBar = () => {
 
     const user = userResult as User;
     const avatarKey = user?.avatar ?? "Terminal";
-    const AvatarIcon = avatarConfig[avatarKey]?.icon ?? Terminal;
-    const avatarClass = avatarConfig[avatarKey]?.className ?? "avatar--yellow";
+    const AvatarIcon = avatars[avatarKey]?.icon ?? Terminal;
+    const avatarClass = avatars[avatarKey]?.className ?? "avatar--yellow";
 
     return (
         <UserContext.Provider value={{ user }}>
