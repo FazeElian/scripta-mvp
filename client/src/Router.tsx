@@ -11,7 +11,6 @@ import HomeView from "@/views/HomeView";
 
 // app views
 import DashboardView from "@/views/app/DashboardView";
-import FilesView from "./views/app/FilesView";
 import AccountView from "./views/app/AccountView";
 import ExploreView from "./views/app/ExploreView";
 import NewSnippetView from "./views/app/snippets/NewSnippetView";
@@ -39,7 +38,6 @@ export default function Router () {
 
         <Route element={<SideBar />} path="/app/*">
           <Route path="dashboard" element={<DashboardView />} />
-          <Route path="files" element={<FilesView />} />
           <Route path="account" element={<AccountView />} />
           <Route path="explore" element={<ExploreView />} />
           <Route path="snippets/new" element={<NewSnippetView />} />

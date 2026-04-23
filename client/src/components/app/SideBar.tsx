@@ -6,7 +6,6 @@ import "@/assets/css/components/SideBar.css";
 // Icons & images
 import {
     Code,
-    FolderOpen,
     FilePlus,
     Telescope,
     UserRoundCog,
@@ -40,12 +39,6 @@ const listSideBar = [
         name: "My Snippets",
         icon: Code,
         link: "/app/dashboard",
-        strokeWidth: 2.4
-    },
-    {
-        name: "My Files",
-        icon: FolderOpen,
-        link: "/app/files",
         strokeWidth: 2.4
     },
     {

@@ -13,7 +13,6 @@ import {
 
 // Models
 import User from "./User";
-import Folder from "./Folder";
 import SnippetContent from "./SnippetContent";
 
 @Table({
@@ -52,14 +51,6 @@ class Snippet extends Model {
 
     @BelongsTo(() => User)
     declare user: User;
-
-    // Folder relation
-    @ForeignKey(() => Folder)
-    @Column(DataType.UUID)
-    declare folderId: string;
-
-    @BelongsTo(() => Folder)
-    declare folder: Folder;
 
     // Content relation
     @HasOne(() => SnippetContent)

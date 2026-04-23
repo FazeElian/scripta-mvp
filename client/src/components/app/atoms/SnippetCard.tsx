@@ -125,7 +125,7 @@ const SnippetCard = ({ id, title, description, lang, updatedAt, visibility, onEd
                     {formatSnippetDate(updatedAt)}
                 </div>
                 <div className="btm-snippet-card-visibility">
-                    {visibility === "Public" ? <Globe /> : visibility === "unListed" ? <LinkIcon /> : <Lock />}
+                    {visibility === "public" ? <Globe /> : visibility === "unListed" ? <LinkIcon /> : <Lock />}
                     {visibility.charAt(0).toUpperCase() + visibility.slice(1)}
                 </div>
             </div>

@@ -12,7 +12,6 @@ import {
 
 // Models
 import Snippet from "./Snippet";
-import Folder from "./Folder";
 
 @Table({
     tableName: "users"
@@ -54,10 +53,7 @@ class User extends Model {
     @Column(DataType.STRING(50))
     declare githubUser: string;
 
-    // Relations with folder & snippet
-    @HasMany(() => Folder)
-    declare folders: Folder[];
-
+    // Relations with snippet
     @HasMany(() => Snippet)
     declare snippets: Snippet[];
 }
