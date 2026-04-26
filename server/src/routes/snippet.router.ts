@@ -1,7 +1,8 @@
 import { Router } from "express";
 
-// Controller
+// Controllers
 import { SnippetController } from "../controllers/snippet.controller";
+import { ExecutionController } from "../controllers/execution.controller";
 
 // Middlewares
 import { validateInputErrors } from "../middlewares/validateInputErrors";
@@ -27,6 +28,11 @@ router.post("/snippets/create",
     authenticate,
     validateInputErrors(createSnippetSchema),
     SnippetController.create
+);
+
+router.post("/snippets/execute",
+    authenticate,
+    ExecutionController.runCode
 );
 
 router.get("/snippets",

@@ -151,7 +151,7 @@
         width: 100%;
         height: 100%;
         border: 1px solid var(--gray-main);
-        overflow: hidden;
+        overflow: auto;
         color: var(--seagreen-main);
         flex-direction: column;
     }

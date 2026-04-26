@@ -1,29 +1,12 @@
+import { api } from "@/config/axios";
 import { cleanLangName } from "./editorLangs";
 
-const JUDGE0_URL = "https://ce.judge0.com";
-
-const langMap: Record<string, number> = {
-    "javascript":     63,
-    "typescript":     74,
-    "python":         71,
-    "c++":            54,
-    "c":              50,
-    "c#":             51,
-    "java":           62,
-    "go":             60,
-    "rust":           73,
-    "php":            68,
-    "swift":          83,
-    "kotlin":         78,
-    "ruby":           72,
-    "lua":            64,
-    "scala":          81,
-    "r":              80,
-    "dart":           90,
-    "shell / bash":   46,
-    "powershell":     56,
-    "elixir":         57,
-    "coffeescript":   38,
+const LANG_MAP: Record<string, string> = {
+    "javascript": "javascript",
+    "typescript": "typescript",
+    "python":     "python",
+    "c++":        "cpp",
+    "java":       "java",
 };
 
 export type RunResult = {
@@ -33,9 +16,9 @@ export type RunResult = {
 
 export const runCode = async (code: string, lang: string): Promise<RunResult> => {
     const clean = cleanLangName(lang).toLowerCase();
-    const languageId = langMap[clean];
+    const language = LANG_MAP[clean];
 
-    if (!languageId) {
+    if (!language) {
         return {
             output: [`"${cleanLangName(lang)}" is not supported for execution.`],
             isError: true,
@@ -43,33 +26,24 @@ export const runCode = async (code: string, lang: string): Promise<RunResult> =>
     }
 
     try {
-        const submitRes = await fetch(`${JUDGE0_URL}/submissions?base64_encoded=false&wait=true`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                language_id: languageId,
-                source_code: code,
-            }),
-        });
+        const { data } = await api.post("/snippets/execute", { language, code });
 
-        if (!submitRes.ok) throw new Error(`Judge0 error: ${submitRes.status}`);
-
-        const result = await submitRes.json();
-
-        const stdout = result.stdout || "";
-        const stderr = result.stderr || result.compile_output || "";
-        const isError = !!stderr;
+        const stdout = data.stdout ?? "";
+        const stderr = data.stderr ?? "";
+        const isError = data.exitCode !== 0;
+        const combined = (stdout + stderr).trimEnd();
 
         return {
-            output: (stdout + stderr).split("\n").filter(Boolean),
+            output: combined ? [combined] : [],
             isError,
         };
-    } catch (error) {
-        const message = error instanceof Error ? error.message : "Unknown error";
+    } catch (error: unknown) {
+        const axiosError = error as { response?: { data?: unknown }; message?: string };
+        const message = axiosError?.response?.data
+            ? JSON.stringify(axiosError.response.data)
+            : axiosError.message ?? "Unknown error";
         return {
-            output: [`Network error: ${message}`],
+            output: [`Error: ${message}`],
             isError: true,
         };
     }

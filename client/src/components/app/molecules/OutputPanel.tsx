@@ -66,18 +66,25 @@ const OutputPanel = ({ result, running, markdown, onMarkdownChange }: OutputPane
                         ) : !result ? (
                             'Click "Run Code" to execute your snippet'
                         ) : (
-                            result.output.map((line, i) => (
-                                <p
-                                    key={i}
-                                    className={
-                                        result.isError
-                                            ? "output-error"
-                                            : "output-line"
-                                    }
-                                >
-                                    {line}
-                                </p>
-                            ))
+                            result.output.map((block, i) => {
+                                let display = block;
+                                try {
+                                    const parsed = JSON.parse(block);
+                                    display = JSON.stringify(parsed, null, 2);
+                                } catch {
+                                    // is not a JSON, show it just like it is
+                                }
+
+                                return (
+                                    <p
+                                        key={i}
+                                        className={result.isError ? "output-error" : "output-line"}
+                                        style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+                                    >
+                                        {display}
+                                    </p>
+                                );
+                            })
                         )}
                     </div>
                 )}
