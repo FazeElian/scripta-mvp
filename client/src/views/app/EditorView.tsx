@@ -16,17 +16,13 @@ import { runCode, type RunResult } from "@/lib/runCode";
 // Query
 import { useGetSnippetByIdByOwner } from "@/services/snippets/queries";
 
-// ops
-import { langOptions } from "@/lib/langs";
-
 // mutation
 import { useUpdateEditorSnippetMutation } from "@/services/snippets/mutations";
 
 // util
 import { cleanLangName } from "@/lib/editorLangs";
-
-const matchLangOption = (lang: string) =>
-    langOptions.find(opt => opt.toLowerCase().includes(lang.toLowerCase())) ?? "🟨 JavaScript";
+import { matchLangOption } from "@/lib/matchLangOption";
+import { PageLoader } from "@/components/app/atoms/PageLoader";
 
 const EditorView = () => {
     const redirect = useNavigate();
@@ -118,7 +114,7 @@ const EditorView = () => {
         })
     };
 
-    if (isLoading) return "Loading...";
+    if (isLoading) return <PageLoader />;
     return (
         <>
             <TopBarEditor
