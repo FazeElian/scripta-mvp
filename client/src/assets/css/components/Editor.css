@@ -207,3 +207,40 @@
         padding: 10px;
         overflow-y: scroll;
     }
+
+/* Responsive 1600px */
+@media(max-width: 1600px) {
+    .name-top-bar--editor a,
+    .name-top-bar--editor input,
+    .ops-top-bar--editor select,
+    .ops-top-bar--editor button {
+        font-size: 12.5px;
+    }
+
+    .name-top-bar--editor input,
+    .ops-top-bar--editor select {
+        padding: 9px 12px 9px;
+    }
+
+    .btn-run-code--editor {
+        padding: 0 1rem 0;
+    }
+
+    .editor-output-container,
+    .code-editor-container .cm-scroller,
+    .top-editor--title {
+        font-size: 13px;
+    }
+}
+
+/* Responsive 1440px */
+@media(max-width: 1440px) {
+    .code-editor {
+        padding-left: 280px;
+    }
+
+    .top-bar--editor {
+        padding-left: 300px;
+        padding-right: 1rem;
+    }
+}

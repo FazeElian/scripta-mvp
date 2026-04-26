@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useBlocker, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 // Styles
@@ -42,6 +42,43 @@ const EditorView = () => {
     const [running, setRunning] = useState(false);
     const [initializedId, setInitializedId] = useState<string | null>(null);
 
+    const hasUnsavedChanges = 
+        snippet && (
+            code !== snippet.snippetContent.code ||
+            title !== snippet.title ||
+            markdown !== snippet.snippetContent.documentation ||
+            visibility !== snippet.visibility
+        );
+
+    const blocker = useBlocker(
+        ({ currentLocation, nextLocation }) =>
+            !!hasUnsavedChanges && currentLocation.pathname !== nextLocation.pathname
+    );
+
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            if (hasUnsavedChanges) {
+                e.preventDefault();
+                e.returnValue = "";
+            }
+        };
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+    }, [hasUnsavedChanges]);
+
+    useEffect(() => {
+        if (blocker.state === "blocked") {
+            const proceed = window.confirm(
+                "You have unsaved changes. Are you sure you want to exit?"
+            );
+            if (proceed) {
+                blocker.proceed();
+            } else {
+                blocker.reset();
+            }
+        }
+    }, [blocker]);
+
     if (snippet && initializedId !== id) {
         setCode(snippet.snippetContent.code);
         setLang(matchLangOption(snippet.lang));
@@ -83,7 +120,7 @@ const EditorView = () => {
 
     if (isLoading) return "Loading...";
     return (
-        <form>
+        <>
             <TopBarEditor
                 title={title}
                 onTitleChange={setTitle}
@@ -110,7 +147,7 @@ const EditorView = () => {
                     onMarkdownChange={setMarkdown}
                 />
             </div>
-        </form>
+        </>
     );
 };
 
