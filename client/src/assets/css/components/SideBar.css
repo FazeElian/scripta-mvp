@@ -1,7 +1,7 @@
 .side-bar {
     display: flex;
     width: 315px;
-    height: 100vh;
+    height: var(--height-zoomed);
     background-color: var(--bg-secondary);
     border-right: 1px solid var(--gray-main);
     flex-direction: column;

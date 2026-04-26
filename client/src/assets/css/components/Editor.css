@@ -83,7 +83,7 @@
 .editor-wrapper {
     display: flex;
     width: 100%;
-    height: calc(100vh - 74px);
+    height: calc(var(--height-zoomed) - 71.5px);
 }
 
 .code-editor {
@@ -242,5 +242,10 @@
     .top-bar--editor {
         padding-left: 300px;
         padding-right: 1rem;
+    }
+
+    .editor-wrapper {
+        height: calc(var(--height-zoomed) - 67.5px);
+        overflow-y: hidden;
     }
 }
