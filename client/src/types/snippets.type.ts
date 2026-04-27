@@ -56,6 +56,23 @@ export interface SnippetCardType {
     onEdit: () => void;
 }
 
+export interface SnippetById {
+    title: string;
+    description: string;
+    lang: string;
+    ownerInfo: {
+        avatar: string;
+        fullName: string;
+        userName: string;
+    },
+    snippetContent: {
+        code: string;
+        documentation: string;
+        diagramData: string;
+    },
+    updatedAt: Date;
+};
+
 export interface EditSnippetModal {
     snippet: Omit<SnippetCardType, "onEdit">;
     formRef: React.RefObject<HTMLFormElement | null>;

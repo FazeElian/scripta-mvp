@@ -25,7 +25,7 @@ const SnippetCardExplore = (props : SnippetCardExploreType) => {
     const AvatarIcon = avatar.icon;
 
     return (
-        <Link to={`/snippets/editor/${props.title}`} className="snippet-card">
+        <Link to={`/app/snippets/view/${props.id}`} className="snippet-card">
             <div className="top-snippet-card">
                 <div className="top-head-snippet-card">
                     <h1>{props.title}</h1>

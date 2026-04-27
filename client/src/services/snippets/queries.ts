@@ -1,7 +1,12 @@
 import { useQuery } from "@tanstack/react-query"
 
 // API Calls
-import { getAllSnippetsByOwner, getAllSnippets, getSnippetByIdByOwner } from "./api";
+import {
+    getAllSnippetsByOwner,
+    getAllSnippets,
+    getSnippetByIdByOwner,
+    getSnippetById 
+} from "./api";
 
 export const useGetAllSnippetsByOwner = () => {
     return useQuery({
@@ -18,6 +23,15 @@ export const useGetAllSnippets = () => {
         queryFn: getAllSnippets,
         retry: 1,
         refetchOnWindowFocus: false
+    });
+}
+
+export const useGetSnippetById = (id: string) => {
+    return useQuery({
+        queryKey: ["snippet-public", id],
+        queryFn: () => getSnippetById(id),
+        retry: 1,
+        refetchOnWindowFocus: true,
     });
 }
 

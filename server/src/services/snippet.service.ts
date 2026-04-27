@@ -108,9 +108,11 @@ export default class SnippetService {
             title: snippet.title,
             lang: snippet.lang,
             description: snippet.description,
+            updatedAt: snippet.updatedAt,
             ownerInfo: {
                 avatar: owner.avatar,
-                fullName: owner.fullName
+                fullName: owner.fullName,
+                userName: owner.userName
             },
             snippetContent: {
                 code: snippetContent.code,

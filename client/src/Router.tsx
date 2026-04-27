@@ -12,6 +12,7 @@ import DashboardView from "@/views/app/DashboardView";
 import AccountView from "@/views/app/AccountView";
 import ExploreView from "@/views/app/ExploreView";
 import NewSnippetView from "@/views/app/snippets/NewSnippetView";
+import PublicSnippetView from "./views/app/snippets/PublicSnippetView";
 import EditorView from "@/views/app/EditorView";
 import ProfileView from "@/views/app/ProfileView";
 import NotFoundView from "@/views/NotFoundView";
@@ -49,6 +50,7 @@ export const Router = createBrowserRouter([
       { path: "explore", element: <ExploreView /> },
       { path: "snippets/new", element: <NewSnippetView /> },
       { path: "snippets/editor/:id", element: <EditorView /> },
+      { path: "snippets/view/:id", element: <PublicSnippetView /> },
       { path: "profile/:userName", element: <ProfileView /> },
       { path: "*", element: <AppNotFoundView /> },
     ],

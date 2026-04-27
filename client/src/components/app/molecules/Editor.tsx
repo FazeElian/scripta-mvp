@@ -26,7 +26,6 @@ const Editor = ({ value, onChange, lang, theme = "dark", readOnly = false }: Edi
         onChangeRef.current = onChange;
     }, [onChange]);
 
-    // Recrea el editor si cambia lang o theme
     useEffect(() => {
         if (!containerRef.current) return;
 

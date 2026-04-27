@@ -13,7 +13,7 @@ import { formatSnippetDate } from "@/utils/formatSnippetDate";
 const PublicSnippetCard = (props : AllSnippets) => {
     return (
         <Link
-            to={`/snippets/editor/${props.title}`}
+            to={`/app/snippets/view/${props.id}`}
             className="snippet-card"
             key={props.id}
         >

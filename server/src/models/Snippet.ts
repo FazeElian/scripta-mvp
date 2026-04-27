@@ -8,7 +8,9 @@ import {
     ForeignKey,
     BelongsTo,
     HasOne,
-    AllowNull
+    AllowNull,
+    CreatedAt,
+    UpdatedAt
 } from "sequelize-typescript";
 
 // Models
@@ -55,6 +57,12 @@ class Snippet extends Model {
     // Content relation
     @HasOne(() => SnippetContent)
     declare content: SnippetContent;
+
+    @CreatedAt
+    declare createdAt: Date;
+
+    @UpdatedAt
+    declare updatedAt: Date;
 }
 
 export default Snippet;

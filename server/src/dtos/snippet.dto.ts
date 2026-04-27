@@ -48,12 +48,14 @@ export interface GetSnippetByIdResponse {
     ownerInfo: {
         avatar: string;
         fullName: string;
+        userName: string;
     },
     snippetContent: {
         code: string;
         documentation: string;
         diagramData: string;
-    }
+    },
+    updatedAt: Date;
 };
 
 export interface SnippetByIdByOwnerResponse {

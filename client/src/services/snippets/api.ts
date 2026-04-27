@@ -8,6 +8,7 @@ import {
     type AllSnippets,
     type EditorSnippetForm,
     type FormSnippet,
+    type SnippetById,
     type SnippetByIdByOwner,
     type SnippetByOwner
 } from "@/types/snippets.type";
@@ -15,6 +16,18 @@ import {
 export async function getAllSnippetsByOwner() {
     try {
         const { data } = await api.get<SnippetByOwner[]>("/snippets/");
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+        throw new Error(`Unexpected error: ${error}`);
+    }
+}
+
+export async function getSnippetById(id: string) {
+    try {
+        const { data } = await api.get<SnippetById>(`/snippets/${id}`);
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {

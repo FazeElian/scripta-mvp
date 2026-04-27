@@ -1,0 +1,122 @@
+.public-snippet {
+    display: flex;
+    width: 100%;
+    height: auto;
+    margin-top: 1rem;
+    flex-direction: column;
+}
+
+.public-snippet p {
+    font-size: 14.5px;
+    color: var(--text-main);
+    font-weight: 300;
+    margin-top: 1rem;
+    line-height: 22px;
+}
+
+.public-snippet--author {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+}
+
+    .public-snippet--author-profile {
+        display: flex;
+        width: auto;
+        height: auto;
+        gap: 8px;
+        align-items: center;
+    }
+
+        .public-snippet--author a {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: .15s ease-in-out;
+        }
+
+            .public-snippet--author a:hover {
+                color: var(--seagreen-main);
+                transition: .15s ease-in;
+            }
+
+    .public-snippet--author-date {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        font-weight: 400;
+        gap: 6px;
+    }
+
+        .public-snippet--author-date svg {
+            width: 16px;
+            height: 16px;
+            stroke-width: 2.2;
+        }
+
+    .public-snippet--editor {
+        display: grid;
+        width: 100%;
+        border: 1px solid var(--gray-main);
+        margin-top: 1rem;
+        padding: .7rem .7rem 0;
+        background-color: var(--bg-secondary);
+        border-radius: 8px;
+        overflow: hidden;
+        padding-right: 0;
+    }
+
+.cont-public-snippet {
+    display: flex;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--gray-main);
+    margin-top: 1.5rem;
+    height: auto;
+    flex-direction: column;
+}
+
+    .cont-public-snippet--title {
+        display: flex;
+        width: 100%;
+        height: auto;
+        align-items: center;
+        gap: 6px;
+        padding: 12px 1rem 12px;
+        background-color: var(--bg-secondary);
+        border-radius: 8px 8px 0px 0px;
+        border-bottom: 1px solid var(--gray-main);
+        font-size: 15px;
+    }
+
+        .cont-public-snippet--title svg {
+            width: 20px;
+            height: 20px;
+        }
+
+.cont-public-snippet--content {
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem;
+    max-height: 700px;
+    overflow-y: auto;
+}
+
+/* Responsive 1440px */
+@media (max-width: 1440px) {
+    .public-snippet p {
+        font-size: 13px;
+        line-height: 19px;
+        margin-top: 12px;
+    }
+
+    .public-snippet--author a {
+        font-size: 14px;
+    }
+
+    .public-snippet--editor .cm-editor {
+        font-size: 14px;
+    }
+}

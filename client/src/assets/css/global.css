@@ -249,6 +249,35 @@ textarea:focus {
         stroke-width: 2.5;
     }
 
+.btm-snippet-card-left--lang--purple {
+    background-color: var(--purple-dark);
+    color: var(--purple-main);
+}
+.btm-snippet-card-left--lang--yellow {
+    background-color: var(--yellow-dark);
+    color: var(--yellow-main);
+}
+.btm-snippet-card-left--lang--blue {
+    background-color: var(--blue-dark);
+    color: var(--blue-main);
+}
+.btm-snippet-card-left--lang--sky-blue {
+    background-color: var(--sky-blue-dark);
+    color: var(--sky-blue-main);
+}
+.btm-snippet-card-left--lang--orange {
+    background-color: var(--orange-dark);
+    color: var(--orange-main);
+}
+.btm-snippet-card-left--lang--red {
+    background-color: var(--red-dark);
+    color: var(--red-main);
+}
+.btm-snippet-card-left--lang--pink {
+    background-color: var(--pink-dark);
+    color: var(--pink-main);
+}
+
 .no-snippets {
     display: grid;
     width: 100%;
