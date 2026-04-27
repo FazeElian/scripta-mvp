@@ -50,7 +50,7 @@
     }
 
         .title-btn-new:hover,
-        .title-btn-snippet {
+        .title-btn-snippet:hover {
             opacity: .75;
             transition: .2s ease-in;
         }

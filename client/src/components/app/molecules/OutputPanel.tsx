@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { BookText, Terminal, Waypoints } from "lucide-react";
+import { BookText, Sparkles, Terminal, Waypoints } from "lucide-react";
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { toast } from "sonner";
 
 // Run
 import type { RunResult } from "@/lib/runCode";
@@ -10,22 +11,44 @@ import type { RunResult } from "@/lib/runCode";
 // markdown custom comps
 import MarkdownComponents from "../atoms/MarkdownComponents";
 
+// Diagram
+import { generateDiagram } from "@/services/snippets/api";
+import { MermaidDiagram } from "./MermaidDiagram";
+
 type OutputPanelType = {
     result: RunResult | null;
     running: boolean;
+    code: string;
+    diagram: string;
+    lang: string;
     markdown: string;
     onMarkdownChange: (val: string) => void;
+    setDiagram: (val: string) => void;
 };
 
 type TabType = "console" | "docs" | "diagram";
 
-const OutputPanel = ({ result, running, markdown, onMarkdownChange }: OutputPanelType) => {
+const OutputPanel = ({ result, running, markdown, onMarkdownChange, lang, code, setDiagram, diagram }: OutputPanelType) => {
     const [selectedTab, setSelectedTab] = useState<TabType>("console");
+    const [generating, setGenerating] = useState(false);
 
     const getButtonClass = (tab: TabType) =>
         `top-editor--title ${
             selectedTab === tab ? "top-editor-selected--title" : ""
         }`;
+
+    const handleGenerateDiagram = async () => {
+        if (!code.trim()) return;
+        setGenerating(true);
+        try {
+            const result = await generateDiagram(code, lang);
+            setDiagram(result);
+        } catch {
+            toast.error("Failed to generate diagram, try again later.");
+        } finally {
+            setGenerating(false);
+        }
+    };
 
     return (
         <div className="editor-output-container">
@@ -113,9 +136,26 @@ const OutputPanel = ({ result, running, markdown, onMarkdownChange }: OutputPane
                 )}
 
                 {selectedTab === "diagram" && (
-                    <div className="editor-diagram">
-                        Diagram content here
-                    </div>
+                    !diagram ? (
+                        <div className="editor-diagram">
+                            <button
+                                type="button"
+                                onClick={handleGenerateDiagram}
+                                className="generate-diagram-btn"
+                            >
+                                {generating ? "Generating..." : "Generate Diagram with AI"}
+                                <Sparkles />
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="cont-editor-diagram">
+                            <MermaidDiagram
+                                chart={diagram}
+                                regenerate={handleGenerateDiagram}
+                                generating={generating}
+                            />
+                        </div>
+                    )
                 )}
             </div>
         </div>

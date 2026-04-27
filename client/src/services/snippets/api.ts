@@ -25,6 +25,18 @@ export async function getAllSnippetsByOwner() {
     }
 }
 
+export const generateDiagram = async (code: string, lang: string): Promise<string> => {
+    try {
+        const { data } = await api.post("/snippets/diagram", { code, lang });
+        return data.diagram;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+        throw new Error(`Unexpected error: ${error}`);
+    }
+};
+
 export async function getSnippetById(id: string) {
     try {
         const { data } = await api.get<SnippetById>(`/snippets/${id}`);

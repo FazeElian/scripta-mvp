@@ -3,6 +3,7 @@ import { Router } from "express";
 // Controllers
 import { SnippetController } from "../controllers/snippet.controller";
 import { ExecutionController } from "../controllers/execution.controller";
+import { DiagramController } from "../controllers/diagram.controller";
 
 // Middlewares
 import { validateInputErrors } from "../middlewares/validateInputErrors";
@@ -33,6 +34,11 @@ router.post("/snippets/create",
 router.post("/snippets/execute",
     authenticate,
     ExecutionController.runCode
+);
+
+router.post("/snippets/diagram",
+    authenticate,
+    DiagramController.generate
 );
 
 router.get("/snippets",

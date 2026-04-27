@@ -9,6 +9,7 @@ import "@/assets/css/components/Editor.css";
 import { TopBarEditor } from "@/components/app/molecules/TopBarEditor"
 import { CodeEditor } from "@/components/app/molecules/CodeEditor";
 import { OutputPanel } from "@/components/app/molecules/OutputPanel";
+import { PageLoader } from "@/components/app/atoms/PageLoader";
 
 // Run
 import { runCode, type RunResult } from "@/lib/runCode";
@@ -22,7 +23,6 @@ import { useUpdateEditorSnippetMutation } from "@/services/snippets/mutations";
 // util
 import { cleanLangName } from "@/lib/editorLangs";
 import { matchLangOption } from "@/lib/matchLangOption";
-import { PageLoader } from "@/components/app/atoms/PageLoader";
 
 const EditorView = () => {
     const redirect = useNavigate();
@@ -34,6 +34,7 @@ const EditorView = () => {
     const [title, setTitle] = useState("");
     const [visibility, setVisibility] = useState("public");
     const [markdown, setMarkdown] = useState("");
+    const [diagram, setDiagram] = useState("");
     const [result, setResult] = useState<RunResult | null>(null);
     const [running, setRunning] = useState(false);
     const [initializedId, setInitializedId] = useState<string | null>(null);
@@ -43,7 +44,8 @@ const EditorView = () => {
             code !== snippet.snippetContent.code ||
             title !== snippet.title ||
             markdown !== snippet.snippetContent.documentation ||
-            visibility !== snippet.visibility
+            visibility !== snippet.visibility ||
+            diagram != snippet.snippetContent.diagramData
         );
 
     const blocker = useBlocker(
@@ -81,6 +83,7 @@ const EditorView = () => {
         setTitle(snippet.title);
         setVisibility(snippet.visibility);
         setMarkdown(snippet.snippetContent.documentation);
+        setDiagram(snippet.snippetContent.diagramData)
         setInitializedId(id ?? null);
     }
 
@@ -109,7 +112,7 @@ const EditorView = () => {
             snippetContent: {
                 code: code,
                 documentation: markdown,
-                diagramData: "",
+                diagramData: diagram,
             }
         })
     };
@@ -137,6 +140,10 @@ const EditorView = () => {
                     theme="dark"
                 />
                 <OutputPanel
+                    lang={lang}
+                    code={code}
+                    diagram={diagram}
+                    setDiagram={setDiagram}
                     result={result}
                     running={running}
                     markdown={markdown}
