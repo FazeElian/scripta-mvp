@@ -12,7 +12,7 @@ type PageTitleType = {
     returnBtn?: boolean;
     snippetsBtns?: boolean;
     onCopy?: () => void;
-    copied: boolean;
+    copied?: boolean;
 }
 
 const PageTitle = ({ title, subtitle, button, returnBtn, snippetsBtns, onCopy, copied } : PageTitleType) => {
