@@ -1,8 +1,7 @@
 // Components for this view
 import { PageTitle } from "@/components/app/atoms/PageTitle"
+import { DashboardSnippets } from "@/components/app/molecules/DashboardSnippets"
 import { QuickStats } from "@/components/app/molecules/QuickStats"
-import { SnippetsGallery } from "@/components/app/molecules/SnippetsGallery"
-import { SnippetsHeader } from "@/components/app/molecules/SnippetsHeader"
 
 // Get user from gloal state (context)
 import { useUser } from "@/services/users/context"
@@ -21,8 +20,7 @@ const DashboardView = () => {
                 button={true}
             />
             <QuickStats />
-            <SnippetsHeader />
-            <SnippetsGallery />
+            <DashboardSnippets />
         </main>
     )
 }

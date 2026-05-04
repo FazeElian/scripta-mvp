@@ -8,6 +8,7 @@ export interface SnippetByOwner {
     lang: string;
     visibility: string;
     updatedAt: Date;
+    createdAt: Date;
 };
 
 export interface SnippetByIdByOwner {

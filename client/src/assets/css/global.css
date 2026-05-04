@@ -119,6 +119,32 @@ textarea:focus {
     margin-top: 22px;
     color: var(--gray-secondary);
     pointer-events: none;
+    cursor: pointer;
+}
+
+.input-group--select-clear {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    pointer-events: all;
+    z-index: 2;
+    cursor: pointer;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    right: 12px;
+    color: var(--gray-secondary);
+}
+
+.input-group--select-arrow:has(svg) {
+    pointer-events: all;
+    z-index: 1;
+}
+
+.input-group--select-wrapper:has(svg) select:focus ~ .input-group--select-arrow {
+    transform: none;
 }
 
 .input-group--select-wrapper select:focus ~ .input-group--select-arrow {

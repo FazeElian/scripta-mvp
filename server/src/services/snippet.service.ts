@@ -73,8 +73,7 @@ export default class SnippetService {
 
     async getAllByOwner(userId: string) : Promise<AllSnippetsByOwnerResponse[]> {
         const snippets = await Snippet.findAll({ 
-            where: { userId: userId },
-            order: [["updatedAt", "DESC"]]
+            where: { userId: userId }
         });
 
         if(!snippets || snippets.length === 0) return null;
@@ -86,6 +85,7 @@ export default class SnippetService {
             lang: snippet.lang,
             visibility: snippet.visibility,
             updatedAt: snippet.updatedAt,
+            createdAt: snippet.createdAt,
         }));
     };
 

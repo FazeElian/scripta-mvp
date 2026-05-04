@@ -15,6 +15,7 @@ export interface AllSnippetsByOwnerResponse {
     lang: string;
     visibility: string;
     updatedAt: Date;
+    createdAt: Date;
 };
 
 export interface NewSnippetResponse {

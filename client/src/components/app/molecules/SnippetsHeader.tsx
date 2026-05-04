@@ -6,7 +6,24 @@ import { SearchBar } from "../atoms/SearchBar";
 import { SortByDate } from "../atoms/SortByDate";
 import { SortByLang } from "../atoms/SortByLang";
 
-const SnippetsHeader = () => {
+// lists
+import { langOptions } from "@/lib/langs";
+
+type SnippetsHeaderType = {
+    setQuery: (query: string) => void;
+    sortDate: string;
+    setSortDate: (value: string) => void;
+    sortLang: string;
+    setSortLang: (value: string) => void;
+}
+
+const SnippetsHeader = ({
+    setQuery,
+    sortDate,
+    setSortDate,
+    sortLang,
+    setSortLang
+} : SnippetsHeaderType) => {
     const dateSortOptions = [
         "Newest First",
         "Oldest First",
@@ -14,45 +31,15 @@ const SnippetsHeader = () => {
         "Last Modified",
     ];
 
-    const langSortOptions = [
-        "🐍 Python",
-        "🟨 JavaScript",
-        "🔷 TypeScript",
-        "☕ Java",
-        "⚙️ C",
-        "⚡ C++",
-        "🟣 C#",
-        "🐹 Go",
-        "🦀 Rust",
-        "💎 Ruby",
-        "🐘 PHP",
-        "🍎 Swift",
-        "🤖 Kotlin",
-        "🎯 Dart",
-        "📊 R",
-        "🔴 Scala",
-        "🐪 Perl",
-        "λ Haskell",
-        "🌙 Lua",
-        "🖥️ Shell / Bash",
-        "💙 PowerShell",
-        "🗄️ SQL",
-        "🌐 HTML",
-        "🎨 CSS",
-        "💅 SASS / SCSS",
-        "◈ GraphQL",
-        "📄 YAML",
-        "📦 JSON",
-        "📰 XML",
-        "❓ Not Listed",
-    ];
-
     return (
         <form className="snippets-header" method="post">
-            <SearchBar placeholder="Search Snippets..." />
+            <SearchBar
+                placeholder="Search Snippets..."
+                setQuery={setQuery}
+            />
             <div className="snippets-filters">
-                <SortByDate options={dateSortOptions} />
-                <SortByLang options={langSortOptions} />
+                <SortByDate options={dateSortOptions} value={sortDate} onChange={setSortDate} />
+                <SortByLang options={langOptions} value={sortLang} onChange={setSortLang} />
             </div>
         </form>
     )
