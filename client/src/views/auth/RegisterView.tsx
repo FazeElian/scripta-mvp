@@ -3,11 +3,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Loader, Lock, Mail, UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
-import Github from "@/assets/img/github.png";
-import Google from "@/assets/img/google.png";
+import Github from "@/assets/img/github.webp";
+import Google from "@/assets/img/google.webp";
 
 // Styles
 import "@/assets/css/components/Auth.css";
+import "@/assets/css/components/Forms.css";
 
 // Components
 import { AuthBackground } from "@/components/app/molecules/AuthBackground";

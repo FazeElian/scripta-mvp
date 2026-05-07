@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
+import { Link, Navigate, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useQueryClient } from "@tanstack/react-query";
 
 // Styles
@@ -16,18 +16,12 @@ import {
 } from "lucide-react";
 import Logo from "@/assets/img/logo.png";
 
-// Query
-import { useGetAuthenticatedUser } from "@/services/users/queries";
-
-// Type
-import type { User } from "@/types/users.types";
-
-// Context for user
-import { UserContext } from "@/services/users/context";
-
-// Loader comp
-import { PageLoader } from "./atoms/PageLoader";
+// lists
 import { avatars } from "@/lib/avatars";
+
+// global context
+import { useUser } from "@/services/users/context";
+import { PageLoader } from "./atoms/PageLoader";
 
 const listSideBar = [
     {
@@ -65,29 +59,27 @@ const SideBar = () => {
         localStorage.removeItem("AUTH_TOKEN");
 
         // Invalidate all
+        queryClient.setQueryData(["auth-user"], null);
         queryClient.clear();
 
-        redirect("/auth/login/");
-    }
+        redirect("/auth/login");
+    };
 
-    // get authenticated user result from query
-    const { data: userResult, isError, isLoading } = useGetAuthenticatedUser();
-
+    const { user, isLoading } = useUser();
     if (isLoading) {
         return <PageLoader />;
     }
 
-    if (isError) {
-        redirect("/auth/login")
+    if (!user) {
+        return <Navigate to="/auth/login" replace />;
     }
 
-    const user = userResult as User;
-    const avatarKey = user?.avatar ?? "Terminal";
-    const AvatarIcon = avatars[avatarKey]?.icon ?? Terminal;
-    const avatarClass = avatars[avatarKey]?.className ?? "avatar--yellow";
+    const avatarKey = user.avatar ?? "Terminal";
+    const AvatarIcon = avatars[avatarKey].icon ?? Terminal;
+    const avatarClass = avatars[avatarKey].className ?? "avatar--yellow";
 
     return (
-        <UserContext.Provider value={{ user }}>
+        <>
             <nav className="side-bar">
                 <div className="top-side-bar">
                     <img src={Logo} alt="" />
@@ -137,7 +129,7 @@ const SideBar = () => {
                 </div>
             </nav>
             <Outlet />
-        </UserContext.Provider>
+        </>
     )
 }
 

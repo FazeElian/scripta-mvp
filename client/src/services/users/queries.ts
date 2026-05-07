@@ -5,10 +5,10 @@ import { getAuthenticatedUser, getProfile } from "./api"
 
 export const useGetAuthenticatedUser = () => {
     return useQuery({
-        queryKey: ["user"],
+        queryKey: ["auth-user"],
         queryFn: getAuthenticatedUser,
         retry: 1,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
     });
 }
 

@@ -1,15 +1,26 @@
-import { Link } from "react-router-dom"
+// Styles
+import "@/assets/css/components/Home.css";
+
+// Comps
+import { HomeNavbar } from "@/components/app/molecules/HomeNavbar";
+import { HomeBanner } from "@/components/app/molecules/HomeBanner";
+import { HomeDiagram } from "@/components/app/molecules/HomeDiagram";
+import { HomeFeatures } from "@/components/app/molecules/HomeFeatures";
+import { HomeAudience } from "@/components/app/molecules/HomeAudience";
+import { HomeExamples } from "@/components/app/molecules/HomeExamples";
+import { HomeFooter } from "@/components/app/molecules/HomeFooter";
 
 const HomeView = () => {
     return (
-        <div className="not-found">
-            <h1>Scripta</h1>
-                <div className="flex flex-col mt-2">
-                    <Link to="/app/dashboard">Dashboard</Link>
-                    <Link to="/auth/login">Login</Link>
-                    <Link to="/auth/register">Register</Link>
-                </div>
-        </div>
+        <main>
+            <HomeNavbar />
+            <HomeBanner />
+            <HomeDiagram />
+            <HomeFeatures />
+            <HomeAudience />
+            <HomeExamples />
+            <HomeFooter />
+        </main>
     )
 }
 

@@ -1,62 +1,69 @@
-import { createBrowserRouter, Navigate} from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
+import { lazy } from "react";
 
-// Views
-import LoginView from "@/views/auth/LoginView";
-import RegisterView from "@/views/auth/RegisterView";
-import AuthCallbackView from "./views/auth/AuthCallbackView";
+// app Layout Component & root layout for auth
+const RootLayout = lazy(() => import("./RootLayout"));
+const AppNotFoundView = lazy(() => import("./views/AppNotFoundView"));
+const SideBar = lazy(() => import("@/components/app/SideBar").then(m => ({ default: m.SideBar })));
 
-import HomeView from "@/views/HomeView";
+// auth views
+const HomeView = lazy(() => import("@/views/HomeView"));
+const LoginView = lazy(() => import("@/views/auth/LoginView"));
+const RegisterView = lazy(() => import("@/views/auth/RegisterView"));
+const AuthCallbackView = lazy(() => import("@/views/auth/AuthCallbackView"));
 
 // app views
-import DashboardView from "@/views/app/DashboardView";
-import AccountView from "@/views/app/AccountView";
-import ExploreView from "@/views/app/ExploreView";
-import NewSnippetView from "@/views/app/snippets/NewSnippetView";
-import PublicSnippetView from "./views/app/snippets/PublicSnippetView";
-import EditorView from "@/views/app/EditorView";
-import ProfileView from "@/views/app/ProfileView";
-import NotFoundView from "@/views/NotFoundView";
+const DashboardView = lazy(() => import("./views/app/DashboardView"));
+const AccountView = lazy(() => import("./views/app/AccountView"));
+const ExploreView = lazy(() => import("./views/app/ExploreView"));
+const NewSnippetView = lazy(() => import("./views/app/snippets/NewSnippetView"));
+const PublicSnippetView = lazy(() => import("./views/app/snippets/PublicSnippetView"));
+const EditorView = lazy(() => import("./views/app/EditorView"));
+const ProfileView = lazy(() => import("./views/app/ProfileView"));
 
-// app Layout Component
-import { SideBar } from "@/components/app/SideBar";
-
-// Not found
-import { AppNotFoundView } from "@/views/AppNotFoundView";
-
-export const Router = createBrowserRouter([
+const router = createBrowserRouter([
   {
-    path: "/",
-    element: <HomeView />,
-  },
-  {
-    path: "/auth/register",
-    element: <RegisterView />,
-  },
-  {
-    path: "/auth/login",
-    element: <LoginView />,
-  },
-  {
-    path: "/auth/callback",
-    element: <AuthCallbackView />,
-  },
-  {
-    path: "/app",
-    element: <SideBar />,
+    element: <RootLayout />,
     children: [
-      { index: true, element: <Navigate to="dashboard" replace /> },
-      { path: "dashboard", element: <DashboardView /> },
-      { path: "account", element: <AccountView /> },
-      { path: "explore", element: <ExploreView /> },
-      { path: "snippets/new", element: <NewSnippetView /> },
-      { path: "snippets/editor/:id", element: <EditorView /> },
-      { path: "snippets/view/:id", element: <PublicSnippetView /> },
-      { path: "profile/:userName", element: <ProfileView /> },
-      { path: "*", element: <AppNotFoundView /> },
-    ],
-  },
-  {
-    path: "*",
-    element: <NotFoundView />,
-  },
-]);
+      {
+        path: "/",
+        element: <HomeView />,
+      },
+      {
+        path: "/auth/register",
+        element: <RegisterView />,
+      },
+      {
+        path: "/auth/login",
+        element: <LoginView />,
+      },
+      {
+        path: "/auth/callback",
+        element: <AuthCallbackView />,
+      },
+      {
+        path: "/app",
+        element: <SideBar />,
+        children: [
+          { index: true, element: <Navigate to="dashboard" replace /> },
+          { path: "dashboard", element: <DashboardView /> },
+          { path: "account", element: <AccountView /> },
+          { path: "explore", element: <ExploreView /> },
+          { path: "snippets/new", element: <NewSnippetView /> },
+          { path: "snippets/editor/:id", element: <EditorView /> },
+          { path: "snippets/view/:id", element: <PublicSnippetView /> },
+          { path: "profile/:userName", element: <ProfileView /> },
+          { path: "*", element: <AppNotFoundView /> },
+        ],
+      },
+      {
+        path: "*",
+        element: <AppNotFoundView />,
+      }
+    ]
+  }
+])
+
+export default function Router() {
+  return <RouterProvider router={router} />;
+}

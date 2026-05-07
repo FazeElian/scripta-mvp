@@ -24,7 +24,7 @@ export const useRegisterMutation = () => {
 
             // Invalidate queries
             queryClient.invalidateQueries({
-                queryKey: ["user"]
+                queryKey: ["auth-user"]
             })
         },
         onError: (error: Error) => {
@@ -43,17 +43,19 @@ export const useLoginMutation = () => {
 
     return useMutation({
         mutationFn: (data: LoginUser) => login(data),
-        onSuccess: (response) => {
+        onSuccess: async (response) => {
             // Save JWT on localStorage
             localStorage.setItem("AUTH_TOKEN", response.token);
 
             // Invalidate queries
-            queryClient.invalidateQueries({
-                queryKey: ["user"]
+            await queryClient.invalidateQueries({
+                queryKey: ["auth-user"]
             })
 
             // Redirect to app dashboard
-            redirect("/app/dashboard")
+            redirect("/app/dashboard", {
+                replace: true
+            });
         },
         onError: (error: Error) => {
             const message = error.message;
@@ -68,7 +70,7 @@ export const useUpdateProfileMutation = () => {
     const redirect = useNavigate()
 
     // Refetch user info
-    const { refetch } = useGetAuthenticatedUser()
+    const { refetch } = useGetAuthenticatedUser();
 
     return useMutation({
         mutationFn: (data: UpdateProfile) => updateProfile(data),

@@ -2,13 +2,12 @@ import { createRoot } from 'react-dom/client'
 import { Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { RouterProvider } from 'react-router-dom';
 import { Toaster } from 'sonner';
 // Global styles
 import './assets/css/global.css'
 
 // Router comp
-import { Router } from './Router';
+import Router from './Router';
 
 // Loader comp
 import { PageLoader } from './components/app/atoms/PageLoader';
@@ -25,7 +24,7 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <Suspense fallback={<PageLoader />}>
-      <RouterProvider router={Router} />
+      <Router />
       <Toaster 
         position="top-center" 
         richColors 
@@ -39,6 +38,10 @@ createRoot(document.getElementById('root')!).render(
         }}
       />
     </Suspense>
-    <ReactQueryDevtools initialIsOpen={false} />
+    {import.meta.env.DEV && ReactQueryDevtools && (
+      <Suspense fallback={null}>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </Suspense>
+    )}
   </QueryClientProvider>
 )

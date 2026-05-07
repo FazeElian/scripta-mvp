@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { BookText, Sparkles, Terminal, Waypoints } from "lucide-react";
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from "remark-gfm";
@@ -13,7 +13,6 @@ import MarkdownComponents from "../atoms/MarkdownComponents";
 
 // Diagram
 import { generateDiagram } from "@/services/snippets/api";
-import { MermaidDiagram } from "./MermaidDiagram";
 
 type OutputPanelType = {
     result: RunResult | null;
@@ -27,6 +26,10 @@ type OutputPanelType = {
 };
 
 type TabType = "console" | "docs" | "diagram";
+
+const MermaidDiagram = lazy(() => 
+    import("./MermaidDiagram").then(m => ({ default: m.MermaidDiagram }))
+);
 
 const OutputPanel = ({ result, running, markdown, onMarkdownChange, lang, code, setDiagram, diagram }: OutputPanelType) => {
     const [selectedTab, setSelectedTab] = useState<TabType>("console");
@@ -149,11 +152,13 @@ const OutputPanel = ({ result, running, markdown, onMarkdownChange, lang, code, 
                         </div>
                     ) : (
                         <div className="cont-editor-diagram">
-                            <MermaidDiagram
-                                chart={diagram}
-                                regenerate={handleGenerateDiagram}
-                                generating={generating}
-                            />
+                            <Suspense fallback={<div>Loading diagram...</div>}>
+                                <MermaidDiagram
+                                    chart={diagram}
+                                    regenerate={handleGenerateDiagram}
+                                    generating={generating}
+                                />
+                            </Suspense>
                         </div>
                     )
                 )}

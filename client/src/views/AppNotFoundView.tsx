@@ -7,7 +7,7 @@ import "@/assets/css/components/NotFound.css";
 // Background comp
 import { AuthBackground } from "@/components/app/molecules/AuthBackground"
 
-const AppNotFoundView = () => {
+export default function AppNotFoundView() {
     return (
         <main className="not-found not-found-app">
             <AuthBackground />
@@ -20,5 +20,3 @@ const AppNotFoundView = () => {
         </main>
     )
 }
-
-export { AppNotFoundView };
