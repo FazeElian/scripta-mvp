@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BookText, Braces, Globe, NotepadText, Pencil } from 'lucide-react';
 
@@ -9,6 +9,7 @@ import "@/assets/css/components/Forms.css";
 import { InputTextGroup } from "@/components/app/atoms/InputTextGroup";
 import { InputSelectGroup } from '../atoms/InputSelectGroup';
 import { InputTextAreaGroup } from '../atoms/InputTextAreaGroup';
+import { TagsInput } from '../atoms/TagsInput';
 
 // Langs & visiblity
 import { langOptions } from '@/lib/langs';
@@ -18,7 +19,7 @@ import { visibilityMapping } from '@/lib/visibility';
 import { formSnippetSchema } from '@/schemas/snippet.schema';
 
 // Form type
-import type { EditSnippetModal, FormSnippet } from '@/types/snippets.type';
+import type { EditSnippetModal, FormSnippetInput, FormSnippetOutput } from '@/types/snippets.type';
 
 // Mutation
 import { useUpdateSnippetMutation } from '@/services/snippets/mutations';
@@ -26,19 +27,20 @@ import { useUpdateSnippetMutation } from '@/services/snippets/mutations';
 const visibilityOptions = Object.keys(visibilityMapping); // ["public", "private", "unListed"]
 
 const EditSnippetModalForm = ({ snippet, formRef, onClose }: EditSnippetModal) => {
-    const { register, formState: { errors }, handleSubmit } = useForm<FormSnippet>({
+    const { register, formState: { errors }, handleSubmit, control } = useForm<FormSnippetInput>({
         resolver: zodResolver(formSnippetSchema),
         defaultValues: {
             title: snippet.title,
             description: snippet.description,
             lang: snippet.lang,
             visibility: snippet.visibility as "public" | "private" | "unListed",
+            tags: snippet.tags ?? [],
         }
     });
 
     const mutation = useUpdateSnippetMutation(snippet.id);
-    const onSubmit = (formData: FormSnippet) => {
-        mutation.mutate(formData, {
+    const onSubmit = (formData: FormSnippetInput) => {
+        mutation.mutate(formData as FormSnippetOutput, {
             onSuccess: () => {
                 onClose()
             }
@@ -96,6 +98,16 @@ const EditSnippetModalForm = ({ snippet, formRef, onClose }: EditSnippetModal) =
                         placeholder="A brief description of what this snippet does..."
                         register={register}
                         error={errors.description}
+                    />
+                    <Controller
+                        name="tags"
+                        control={control}
+                        render={({ field }) => (
+                            <TagsInput
+                                value={field.value}
+                                onChange={field.onChange}
+                            />
+                        )}
                     />
                 </div>
                 <div className="form-actions">

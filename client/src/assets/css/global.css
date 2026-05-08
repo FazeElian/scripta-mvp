@@ -46,7 +46,7 @@ html {
 }
 
 [data-sonner-toaster] {
-    zoom: calc(1 / 0.90) !important;
+    zoom: calc(1 / 0.95) !important;
 }
 
 body {

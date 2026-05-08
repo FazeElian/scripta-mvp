@@ -10,12 +10,15 @@ import {
     HasOne,
     AllowNull,
     CreatedAt,
-    UpdatedAt
+    UpdatedAt,
+    BelongsToMany
 } from "sequelize-typescript";
 
 // Models
 import User from "./User";
 import SnippetContent from "./SnippetContent";
+import Tag from "./Tag";
+import SnippetTag from "./SnippetTag";
 
 @Table({
     tableName: "snippets"
@@ -57,6 +60,10 @@ class Snippet extends Model {
     // Content relation
     @HasOne(() => SnippetContent)
     declare content: SnippetContent;
+
+    // Tag relation
+    @BelongsToMany(() => Tag, () => SnippetTag)
+    declare tags: Tag[];
 
     @CreatedAt
     declare createdAt: Date;

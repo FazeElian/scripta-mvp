@@ -24,4 +24,9 @@ export const createSnippetSchema = z.object({
     visibility: z
         .enum(["public", "private", "unListed"], "Please select a valid visibility option")
         .default("private"),
+
+    tags: z
+        .array(z.string().min(1).max(50))
+        .max(10, "You can add up to 5 tags")
+        .default([]),
 });

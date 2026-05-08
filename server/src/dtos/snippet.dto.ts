@@ -5,6 +5,7 @@ export interface NewSnippetRequest {
     lang: string;
     visibility: string;
     userId: string;
+    tags?: string[];
 };
 
 // Response Dto's
@@ -16,6 +17,7 @@ export interface AllSnippetsByOwnerResponse {
     visibility: string;
     updatedAt: Date;
     createdAt: Date;
+    tags: string[];
 };
 
 export interface NewSnippetResponse {
@@ -32,6 +34,7 @@ export interface AllSnippetsResponse {
     ownerName: string;
     ownerAvatar: string;
     ownerUserName: string;
+    tags: string[];
 };
 
 export interface PublicSnippet {
@@ -40,6 +43,7 @@ export interface PublicSnippet {
     description: string;
     lang: string;
     updatedAt: Date;
+    tags: string[];
 };
 
 export interface GetSnippetByIdResponse {
@@ -57,6 +61,7 @@ export interface GetSnippetByIdResponse {
         diagramData: string;
     },
     updatedAt: Date;
+    tags: string[];
 };
 
 export interface SnippetByIdByOwnerResponse {
@@ -68,5 +73,6 @@ export interface SnippetByIdByOwnerResponse {
         code: string;
         documentation: string;
         diagramData: string;
-    }
+    };
+    tags: string[];
 };

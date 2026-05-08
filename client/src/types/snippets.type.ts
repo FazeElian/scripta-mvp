@@ -1,4 +1,4 @@
-import type z from "zod";
+import { z } from "zod";
 import { formSnippetSchema } from "@/schemas/snippet.schema";
 
 export interface SnippetByOwner {
@@ -7,6 +7,7 @@ export interface SnippetByOwner {
     description: string;
     lang: string;
     visibility: string;
+    tags: string[];
     updatedAt: Date;
     createdAt: Date;
 };
@@ -45,6 +46,7 @@ export interface AllSnippets {
     ownerName: string;
     ownerAvatar: string;
     ownerUserName: string;
+    tags: string[];
 };
 
 export interface SnippetCardType {
@@ -54,8 +56,9 @@ export interface SnippetCardType {
     lang: string;
     updatedAt: Date;
     visibility: string;
+    tags: string[];
     onEdit: () => void;
-}
+};
 
 export interface SnippetById {
     title: string;
@@ -81,3 +84,5 @@ export interface EditSnippetModal {
 }
 
 export type FormSnippet = z.infer<typeof formSnippetSchema>;
+export type FormSnippetInput = z.input<typeof formSnippetSchema>;
+export type FormSnippetOutput = z.output<typeof formSnippetSchema>;

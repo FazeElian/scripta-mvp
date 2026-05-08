@@ -20,11 +20,12 @@ import { db } from "./config/db";
 import authRouter from "./routes/auth.router";
 import userRouter from "./routes/user.router";
 import snippetRouter from "./routes/snippet.router";
+import tagRouter from "./routes/tag.router";
 
 async function connectDB () {
     try {
         await db.authenticate();
-        db.sync();
+        db.sync({ alter: true });
         console.log(colors.blue.bold("Connected to the database sucessfully"));
     } catch (error) {
         console.log(colors.red.bold(`Error while connecting to the database: ${error}`));
@@ -51,6 +52,7 @@ app.use("/api/v1",
     authRouter,
     userRouter,
     snippetRouter,
+    tagRouter
 );
 
 export default app

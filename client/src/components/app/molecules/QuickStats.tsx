@@ -14,7 +14,6 @@ import { formatActivity } from "@/utils/formatActivity";
 
 const QuickStats = () => {
     const { data, isError } = useGetStats();
-    console.log(data)
 
     if (isError || !data) return null;
 

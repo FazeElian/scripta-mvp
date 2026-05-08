@@ -8,6 +8,7 @@ import {
     type AllSnippets,
     type EditorSnippetForm,
     type FormSnippet,
+    type FormSnippetInput,
     type SnippetById,
     type SnippetByIdByOwner,
     type SnippetByOwner
@@ -85,7 +86,7 @@ export async function newSnippet(snippetData: FormSnippet) {
     }
 }
 
-export async function updateSnippet(id: string, snippetData: FormSnippet) {
+export async function updateSnippet(id: string, snippetData: FormSnippetInput) {
     try {
         const { data } = await api.put(`/snippets/${id}`, snippetData);
         return data;

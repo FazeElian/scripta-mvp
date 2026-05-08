@@ -21,6 +21,7 @@ import { generateToken } from '../utils/jwt';
 
 // Types
 import { PublicSnippet } from '../dtos/snippet.dto';
+import Tag from '../models/Tag';
 
 export default class UserService {
     // Function to create account
@@ -99,16 +100,19 @@ export default class UserService {
             where: {
                 userId: user.id,
                 visibility: "public"
-            }
+            },
+            include: [
+                { model: Tag, as: 'tags', attributes: ['name'], through: { attributes: [] } }
+            ]
         });
         const publicSnippets: PublicSnippet[] = snippets.map((snippet) => ({
             id: snippet.id,
             title: snippet.title,
             description: snippet.description,
             lang: snippet.lang,
-            updatedAt: snippet.updatedAt
+            updatedAt: snippet.updatedAt,
+            tags: (snippet as any).tags?.map((t: Tag) => t.name) || [],
         }));
-    
 
         // Found
         return {

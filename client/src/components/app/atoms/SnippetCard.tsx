@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Dot, Ellipsis, Globe, Lock, Link as LinkIcon, Pencil, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 // Langs
 import { langsColors } from "@/lib/langs";
@@ -8,7 +9,6 @@ import { langsColors } from "@/lib/langs";
 // Utils
 import { formatSnippetDate } from "@/utils/formatSnippetDate";
 import { useDeleteSnippetMutation } from "@/services/snippets/mutations";
-import { toast } from "sonner";
 
 type SnippetCardType = {
     id: string;
@@ -17,10 +17,11 @@ type SnippetCardType = {
     lang: string;
     updatedAt: Date;
     visibility: string;
+    tags: string[];
     onEdit: () => void;
 }
 
-const SnippetCard = ({ id, title, description, lang, updatedAt, visibility, onEdit } : SnippetCardType) => {
+const SnippetCard = ({ id, title, description, lang, updatedAt, visibility, onEdit, tags } : SnippetCardType) => {
     const [snippetOptions, setSnippetOptions] = useState(false);
     const optionsRef = useRef<HTMLDivElement>(null);
     const handleDetail = (e: React.MouseEvent) => {
@@ -92,6 +93,15 @@ const SnippetCard = ({ id, title, description, lang, updatedAt, visibility, onEd
                     </button>
                 </div>
                 <p>{description}</p>
+                {tags && tags.length > 0 && (
+                    <div className="snippet-card-tags">
+                        {tags.map((tag) => (
+                            <span key={tag} className="snippet-card-tag">
+                                #{tag}
+                            </span>
+                        ))}
+                    </div>
+                )}
             </div>
             {snippetOptions && (
                 <div className="snippet-options" ref={optionsRef}>

@@ -1,4 +1,5 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+import { TagsInput } from '../atoms/TagsInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BookText, Braces, Globe, NotepadText, type LucideIcon } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -19,7 +20,7 @@ import { visibilityMapping } from '@/lib/visibility';
 import { formSnippetSchema } from '@/schemas/snippet.schema';
 
 // Form type
-import type { FormSnippet } from '@/types/snippets.type';
+import type { FormSnippetInput, FormSnippetOutput } from '@/types/snippets.type';
 
 // Mutation
 import { useNewSnippetMutation } from '@/services/snippets/mutations';
@@ -33,20 +34,21 @@ type NewSnippetFormType = {
 const visibilityOptions = Object.keys(visibilityMapping); // ["public", "private", "unListed"]
 
 const NewSnippetForm = ({ title, subtitle, icon: Icon } : NewSnippetFormType) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormSnippet>({
+    const { register, handleSubmit, formState: { errors }, control } = useForm<FormSnippetInput>({
         resolver: zodResolver(formSnippetSchema),
         defaultValues: {
             title: "",
             description: "",
             lang: "",
             visibility: "private",
+            tags: [],
         }
     });
 
     const redirect = useNavigate();
     const mutation = useNewSnippetMutation();
-    const onSubmit = (formData: FormSnippet) => {
-        mutation.mutate(formData, {
+    const onSubmit = (formData: FormSnippetInput) => {
+        mutation.mutate(formData as FormSnippetOutput, {
             onSuccess: (res) => {
                 redirect(`/app/snippets/editor/${res.id}`)
             }
@@ -102,6 +104,16 @@ const NewSnippetForm = ({ title, subtitle, icon: Icon } : NewSnippetFormType) =>
                     placeholder="A brief description of what this snippet does..."
                     register={register}
                     error={errors.description}
+                />
+                <Controller
+                    name="tags"
+                    control={control}
+                    render={({ field }) => (
+                        <TagsInput
+                            value={field.value}
+                            onChange={field.onChange}
+                        />
+                    )}
                 />
             </div>
             <div className="form-actions">

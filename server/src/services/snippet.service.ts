@@ -1,6 +1,7 @@
 // Models
 import Snippet from "../models/Snippet";
 import SnippetContent from "../models/SnippetContent";
+import Tag from "../models/Tag";
 import User from "../models/User";
 
 // DTO'S
@@ -33,6 +34,17 @@ export default class SnippetService {
                 snippetId: snippet.id
             }, { transaction: transaction });
 
+            // Handle tags
+            if (data.tags && data.tags.length > 0) {
+                const tagInstances = await Promise.all(
+                    data.tags.map(name =>
+                        Tag.findOrCreate({ where: { name }, transaction })
+                            .then(([tag]) => tag)
+                    )
+                );
+                await (snippet as any).addTags(tagInstances, { transaction });
+            }
+
             // Save changes
             await transaction.commit();
             return {
@@ -49,11 +61,10 @@ export default class SnippetService {
     async getAll() : Promise<AllSnippetsResponse[]> {
         const snippets = await Snippet.findAll({ 
             order: [["createdAt", "DESC"]],
-            include: [{
-                model: User,
-                as: 'user',
-                attributes: ['fullName', 'userName', 'avatar']
-            }],
+            include: [
+                { model: User, as: 'user', attributes: ['fullName', 'userName', 'avatar'] },
+                { model: Tag, as: 'tags', attributes: ['name'], through: { attributes: [] } }
+            ],
             where: { visibility: "public" }
         });
 
@@ -68,12 +79,16 @@ export default class SnippetService {
             ownerName: (snippet as any).user?.fullName || "Unknown",
             ownerAvatar: (snippet as any).user?.avatar || "Terminal",
             ownerUserName: (snippet as any).user?.userName || "Unknown",
+            tags: (snippet as any).tags?.map((t: Tag) => t.name) || [],
         }));
     };
 
     async getAllByOwner(userId: string) : Promise<AllSnippetsByOwnerResponse[]> {
         const snippets = await Snippet.findAll({ 
-            where: { userId: userId }
+            where: { userId: userId },
+            include: [
+                { model: Tag, as: 'tags', attributes: ['name'], through: { attributes: [] } }
+            ]
         });
 
         if(!snippets || snippets.length === 0) return null;
@@ -86,6 +101,7 @@ export default class SnippetService {
             visibility: snippet.visibility,
             updatedAt: snippet.updatedAt,
             createdAt: snippet.createdAt,
+            tags: (snippet as any).tags?.map((t: Tag) => t.name) || [],
         }));
     };
 
@@ -103,6 +119,9 @@ export default class SnippetService {
         const owner = await User.findByPk(snippet.userId);
         if (!owner) throw new Error("Owner not found");
 
+        // Find tags
+        const tags = await (snippet as any).getTags();
+
         // Object to be returned
         return {
             title: snippet.title,
@@ -118,7 +137,8 @@ export default class SnippetService {
                 code: snippetContent.code,
                 documentation: snippetContent.documentation,
                 diagramData: snippetContent.diagramData,
-            }
+            },
+            tags: tags.map((t: Tag) => t.name),
         };
     };
 
@@ -127,6 +147,9 @@ export default class SnippetService {
         const snippetContent = await SnippetContent.findOne({
             where: { snippetId: snippet.id }
         });
+
+        // Find tags
+        const tags = await (snippet as any).getTags();
 
         return {
             title: snippet.title,
@@ -137,11 +160,12 @@ export default class SnippetService {
                 code: snippetContent.code,
                 documentation: snippetContent.documentation,
                 diagramData: snippetContent.diagramData,
-            }
+            },
+            tags: tags.map((t: Tag) => t.name),
         };
     };
 
-    async updateById(snippet: Snippet, newData: Pick<SnippetByIdByOwnerResponse, "title" | "description" | "lang" | "visibility">) : Promise<any> {
+    async updateById(snippet: Snippet, newData: Pick<SnippetByIdByOwnerResponse, "title" | "description" | "lang" | "visibility" | "tags">) : Promise<any> {
         const transaction = await db.transaction();
 
         try {
@@ -152,8 +176,19 @@ export default class SnippetService {
                 visibility: newData.visibility,
             }, { transaction });
 
+            // Update tags if provided
+            if (newData.tags !== undefined) {
+                const tagInstances = await Promise.all(
+                    newData.tags.map(name =>
+                        Tag.findOrCreate({ where: { name }, transaction })
+                            .then(([tag]) => tag)
+                    )
+                );
+                await (snippet as any).setTags(tagInstances, { transaction });
+            }
+
             await transaction.commit();
-            return "Snippet updated successfully"
+            return "Snippet updated successfully";
         } catch (error) {
             await transaction.rollback();
             console.error(error);
@@ -179,21 +214,20 @@ export default class SnippetService {
             if (!content) throw new Error("Snippet content not found");
 
             await content.update(newData.snippetContent, { transaction: transaction });
+
+            // Update tags if provided
+            if (newData.tags !== undefined) {
+                const tagInstances = await Promise.all(
+                    newData.tags.map(name =>
+                        Tag.findOrCreate({ where: { name }, transaction })
+                            .then(([tag]) => tag)
+                    )
+                );
+                await (snippet as any).setTags(tagInstances, { transaction });
+            }
+
+            // Save changes
             await transaction.commit();
-
-            // Return udpated data
-            // return {
-            //     title: snippet.title,
-            //     lang: snippet.lang,
-            //     description: snippet.description,
-            //     visibility: snippet.visibility,
-            //     snippetContent: {
-            //         code: content.code,
-            //         documentation: content.documentation,
-            //         diagramData: content.diagramData 
-            //     }
-            // };
-
             return "Changes were saved successfully";
         } catch (error) {
             await transaction.rollback(); // if something fails, all is discarded
