@@ -82,6 +82,15 @@ const PublicSnippetView = () => {
                     </div>
                 </div>
                 <p>{snippet.description}</p>
+                {snippet.tags && snippet.tags.length > 0 && (
+                    <div className="snippet-card-tags">
+                        {snippet.tags.map((tag) => (
+                            <span key={tag} className="snippet-card-tag">
+                                #{tag}
+                            </span>
+                        ))}
+                    </div>
+                )}
                 <CodeDisplay
                     lang={snippet.lang}
                     value={snippet.snippetContent.code}

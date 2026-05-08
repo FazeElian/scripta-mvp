@@ -75,6 +75,7 @@ export interface SnippetById {
         diagramData: string;
     },
     updatedAt: Date;
+    tags: string[];
 };
 
 export interface EditSnippetModal {

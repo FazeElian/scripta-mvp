@@ -22,6 +22,15 @@ const PublicSnippetCard = (props : AllSnippets) => {
                     <h1>{props.title}</h1>
                 </div>
                 <p>{props.description}</p>
+                {props.tags && props.tags.length > 0 && (
+                    <div className="snippet-card-tags">
+                        {props.tags.map((tag) => (
+                            <span key={tag} className="snippet-card-tag">
+                                #{tag}
+                            </span>
+                        ))}
+                    </div>
+                )}
             </div>
             <div className="btm-snippet-card">
                 <div className="btm-snippet-card-left">
