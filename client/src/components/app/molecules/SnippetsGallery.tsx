@@ -74,7 +74,7 @@ const SnippetsGallery = ({ query, sortDate, sortLang } : SnippetsGalleryType) =>
                         />
                     ))}
                 </section>
-            ) : snippets && snippets.length === 0 ? (
+            ) : snippets && snippets.length === 0 || !snippets ? (
                 <div className="no-snippets">
                     <FilePlus />
                     <div className="no-snippets-txt">
@@ -84,7 +84,7 @@ const SnippetsGallery = ({ query, sortDate, sortLang } : SnippetsGalleryType) =>
                 </div>
             ) : isLoading ? (
                 <ModuleLoader txt="Loading your snippets..." />
-            ) :(
+            ) : (
                 <div className="no-snippets">
                     <FilePlus />
                     <div className="no-snippets-txt">
