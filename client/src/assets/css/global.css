@@ -45,6 +45,10 @@ html {
     zoom: 0.95;
 }
 
+[data-sonner-toaster] {
+    zoom: calc(1 / 0.90) !important;
+}
+
 body {
     background-color: var(--bg-main);
     color: var(--text-main);

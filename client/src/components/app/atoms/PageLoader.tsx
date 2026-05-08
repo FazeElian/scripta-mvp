@@ -1,4 +1,4 @@
-import "@/assets/css/components/PageLoader.css";
+import "@/assets/css/components/Loaders.css";
 
 const PageLoader = () => {
     return (

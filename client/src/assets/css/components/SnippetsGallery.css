@@ -11,6 +11,7 @@
         display: flex;
         width: auto;
         height: auto;
+        position: relative;
         background-color: var(--bg-secondary);
         border: 1px solid var(--gray-main);
         padding: 20px;
@@ -36,6 +37,7 @@
 
         .top-head-snippet-card {
             display: flex;
+            position: relative;
             justify-content: space-between;
             align-items: center;
         }
@@ -56,6 +58,9 @@
                 cursor: pointer;
                 padding: 4px;
                 border-radius: 5px;
+                position: absolute;
+                top: 0;
+                right: 0;
             }
 
                 .top-head-snippet-card button:hover {

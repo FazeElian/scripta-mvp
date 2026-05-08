@@ -3,14 +3,15 @@ import { Ghost } from "lucide-react";
 // Styles
 import "@/assets/css/components/SnippetsGallery.css";
 
-// Sub component
+// Sub components
 import { SnippetCardExplore } from "../atoms/SnippetCardExplore";
+import { ModuleLoader } from "../atoms/ModuleLoader";
 
 // Query
 import { useGetAllSnippets } from "@/services/snippets/queries";
 
 const SnippetsGalleryExplore = () => {
-    const { data: snippets, isError, error } = useGetAllSnippets()
+    const { data: snippets, isError, error, isLoading } = useGetAllSnippets()
     if(isError) return null;
 
     return (
@@ -25,6 +26,8 @@ const SnippetsGalleryExplore = () => {
                 <div className="no-snippets">
                     {error}
                 </div>
+            ) : isLoading ? (
+                <ModuleLoader txt="Loading community snippets..." />
             ) : (
                 <div className="no-snippets">
                     <Ghost />

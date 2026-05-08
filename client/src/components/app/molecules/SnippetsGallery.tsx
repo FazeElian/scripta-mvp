@@ -13,6 +13,7 @@ import { useGetAllSnippetsByOwner } from "@/services/snippets/queries";
 import { useHandleModalForm } from "@/hooks/useHandleModalForm";
 import { EditSnippetModalForm } from "./EditSnippetModalForm";
 import type { SnippetCardType } from "@/types/snippets.type";
+import { ModuleLoader } from "../atoms/ModuleLoader";
 
 type SnippetsGalleryType = {
     query: string;
@@ -33,7 +34,7 @@ const SnippetsGallery = ({ query, sortDate, sortLang } : SnippetsGalleryType) =>
         formRef
     });
 
-    const { data: snippets, isError } = useGetAllSnippetsByOwner();
+    const { data: snippets, isError, isLoading } = useGetAllSnippetsByOwner();
     const filtered = useMemo(() => {
         let result = snippets ?? [];
 
@@ -81,7 +82,9 @@ const SnippetsGallery = ({ query, sortDate, sortLang } : SnippetsGalleryType) =>
                         <Link to="/app/snippets/new">Create Snippet</Link>
                     </div>
                 </div>
-            ) : (
+            ) : isLoading ? (
+                <ModuleLoader txt="Loading your snippets..." />
+            ) :(
                 <div className="no-snippets">
                     <FilePlus />
                     <div className="no-snippets-txt">

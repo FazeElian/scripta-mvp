@@ -85,7 +85,9 @@
                 .avatar-icon-side-bar {
                     min-width: 44px;
                     min-height: 44px;
-                    border-radius: 50%;
+                    border-radius: 50% !important;
+                    align-items: center !important;
+                    justify-content: center !important;
                 }
             
                 .txt-user-side-bar h1 {
@@ -119,6 +121,7 @@
             .user-side-bar a svg {
                 width: 20px;
                 height: 20px;
+                stroke-width: 2.2;
             }
 
         .logout-side-bar {
