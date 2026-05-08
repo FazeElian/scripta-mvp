@@ -41,6 +41,11 @@ router.get("/users/user/",
     UserController.getAuthenticatedUser
 );
 
+router.get("/users/user/stats",
+    authenticate,
+    UserController.getMyStats
+);
+
 router.get("/users/profile/:userName",
     UserController.getProfile
 );

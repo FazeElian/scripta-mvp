@@ -151,4 +151,23 @@ export default class UserService {
     async deleteAccount(user: User) : Promise<void> {
         await user.destroy();
     };
+
+    // Function to get user stats
+    async getStats(user: User) {
+        const snippets = await Snippet.findAll({ where: { userId: user.id } });
+        
+        const totalSnippets = snippets.length;
+        const publicSnippets = snippets.filter(s => s.visibility === "public").length;
+        const languagesUsed = new Set(snippets.map(s => s.lang)).size;
+        const lastSnippet = snippets.sort((a, b) => 
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        )[0];
+
+        return {
+            totalSnippets,
+            publicSnippets,
+            languagesUsed,
+            lastUpdated: lastSnippet?.updatedAt ?? null,
+        };
+    }
 };

@@ -6,30 +6,25 @@ import "@/assets/css/components/QuickStats.css";
 // Sub component
 import QuickStatsItem from "../atoms/QuickStatsItem"
 
-const stats = [
-    {
-        title: "Total Snippets",
-        icon: Code,
-        value: "24"
-    },
-    {
-        title: "Public Snippets",
-        icon: Globe,
-        value: "15"
-    },
-    {
-        title: "Languages Used",
-        icon: Braces,
-        value: "6"
-    },
-    {
-        title: "Recent Activity",
-        icon: Clock,
-        value: "Today"
-    },
-]
+// Query
+import { useGetStats } from "@/services/users/queries";
+
+// utils
+import { formatActivity } from "@/utils/formatActivity";
 
 const QuickStats = () => {
+    const { data, isError } = useGetStats();
+    console.log(data)
+
+    if (isError || !data) return null;
+
+    const stats = [
+        { title: "Total Snippets", icon: Code, value: String(data.totalSnippets) },
+        { title: "Public Snippets", icon: Globe, value: String(data.publicSnippets) },
+        { title: "Languages Used", icon: Braces, value: String(data.languagesUsed) },
+        { title: "Recent Activity", icon: Clock, value: formatActivity(data.lastUpdated) },
+    ];
+
     return (
         <div className="quick-stats">
             {stats.map((item) => (

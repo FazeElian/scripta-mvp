@@ -60,4 +60,13 @@ export default class UserController {
             handleError(error, res, next);
         }
     };
+
+    static getMyStats = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const result = await userService.getStats(req.user!);
+            res.status(200).json(result);
+        } catch (error) {
+            handleError(error, res, next);
+        }
+    };
 };
