@@ -5,7 +5,7 @@ import { java } from "@codemirror/lang-java";
 import type { LanguageSupport } from "@codemirror/language";
 
 export const cleanLangName = (lang: string) =>
-    lang.replace(/[^\w\s/#().]/gu, "").trim();
+    lang.replace(/[^\w\s/#().+]/gu, "").trim();
 
 export const langToExtension = (lang: string): LanguageSupport | null => {
     const clean = cleanLangName(lang).toLowerCase();
