@@ -1,30 +1,150 @@
-# 🖋️ Scripta (MVP)
-> **Elevating code management through visual diagrams and structured snippets.**
+<div align="center">
 
-Scripta is a developer-focused platform designed to bridge the gap between raw code and technical documentation. It allows users to organize snippets into folders, add markdown documentation, and attach visual diagrams.
-
----
-
-## 🚀 MVP Features
-- **User Authentication:** Secure Sign-up and Login (JWT + Bcrypt).
-- **Snippet Management:** Create, Read, Update, and Delete code snippets.
-- **Folder Organization:** Categorize snippets by subjects or projects.
-- **Visual Context:** Basic support for attaching diagram data to code blocks.
-- **Type-Safe API:** Backend built with TypeScript and Zod validation.
-
-## 🛠️ Tech Stack
-- **Backend:** Node.js, Express, TypeScript.
-- **Database:** PostgreSQL.
-- **ORM:** Sequelize-Typescript.
-- **Validation:** Zod.
-- **Documentation:** Markdown.
+<img src="./client/src/assets/img/logo.png" alt="Scripta Logo" width="300"/>
+</div>
 
 ---
 
-## 📂 Project Structure
-```text
-.
-├── server/            # Express Server & Sequelize Models
-├── client/            # React App (Incoming)
-├── docs/              # Technical Documentation & Diagrams
-└── design/            # UI/UX Assets & Style Guides
+> Transforming code into structured knowledge through snippets, diagrams, and documentation.
+
+Scripta is a full-stack developer platform designed to help programmers organize, document, and visualize their codebase in a more meaningful way.
+
+Instead of storing isolated snippets, Scripta lets developers connect code with technical documentation, diagrams, and project structures—making knowledge easier to understand, maintain, and share.
+
+---
+
+## ✨ Core Vision
+
+Modern developers often store code snippets in scattered places:
+- Notes apps
+- GitHub gists
+- Messaging apps
+- Browser bookmarks
+- Local files
+
+Scripta solves this by centralizing technical knowledge into one structured workspace.
+
+With Scripta, you can:
+
+✅ Store reusable code snippets  
+✅ Organize knowledge in folders and collections  
+✅ Add technical documentation using Markdown  
+✅ Connect code with diagrams and visual flows  
+✅ Build a personal technical knowledge base  
+
+---
+
+# 🚀 Current MVP Features
+
+## 🔐 Authentication & Security
+- User registration and login
+- JWT-based authentication
+- Password hashing with Bcrypt
+- Protected API routes
+- Session persistence
+
+## 📁 Tags Management
+- Create custom tags for technologies, topics, or projects
+- Reuse tags across multiple snippets
+- Organize snippets through semantic categorization
+- Filter content by tags
+
+## 💻 Snippet Management
+- Create code snippets
+- Create, manage and delete snippets
+- Associate snippets with tags
+- Language-aware storage
+
+## 📝 Documentation
+- Markdown support for technical notes
+- Rich text documentation linked to code
+- Structured learning/project notes
+
+## 📊 Visual Context
+- Generate a diagram of your code with AI
+- Support for diagram metadata
+- Prepare snippets for visual workflows
+- Foundation for architecture visualization
+
+## 🛡️ Backend Validation
+- Schema validation with Zod
+- Type-safe API contracts
+- Error handling and input sanitization
+
+---
+
+# 🏗️ Architecture
+
+Scripta follows a modular full-stack architecture:
+
+Frontend → API Layer → Business Logic → Database
+
+### Backend Layers
+- Controllers
+- Services
+- Repositories
+- Middleware
+- Validators
+
+This keeps the codebase scalable and maintainable as features grow.
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+- React
+- TypeScript
+- Vite
+- React Router
+- TanStack Query
+
+## Backend
+- Node.js
+- Express
+- TypeScript
+
+## Database
+- PostgreSQL
+- Sequelize + Sequelize-Typescript
+
+## Validation & Security
+- Zod
+- JWT
+- Bcrypt
+
+---
+
+# 📂 Project Structure
+
+```bash
+scripta-mvp/
+├── client/              # React frontend
+├── server/              # Express backend
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── services/
+│   │   ├── repositories/
+│   │   ├── middlewares/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── schemas/
+├── docs/                # Technical docs and diagrams
+└── design/              # UI/UX assets
+```
+
+---
+
+# 🤝 Contributing
+
+Contributions, ideas, and feedback are always welcome.
+Create an issue and open a pull request.
+
+---
+
+# 📄 License
+
+This project is currently under active development.
+License definition coming soon.
+
+---
