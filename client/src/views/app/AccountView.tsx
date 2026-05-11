@@ -7,7 +7,13 @@ import { AccountForm } from "@/components/app/molecules/AccountForm";
 import "@/assets/css/components/Account.css";
 import "@/assets/css/components/Forms.css";
 
+// Title hook
+import useDocumentTitle from "@/hooks/useDocumentTitle";
+
 const AccountView = () => {
+    // Title
+    useDocumentTitle("Account | Scripta")
+
     return (
         <main className="app-content">
             <PageTitle

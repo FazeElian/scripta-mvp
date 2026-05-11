@@ -24,10 +24,20 @@ import { useUpdateEditorSnippetMutation } from "@/services/snippets/mutations";
 import { cleanLangName } from "@/lib/editorLangs";
 import { matchLangOption } from "@/lib/matchLangOption";
 
+// Title hook
+import useDocumentTitle from "@/hooks/useDocumentTitle";
+
 const EditorView = () => {
     const redirect = useNavigate();
     const { id } = useParams();
     const { data: snippet, isLoading, isError } = useGetSnippetByIdByOwner(id as string);
+
+    // Title
+    useDocumentTitle(
+        snippet?.title
+            ? `${snippet.title} | Scripta`
+            : "Editor | Scripta"
+    );
 
     const [code, setCode] = useState("");
     const [lang, setLang] = useState("🟨 JavaScript");

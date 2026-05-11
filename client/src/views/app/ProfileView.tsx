@@ -23,6 +23,9 @@ import type { User } from "@/types/users.types";
 import { formatProfileDate } from "@/utils/formatProfileDate";
 import { formatWebsite } from "@/utils/formatWebsite";
 
+// Title hook
+import useDocumentTitle from "@/hooks/useDocumentTitle";
+
 type AvatarConfig = {
     icon: LucideIcon;
     className: string;
@@ -44,6 +47,13 @@ const ProfileView = () => {
     const { userName } = useParams();
     const cleanUserName = userName?.replace("@", "");
     const { data, isLoading, isError } = useGetProfile(cleanUserName as string);
+
+    // Title
+    useDocumentTitle(
+        data?.userName
+            ? `${data.userName} | Scripta`
+            : "Profile | Scripta"
+    );
 
     if (isLoading) return <PageLoader />;
 

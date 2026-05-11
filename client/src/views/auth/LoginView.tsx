@@ -25,7 +25,13 @@ import { loginSchema } from "@/schemas/user.schema";
 // Mutation
 import { useLoginMutation } from "@/services/users/mutations";
 
+// Title hook
+import useDocumentTitle from "@/hooks/useDocumentTitle";
+
 const LoginView = () => {
+    // Title
+    useDocumentTitle("Log In")
+
     const { register, handleSubmit, formState: { errors } } = useForm<LoginUser>({
         resolver: zodResolver(loginSchema)
     });

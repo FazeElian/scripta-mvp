@@ -25,7 +25,13 @@ import { registerSchema } from "@/schemas/user.schema";
 // Mutation
 import { useRegisterMutation } from "@/services/users/mutations";
 
+// Title hook
+import useDocumentTitle from "@/hooks/useDocumentTitle";
+
 const RegisterView = () => {
+    // Title
+    useDocumentTitle("Join Scripta")
+
     const { register, handleSubmit, reset, formState: { errors } } = useForm<RegisterUser>({
         resolver: zodResolver(registerSchema)
     });

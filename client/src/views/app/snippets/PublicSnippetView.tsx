@@ -26,6 +26,9 @@ import { formatSnippetDate } from "@/utils/formatSnippetDate";
 import { langsColors } from "@/lib/langs";
 import { avatars } from "@/lib/avatars";
 
+// Title hook
+import useDocumentTitle from "@/hooks/useDocumentTitle";
+
 const PublicSnippetView = () => {
     const [copied, setCopied] = useState(false);
 
@@ -34,6 +37,13 @@ const PublicSnippetView = () => {
 
     // get snippet (query)
     const { data: snippet, isLoading, isError } = useGetSnippetById(id as string);
+
+    // Title
+    useDocumentTitle(
+        snippet?.title
+            ? `${snippet.title} | Scripta`
+            : "Public Snippet | Scripta"
+    );
 
     const redirect = useNavigate();
     if (isLoading) return <PageLoader />;

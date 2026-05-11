@@ -96,7 +96,7 @@ const SideBar = () => {
                                 }`
                             }
                             key={item.name}
-                            target={`${item.withTarget && "_blank"}`}
+                            target={`${item.withTarget === true && "_blank"}`}
                         >
                             {<item.icon strokeWidth={item.strokeWidth} />}
                             {item.name}
@@ -114,7 +114,7 @@ const SideBar = () => {
                                 <h2>{user.email}</h2>
                             </div>
                         </div>
-                        <Link to={`/app/profile/${user.userName}`} target="_blank">
+                        <Link to={`/profile/${user.userName}`} target="_blank">
                             <ExternalLink />
                         </Link>
                     </div>

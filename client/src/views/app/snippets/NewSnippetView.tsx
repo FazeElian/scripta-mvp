@@ -4,7 +4,13 @@ import { Code } from "lucide-react"
 import { PageTitle } from "@/components/app/atoms/PageTitle"
 import { NewSnippetForm } from "@/components/app/molecules/NewSnippetForm"
 
+// Title hook
+import useDocumentTitle from "@/hooks/useDocumentTitle"
+
 const NewSnippetView = () => {
+    // Title
+    useDocumentTitle("New Snippet | Scripta")
+
     return (
         <main className="app-content">
             <PageTitle

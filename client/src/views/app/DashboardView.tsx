@@ -6,7 +6,13 @@ import { QuickStats } from "@/components/app/molecules/QuickStats"
 // Get user from gloal state (context)
 import { useUser } from "@/services/users/context"
 
+// Title hook
+import useDocumentTitle from "@/hooks/useDocumentTitle";
+
 const DashboardView = () => {
+    // Title
+    useDocumentTitle("Dashboard | Scripta")
+
     const { user } = useUser();
 
     if (!user) return null;

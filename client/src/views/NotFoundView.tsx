@@ -7,7 +7,13 @@ import "@/assets/css/components/NotFound.css";
 // Background comp
 import { AuthBackground } from "@/components/app/molecules/AuthBackground"
 
+// Title hook
+import useDocumentTitle from "@/hooks/useDocumentTitle";
+
 const NotFoundView = () => {
+    // Title
+    useDocumentTitle("Page Not Found")
+
     return (
         <main className="not-found">
             <AuthBackground />

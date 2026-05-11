@@ -9,7 +9,13 @@ import { HomeAudience } from "@/components/app/molecules/HomeAudience";
 import { HomeExamples } from "@/components/app/molecules/HomeExamples";
 import { HomeFooter } from "@/components/app/molecules/HomeFooter";
 
+// Title hook
+import useDocumentTitle from "@/hooks/useDocumentTitle";
+
 const HomeView = () => {
+    // Title
+    useDocumentTitle("Scripta | Code, document, visualize")
+
     return (
         <main>
             <HomeBanner />
