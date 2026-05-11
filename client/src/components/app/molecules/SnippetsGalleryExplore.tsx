@@ -1,4 +1,5 @@
-import { Ghost } from "lucide-react";
+import { useState } from "react";
+import { Plus, Ghost, Loader } from "lucide-react";
 
 // Styles
 import "@/assets/css/components/SnippetsGallery.css";
@@ -8,26 +9,66 @@ import { SnippetCardExplore } from "../atoms/SnippetCardExplore";
 import { ModuleLoader } from "../atoms/ModuleLoader";
 
 // Query
-import { useGetAllSnippets } from "@/services/snippets/queries";
+import { useGetExploreSnippets } from "@/services/snippets/queries";
+import type { AllSnippets } from "@/types/snippets.type";
 
-const SnippetsGalleryExplore = () => {
-    const { data: snippets, isError, error, isLoading } = useGetAllSnippets()
-    if(isError) return null;
+const PAGE_SIZE = 12;
 
+const SnippetsGalleryExplore = ({ query, sortRecency, sortLang, tagFilter }: {
+    query: string;
+    sortRecency: string;
+    sortLang: string;
+    tagFilter: string;
+}) => {
+    const [offset, setOffset] = useState(0);
+    const [accumulated, setAccumulated] = useState<AllSnippets[]>([]);
+
+    // Query: convierte el tag a array de 1 elemento (o vacío) para compatibilidad con el servicio
+    const { data, isError, isLoading, isFetching } = useGetExploreSnippets({
+        query,
+        tag: tagFilter,
+        lang: sortLang,
+        sort: sortRecency,
+        limit: PAGE_SIZE,
+        offset,
+    });
+
+    const snippets: AllSnippets[] = offset === 0
+        ? (data?.snippets ?? [])
+        : [...accumulated, ...(data?.snippets ?? [])];
+
+    const hasMore = data ? snippets.length < data.total : false;
+
+    const handleLoadMore = () => {
+        setAccumulated(snippets);
+        setOffset(prev => prev + PAGE_SIZE);
+    };
+
+    if (isError) return null;
     return (
         <>
-            {snippets && snippets.length > 0 ? (
-                <section className="snippets-gallery">
-                    {snippets.map((item) => (
-                        <SnippetCardExplore key={item.id || item.title} {...item} />
-                    ))}
-                </section>
-            ) : isError ? (
-                <div className="no-snippets">
-                    {error}
-                </div>
-            ) : isLoading ? (
+            {isLoading && offset === 0 ? (
                 <ModuleLoader txt="Loading community snippets..." />
+            ) : snippets.length > 0 ? (
+                <>
+                    <section className="snippets-gallery snippets-gallery-explore">
+                        {snippets.map((item) => (
+                            <SnippetCardExplore key={item.id || item.title} {...item} />
+                        ))}
+                    </section>
+                    {hasMore && (
+                        <button
+                            className="btn-load-more"
+                            onClick={handleLoadMore}
+                            disabled={isFetching}
+                        >
+                            {isFetching
+                                ? <><Loader className="btn-load-more--spin" /> Loading...</>
+                                : <><Plus /> Load More</>
+                            }
+                        </button>
+                    )}
+                </>
             ) : (
                 <div className="no-snippets">
                     <Ghost />
@@ -37,7 +78,7 @@ const SnippetsGalleryExplore = () => {
                 </div>
             )}
         </>
-    )
-}
+    );
+};
 
-export { SnippetsGalleryExplore }
+export { SnippetsGalleryExplore };

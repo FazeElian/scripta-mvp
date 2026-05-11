@@ -10,7 +10,7 @@
     font-size: 14.5px;
     color: var(--text-main);
     font-weight: 300;
-    margin-top: 1rem;
+    margin-top: 8px;
     line-height: 22px;
 }
 
@@ -118,5 +118,99 @@
 
     .public-snippet--editor .cm-editor {
         font-size: 14px;
+    }
+}
+
+/* Responsive 1024px */
+@media (max-width: 1024px) {
+    .public-snippet--author {
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        align-items: center;
+    }
+
+    .cont-public-snippet--content {
+        max-height: 550px;
+    }
+
+    .cont-public-snippet--title {
+        font-size: 14px;
+    }
+}
+
+/* Responsive 768px */
+@media (max-width: 768px) {
+    .public-snippet--author {
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        align-items: center;
+    }
+
+    .public-snippet--author-date {
+        font-size: 11px;
+    }
+
+    .cont-public-snippet--content {
+        max-height: 500px;
+        padding: 1rem;
+    }
+
+    .cont-public-snippet--title {
+        font-size: 14px;
+        padding: 10px 0.9rem;
+    }
+
+        .cont-public-snippet--title svg {
+            width: 17px;
+            height: 17px;
+        }
+}
+
+/* Responsive 480px */
+@media (max-width: 480px) {
+    .public-snippet {
+        margin-top: 0.8rem;
+    }
+
+    .public-snippet p {
+        font-size: 12px;
+        line-height: 18px;
+        margin-top: 10px;
+    }
+
+    .public-snippet--author {
+        gap: 10px !important;
+    }
+    
+    .public-snippet--author a {
+        font-size: 13.5px;
+    }
+
+    .public-snippet--editor {
+        padding: 0.5rem 0 0;
+        margin-top: 0.8rem;
+        overflow-x: auto;
+    }
+
+    .cont-public-snippet {
+        margin-top: 1rem;
+        border-radius: 6px;
+    }
+
+    .cont-public-snippet--title {
+        font-size: 13px;
+        padding: 9px 0.8rem;
+        border-radius: 6px 6px 0 0;
+        gap: 6px;
+    }
+
+    .cont-public-snippet--title svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    .cont-public-snippet--content {
+        padding: 0.9rem;
+        max-height: 400px;
     }
 }

@@ -84,4 +84,25 @@ export class SnippetController {
             handleError(error, res, next);
         }
     };
+
+    static search = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const { query = "", lang = "All", sort = "Most Recent" } = req.query;
+            const tag = (req.query.tag as string) || "";
+            const limit = parseInt(req.query.limit as string) || 10;
+            const offset = parseInt(req.query.offset as string) || 0;
+
+            const result = await snippetService.search(
+                query as string,
+                tag,
+                lang as string,
+                sort as string,
+                limit,
+                offset
+            );
+            res.status(200).json(result);
+        } catch (error) {
+            handleError(error, res, next);
+        }
+    };
 };

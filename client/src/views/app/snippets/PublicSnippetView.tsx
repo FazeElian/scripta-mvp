@@ -9,6 +9,7 @@ import ReactMarkdown from 'react-markdown'
 
 // Styles
 import "@/assets/css/components/PublicSnippet.css";
+import "@/assets/css/components/SnippetsGallery.css";
 
 // Sub comps
 import { PageTitle } from "@/components/app/atoms/PageTitle"
@@ -51,7 +52,7 @@ const PublicSnippetView = () => {
     };
 
     return (
-        <main className="app-content">
+        <main className="app-content app-public">
             <PageTitle
                 title={snippet.title}
                 returnBtn
@@ -66,7 +67,7 @@ const PublicSnippetView = () => {
                         <div className={`btm-snippet-card-author--avatar ${avatar.className}`}>
                             <AvatarIcon />
                         </div>
-                        <Link to={`/app/profile/${snippet.ownerInfo.userName}`}>
+                        <Link to={`/profile/${snippet.ownerInfo.userName}`}>
                             {snippet.ownerInfo.fullName}
                         </Link>
                     </div>

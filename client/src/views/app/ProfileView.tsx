@@ -60,8 +60,8 @@ const ProfileView = () => {
     const avatarClass = avatarConfig[avatarKey]?.className ?? "avatar--yellow";
 
     return (
-        <main className="app-content">
-            <Link to="/app/explore" className="profile-top">
+        <main className="app-content app-public">
+            <Link to="/explore" className="profile-top">
                 <MoveLeft />
                 Come Back to Explore
             </Link>

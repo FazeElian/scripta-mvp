@@ -25,9 +25,8 @@ const SnippetCardExplore = (props : SnippetCardExploreType) => {
     const avatar = avatars[props.ownerAvatar] ?? { icon: Terminal, className: "avatar--yellow" };
     const AvatarIcon = avatar.icon;
 
-    console.log(props.tags)
     return (
-        <Link to={`/app/snippets/view/${props.id}`} className="snippet-card">
+        <Link to={`/snippets/view/${props.id}`} className="snippet-card">
             <div className="top-snippet-card">
                 <div className="top-head-snippet-card">
                     <h1>{props.title}</h1>
@@ -47,7 +46,7 @@ const SnippetCardExplore = (props : SnippetCardExploreType) => {
                 <div className={`btm-snippet-card-author--avatar ${avatar.className}`}>
                     <AvatarIcon />
                 </div>
-                <Link to={`/app/profile/${props.ownerUserName}`}>{props.ownerName}</Link>
+                <Link to={`/profile/${props.ownerUserName}`}>{props.ownerName}</Link>
             </div>
             <div className="btm-snippet-card">
                 <div className="btm-snippet-card-left">

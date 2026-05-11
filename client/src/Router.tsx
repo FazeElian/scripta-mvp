@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import { lazy } from "react";
+import { HomeNavbar } from "./components/app/molecules/HomeNavbar";
 
 // app Layout Component & root layout for auth
 const RootLayout = lazy(() => import("./RootLayout"));
@@ -27,7 +28,25 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomeView />,
+        element: <HomeNavbar />,
+        children: [
+          {
+            path: "/",
+            element: <HomeView />
+          },
+          {
+            path: "explore",
+            element: <ExploreView />
+          },
+          {
+            path: "snippets/view/:id",
+            element: <PublicSnippetView />
+          },
+          {
+            path: "profile/:userName",
+            element: <ProfileView />
+          },
+        ]
       },
       {
         path: "/auth/register",
@@ -48,11 +67,8 @@ const router = createBrowserRouter([
           { index: true, element: <Navigate to="dashboard" replace /> },
           { path: "dashboard", element: <DashboardView /> },
           { path: "account", element: <AccountView /> },
-          { path: "explore", element: <ExploreView /> },
           { path: "snippets/new", element: <NewSnippetView /> },
           { path: "snippets/editor/:id", element: <EditorView /> },
-          { path: "snippets/view/:id", element: <PublicSnippetView /> },
-          { path: "profile/:userName", element: <ProfileView /> },
           { path: "*", element: <AppNotFoundView /> },
         ],
       },

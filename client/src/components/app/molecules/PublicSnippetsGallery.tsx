@@ -25,7 +25,7 @@ const PublicSnippetsGallery = ({ snippets } : PublicSnippetsGalleryType) => {
                     </div>
                 </div>
             ): (
-                <section className="snippets-gallery">
+                <section className="snippets-gallery snippets-gallery-explore">
                     {snippets.map((item) => (
                         <PublicSnippetCard key={item.title} {...item} />
                     ))}

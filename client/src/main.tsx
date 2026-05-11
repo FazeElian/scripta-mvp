@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from 'sonner';
 // Global styles
 import './assets/css/global.css'
+import "./assets/css/components/Home.css";
 
 // Router comp
 import Router from './Router';

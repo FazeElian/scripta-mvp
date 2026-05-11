@@ -57,7 +57,7 @@ const HomeBanner = () => {
                         Get Started Free
                         <ArrowRight />
                     </Link>
-                    <Link to="/app/explore" className="home-banner-txt-btns-login">
+                    <Link to="/explore" className="home-banner-txt-btns-login">
                         <Telescope />
                         Explore Snippets
                     </Link>

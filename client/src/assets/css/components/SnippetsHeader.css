@@ -83,6 +83,45 @@
         border: none !important;
     }
 
+.search-bar--tag-chip {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--seagreen-dark);
+    border: 1px solid var(--seagreen-main);
+    color: var(--seagreen-main);
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+    .search-bar--tag-chip button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        color: var(--seagreen-main);
+        cursor: pointer;
+        padding: 0;
+        opacity: 0.7;
+        transition: .15s ease-in-out;
+    }
+
+        .search-bar--tag-chip button svg {
+            width: 12px;
+            stroke-width: 3;
+            height: 12px;
+            color: var(--seagreen-main);
+        }
+
+        .search-bar--tag-chip button:hover {
+            opacity: 1;
+        }
+
 /* Responsive 1440px */
 @media(max-width: 1440px) {
     .search-bar input,
@@ -105,5 +144,68 @@
 
     .sort-by {
         width: 100%;
+    }
+}
+
+/* Responsive 1024px */
+@media (max-width: 1024px) {
+    .snippets-header {
+        gap: 10px;
+        flex-direction: column-reverse;
+    }
+
+    .search-bar,
+    .snippets-filters {
+        min-width: 100%;
+    }
+
+    .sort-by {
+        width: 100%;
+    }
+
+    .search-bar input,
+    .sort-by select {
+        font-size: 14px;
+    }
+}
+
+/* Responsive 768px */
+@media (max-width: 768px) {
+    .snippets-header {
+        margin-top: 1.2rem;
+        gap: 8px;
+    }
+
+    .search-bar input,
+    .sort-by select {
+        font-size: 13px;
+        padding: 9px 0;
+    }
+
+    .sort-by select {
+        padding: 9px 10px;
+    }
+
+    .search-bar svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Responsive 480px */
+@media (max-width: 480px) {
+    .snippets-header {
+        margin-top: 1rem;
+        gap: 7px;
+    }
+
+    .snippets-filters {
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .search-bar input,
+    .sort-by select {
+        font-size: 13px;
     }
 }

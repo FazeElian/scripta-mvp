@@ -1,59 +1,47 @@
 // Styles
 import "@/assets/css/components/SnippetsHeader.css";
 
-// Sub Components
-import { SearchBar } from "../atoms/SearchBar";
-import { SortByLang } from "../atoms/SortByLang";
+// Sub components
 import { SortByRecency } from "../atoms/SortByRecency";
+import { SortByLang } from "../atoms/SortByLang";
+import { SearchBarExplore } from "../atoms/SearchBarExplore";
 
-const SnippetsHeaderExplore = () => {
-    const recencySortOptions = [
+// lists
+import { langOptions } from "@/lib/langs";
+
+type SnippetsHeaderExploreType = {
+    setQuery: (query: string) => void;
+    sortRecency: string;
+    setSortRecency: (value: string) => void;
+    sortLang: string;
+    setSortLang: (value: string) => void;
+    tagFilter: string;
+    setTagFilter: (tag: string) => void;
+}
+
+const SnippetsHeaderExplore = ({
+    setQuery, sortRecency, setSortRecency,
+    sortLang, setSortLang, tagFilter, setTagFilter
+}: SnippetsHeaderExploreType) => {
+    const recencyOptions = [
         "Most Recent",
         "Least Recent",
-        "Last Modified"
-    ];
-
-    const langSortOptions = [
-        "🐍 Python",
-        "🟨 JavaScript",
-        "🔷 TypeScript",
-        "☕ Java",
-        "⚙️ C",
-        "⚡ C++",
-        "🟣 C#",
-        "🐹 Go",
-        "🦀 Rust",
-        "💎 Ruby",
-        "🐘 PHP",
-        "🍎 Swift",
-        "🤖 Kotlin",
-        "🎯 Dart",
-        "📊 R",
-        "🔴 Scala",
-        "🐪 Perl",
-        "λ Haskell",
-        "🌙 Lua",
-        "🖥️ Shell / Bash",
-        "💙 PowerShell",
-        "🗄️ SQL",
-        "🌐 HTML",
-        "🎨 CSS",
-        "💅 SASS / SCSS",
-        "◈ GraphQL",
-        "📄 YAML",
-        "📦 JSON",
-        "📰 XML",
-        "❓ Not Listed",
+        "Last Modified",
     ];
 
     return (
-        <form className="snippets-header" method="post">
-            <SearchBar placeholder="Search Community Snippets..." setQuery={() => console.log()} />
+        <div className="snippets-header">
+            <SearchBarExplore
+                placeholder="Search Community Snippets..."
+                setQuery={setQuery}
+                tagFilter={tagFilter}
+                setTagFilter={setTagFilter}
+            />
             <div className="snippets-filters">
-                <SortByRecency options={recencySortOptions} />
-                <SortByLang options={langSortOptions} value="" onChange={() => console.log()} />
+                <SortByRecency options={recencyOptions} value={sortRecency} onChange={setSortRecency} />
+                <SortByLang options={langOptions} value={sortLang} onChange={setSortLang} />
             </div>
-        </form>
+        </div>
     )
 }
 

@@ -46,9 +46,7 @@ router.get("/snippets",
     SnippetController.getAllByOwner
 );
 
-router.get("/snippets/explore",
-    SnippetController.getAll
-);
+router.get("/explore", SnippetController.search);
 
 router.get("/snippets/:id",
     SnippetController.getById

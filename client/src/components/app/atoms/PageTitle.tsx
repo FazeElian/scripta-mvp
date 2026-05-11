@@ -20,7 +20,7 @@ const PageTitle = ({ title, subtitle, button, returnBtn, snippetsBtns, onCopy, c
         <div className="page-title">
             <div className="title">
                 {returnBtn &&
-                    <Link to="/app/explore" className="title-btn-return">
+                    <Link to="/explore" className="title-btn-return">
                         <ArrowLeft />
                     </Link>
                 }

@@ -1,9 +1,18 @@
 import { ChevronDown } from "lucide-react";
 
-const SortByRecency = ({ options }: { options: string[] }) => {
+type SortByRecencyType = {
+    options: string[];
+    value: string;
+    onChange: (value: string) => void;
+}
+
+const SortByRecency = ({ options, value, onChange }: SortByRecencyType) => {
     return (
         <div className="sort-by input-group--select-wrapper">
-            <select required defaultValue="Most Recent">
+            <select
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+            >
                 {options.map((option: string) => (
                     <option value={option} key={option}>
                         {option}

@@ -39,8 +39,9 @@ const listSideBar = [
     {
         name: "Explore Community",
         icon: Telescope,
-        link: "/app/explore",
-        strokeWidth: 2
+        link: "/explore",
+        strokeWidth: 2,
+        withTarget: true
     },
     {
         name: "Manage Account",
@@ -95,6 +96,7 @@ const SideBar = () => {
                                 }`
                             }
                             key={item.name}
+                            target={`${item.withTarget && "_blank"}`}
                         >
                             {<item.icon strokeWidth={item.strokeWidth} />}
                             {item.name}

@@ -1,3 +1,5 @@
+import { Op, QueryTypes } from "sequelize";
+
 // Models
 import Snippet from "../models/Snippet";
 import SnippetContent from "../models/SnippetContent";
@@ -239,4 +241,65 @@ export default class SnippetService {
     async delete(snippet: Snippet) : Promise<void> {
         await snippet.destroy();
     };
+
+    async search(query: string, tag: string, lang: string, sortRecency: string, limit: number, offset: number) {
+        const where: any = { visibility: "public" };
+
+        if (lang && lang !== "All") where.lang = lang;
+
+        if (query) {
+            where[Op.or] = [
+                { title: { [Op.iLike]: `%${query}%` } },
+                { description: { [Op.iLike]: `%${query}%` } },
+            ];
+        }
+
+        let order: any[] = [["createdAt", "DESC"]];
+        if (sortRecency === "Least Recent") order = [["createdAt", "ASC"]];
+        if (sortRecency === "Last Modified") order = [["updatedAt", "DESC"]];
+
+        // Fix: un solo tag, JOIN simple sin generación dinámica
+        if (tag) {
+            const snippetIdsWithTag = await db.query(`
+                SELECT s.id FROM snippets s
+                JOIN snippet_tags st ON s.id = st."snippetId"
+                JOIN tags t ON st."tagId" = t.id AND t.name ILIKE :tag
+                WHERE s.visibility = 'public'
+            `, {
+                replacements: { tag: `%${tag}%` },
+                type: QueryTypes.SELECT
+            }) as { id: string }[];
+
+            if (snippetIdsWithTag.length === 0) return { total: 0, snippets: [] };
+
+            where.id = { [Op.in]: snippetIdsWithTag.map(r => r.id) };
+        }
+
+        const { count, rows } = await Snippet.findAndCountAll({
+            where,
+            order,
+            limit,
+            offset,
+            include: [
+                { model: User, as: "user", attributes: ["fullName", "userName", "avatar"] },
+                { model: Tag, as: "tags", attributes: ["name"], through: { attributes: [] }, required: false },
+            ],
+            distinct: true,
+        });
+
+        return {
+            total: count,
+            snippets: rows.map(snippet => ({
+                id: snippet.id,
+                title: snippet.title,
+                description: snippet.description,
+                lang: snippet.lang,
+                updatedAt: snippet.updatedAt,
+                ownerName: (snippet as any).user?.fullName || "Unknown",
+                ownerAvatar: (snippet as any).user?.avatar || "Terminal",
+                ownerUserName: (snippet as any).user?.userName || "Unknown",
+                tags: (snippet as any).tags?.map((t: Tag) => t.name) || [],
+            })),
+        };
+    }
 };
