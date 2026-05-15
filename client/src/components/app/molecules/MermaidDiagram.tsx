@@ -1,20 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import mermaid from "mermaid";
 import {
     TransformWrapper,
     TransformComponent
 } from "react-zoom-pan-pinch";
 
 import { RefreshCw, Sparkles } from "lucide-react";
-
-mermaid.initialize({
-    startOnLoad: false,
-    theme: "dark",
-    flowchart: {
-        useMaxWidth: false,
-        htmlLabels: true
-    }
-});
 
 type MermaidDiagramProps = {
     chart: string;
@@ -38,6 +28,16 @@ const MermaidDiagram = ({ chart, generating, regenerate }: MermaidDiagramProps) 
                 .trim();
 
             try {
+                const mermaid = (await import("mermaid")).default;
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: "dark",
+                    flowchart: {
+                        useMaxWidth: false,
+                        htmlLabels: true
+                    }
+                });
+
                 if (ref.current) ref.current.innerHTML = "";
 
                 const { svg } = await mermaid.render(id, cleanChart);

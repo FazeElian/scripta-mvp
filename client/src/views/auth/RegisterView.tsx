@@ -52,6 +52,7 @@ const RegisterView = () => {
             <form
                 className="form-auth form"
                 method="POST"
+                style={{ zIndex: 1 }}
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <div className="form-auth-wrapper">

@@ -9,7 +9,7 @@ import { ArrowRight, Menu, X } from "lucide-react";
 import { useUser } from "@/services/users/context";
 
 const HomeNavbar = () => {
-    const { user } = useUser();
+    const { user, isLoading } = useUser();
     // const [lang, setLang] = useState("EN");
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -37,21 +37,23 @@ const HomeNavbar = () => {
                         {lang}
                     </button> */}
                     <div className="home-nav-btns-auth">
-                        {user ? (
-                            <Link to="/app/dashboard" className="home-nav-dashboard-btn">
-                                Go to Dashboard
-                                <ArrowRight strokeWidth={2.2} />
-                            </Link>
-                        ) : (
-                            <>
-                                <Link to="/auth/login" className="home-nav-login-btn">
-                                    Login
+                        <div className="home-nav-btns-auth">
+                            {isLoading ? null : user ? (
+                                <Link to="/app/dashboard" className="home-nav-dashboard-btn">
+                                    Go to Dashboard
+                                    <ArrowRight strokeWidth={2.2} />
                                 </Link>
-                                <Link to="/auth/register" className="home-nav-register-btn">
-                                    Get Started
-                                </Link>
-                            </>
-                        )}
+                            ) : (
+                                <>
+                                    <Link to="/auth/login" className="home-nav-login-btn">
+                                        Login
+                                    </Link>
+                                    <Link to="/auth/register" className="home-nav-register-btn">
+                                        Get Started
+                                    </Link>
+                                </>
+                            )}
+                        </div>
                     </div>
 
                     <button
@@ -73,7 +75,7 @@ const HomeNavbar = () => {
                             <Link to="/explore" onClick={() => setMenuOpen(false)}>Explore</Link>
                         </ul>
                         <div className="home-nav-mobile-auth">
-                            {user ? (
+                            {isLoading ? null : user ? (
                                 <Link to="/app/dashboard" className="home-nav-dashboard-btn" onClick={() => setMenuOpen(false)}>
                                     Go to Dashboard
                                     <ArrowRight strokeWidth={2.2} />
