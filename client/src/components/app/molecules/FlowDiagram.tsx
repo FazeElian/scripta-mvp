@@ -1,3 +1,4 @@
+import '@xyflow/react/dist/style.css'
 import { useCallback, useEffect, useRef } from "react"
 
 // React flow
@@ -17,7 +18,6 @@ import {
 } from "@xyflow/react"
 import dagre from "@dagrejs/dagre"
 import { RefreshCw, Sparkles } from "lucide-react"
-import "@xyflow/react/dist/style.css"
 
 // Types
 import {

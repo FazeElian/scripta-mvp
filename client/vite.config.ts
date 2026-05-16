@@ -38,6 +38,7 @@ export default defineConfig({
             { name: 'chunk-axios',     priority: 35,  test: /node_modules[\\/]axios/ },
             { name: 'chunk-ui',        priority: 30,  test: /node_modules[\\/](lucide-react|sonner)/ },
             { name: 'chunk-vendor',    priority: 10,  test: /node_modules/ },
+            { name: 'chunk-hljs', priority: 45, test: /node_modules[\\/]highlight\.js/ },
           ],
         },
       },
