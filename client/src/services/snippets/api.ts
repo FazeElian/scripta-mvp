@@ -13,6 +13,7 @@ import {
     type SnippetByIdByOwner,
     type SnippetByOwner
 } from "@/types/snippets.type";
+import type { FlowDiagram } from "@/types/diagrams.type";
 
 export async function getAllSnippetsByOwner() {
     try {
@@ -26,7 +27,7 @@ export async function getAllSnippetsByOwner() {
     }
 }
 
-export const generateDiagram = async (code: string, lang: string): Promise<string> => {
+export const generateDiagram = async (code: string, lang: string): Promise<FlowDiagram> => {
     try {
         const { data } = await api.post("/snippets/diagram", { code, lang });
         return data.diagram;

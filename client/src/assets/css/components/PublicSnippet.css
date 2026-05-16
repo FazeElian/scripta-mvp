@@ -55,17 +55,48 @@
             stroke-width: 2.2;
         }
 
-    .public-snippet--editor {
-        display: grid;
-        width: 100%;
-        border: 1px solid var(--gray-main);
-        margin-top: 1rem;
-        padding: .7rem .7rem 0;
-        background-color: var(--bg-secondary);
-        border-radius: 8px;
-        overflow: hidden;
-        padding-right: 0;
-    }
+.public-snippet--editor {
+    background-color: var(--bg-secondary);
+    overflow-x: auto;
+    user-select: none;
+    pointer-events: none;
+    margin-top: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--gray-main);
+}
+
+.public-snippet--table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Consolas, monospace;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.public-snippet--gutter {
+    width: 1px;
+    min-width: 2.5rem;
+    padding: 0 0.75rem;
+    text-align: right;
+    color: var(--gray-secondary);
+    border-right: 1px solid var(--gray-main);
+    vertical-align: top;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.public-snippet--table tr:first-child td {
+    padding-top: 0.5rem;
+}
+
+.public-snippet--table tr:last-child td {
+    padding-bottom: 0.5rem;
+}
+
+.public-snippet--line {
+    padding: 0 1rem;
+    white-space: pre;
+}
 
 .cont-public-snippet {
     display: flex;

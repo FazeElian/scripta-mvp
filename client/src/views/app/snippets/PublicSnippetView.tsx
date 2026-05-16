@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { toast } from "sonner";
 import { BookText, Calendar, Terminal } from "lucide-react";
 import remarkGfm from "remark-gfm";
@@ -14,7 +14,11 @@ import "@/assets/css/components/SnippetsGallery.css";
 // Sub comps
 import { PageTitle } from "@/components/app/atoms/PageTitle"
 import { PageLoader } from "@/components/app/atoms/PageLoader";
-import { CodeDisplay } from "@/components/app/molecules/CodeDisplay";
+
+// Lazy load for code comp
+const CodeDisplay = lazy(() =>
+    import("@/components/app/molecules/CodeDisplay").then(m => ({ default: m.CodeDisplay }))
+)
 
 // Query
 import { useGetSnippetById } from "@/services/snippets/queries";
@@ -102,10 +106,12 @@ const PublicSnippetView = () => {
                         ))}
                     </div>
                 )}
-                <CodeDisplay
-                    lang={snippet.lang}
-                    value={snippet.snippetContent.code}
-                />
+                <Suspense fallback={<div className="public-snippet--editor" />}>
+                    <CodeDisplay
+                        lang={snippet.lang}
+                        value={snippet.snippetContent.code}
+                    />
+                </Suspense>
                 <div className="cont-public-snippet">
                     <div className="cont-public-snippet--title">
                         <BookText />

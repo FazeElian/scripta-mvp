@@ -1,12 +1,13 @@
 import { createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
-import { lazy } from "react";
-import { HomeNavbar } from "./components/app/molecules/HomeNavbar";
+import { lazy, Suspense } from "react";
 
 // app Layout Component & root layout for auth
 const RootLayout = lazy(() => import("./RootLayout"));
 const AppNotFoundView = lazy(() => import("./views/AppNotFoundView"));
 const SideBar = lazy(() => import("@/components/app/SideBar").then(m => ({ default: m.SideBar })));
-
+const HomeNavbar = lazy(() =>
+  import("./components/app/molecules/HomeNavbar").then(m => ({ default: m.HomeNavbar }))
+)
 // auth views
 const HomeView = lazy(() => import("@/views/HomeView"));
 const LoginView = lazy(() => import("@/views/auth/LoginView"));
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomeNavbar />,
+        element: (
+          <Suspense fallback={null}>
+            <HomeNavbar />
+          </Suspense>
+        ),
         children: [
           {
             path: "/",

@@ -1,57 +1,99 @@
-import { lazy, Suspense, useState } from "react";
-import { BookText, Sparkles, Terminal, Waypoints } from "lucide-react";
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
-import { toast } from "sonner";
+import { lazy, Suspense, useState, useCallback, memo } from "react"
+import { BookText, Sparkles, Terminal, Waypoints } from "lucide-react"
+import { toast } from "sonner"
 
 // Run
-import type { RunResult } from "@/lib/runCode";
+import type { RunResult } from "@/lib/runCode"
 
-// markdown custom comps
-import MarkdownComponents from "../atoms/MarkdownComponents";
+// API CALL
+import { generateDiagram } from "@/services/snippets/api"
 
-// Diagram
-import { generateDiagram } from "@/services/snippets/api";
+// Types
+import type { FlowDiagram as FlowDiagramType } from "@/types/diagrams.type"
 
-type OutputPanelType = {
-    result: RunResult | null;
-    running: boolean;
-    code: string;
-    diagram: string;
-    lang: string;
-    markdown: string;
-    onMarkdownChange: (val: string) => void;
-    setDiagram: (val: string) => void;
-};
+// Lazy comps
+const MarkdownPreview = lazy(() => import("./MarkdownPreview"))
+const FlowDiagram = lazy(() =>
+    import("./FlowDiagram").then((m) => ({ default: m.FlowDiagram }))
+)
 
-type TabType = "console" | "docs" | "diagram";
+type OutputPanelProps = {
+    result: RunResult | null
+    running: boolean
+    code: string
+    diagram: FlowDiagramType | null
+    lang: string
+    markdown: string
+    onMarkdownChange: (val: string) => void
+    setDiagram: (val: FlowDiagramType | null) => void
+}
 
-const MermaidDiagram = lazy(() => 
-    import("./MermaidDiagram").then(m => ({ default: m.MermaidDiagram }))
-);
+type TabType = "console" | "docs" | "diagram"
 
-const OutputPanel = ({ result, running, markdown, onMarkdownChange, lang, code, setDiagram, diagram }: OutputPanelType) => {
-    const [selectedTab, setSelectedTab] = useState<TabType>("console");
-    const [generating, setGenerating] = useState(false);
+const MarkdownSkeleton = () => (
+    <div className="cont-editor-doc" aria-busy="true">
+        <span style={{ opacity: 0.4, fontSize: 14 }}>Loading preview...</span>
+    </div>
+)
+
+const ConsoleOutput = memo(
+    ({ result, running }: Pick<OutputPanelProps, "result" | "running">) => {
+        if (running) return <span>Running...</span>
+        if (!result) return <span>Click "Run Code" to execute your snippet</span>
+
+        return (
+            <>
+                {result.output.map((block, i) => {
+                    let display = block
+                    try {
+                        display = JSON.stringify(JSON.parse(block), null, 2)
+                    } catch {
+                        // not JSON — render as-is
+                    }
+
+                    return (
+                        <p
+                            key={i}
+                            className={result.isError ? "output-error" : "output-line"}
+                            style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+                        >
+                            {display}
+                        </p>
+                    )
+                })}
+            </>
+        )
+    }
+)
+
+const OutputPanel = ({
+    result,
+    running,
+    markdown,
+    onMarkdownChange,
+    lang,
+    code,
+    setDiagram,
+    diagram,
+}: OutputPanelProps) => {
+    const [selectedTab, setSelectedTab] = useState<TabType>("console")
+    const [generating, setGenerating] = useState(false)
+
+    const handleGenerateDiagram = useCallback(async () => {
+        if (!code.trim()) return
+        setGenerating(true)
+        try {
+            const result = await generateDiagram(code, lang)
+            setDiagram(result)
+        } catch {
+            toast.error("Failed to generate diagram, please try again.")
+        } finally {
+            setGenerating(false)
+        }
+    }, [code, lang, setDiagram])
 
     const getButtonClass = (tab: TabType) =>
-        `top-editor--title ${
-            selectedTab === tab ? "top-editor-selected--title" : ""
-        }`;
-
-    const handleGenerateDiagram = async () => {
-        if (!code.trim()) return;
-        setGenerating(true);
-        try {
-            const result = await generateDiagram(code, lang);
-            setDiagram(result);
-        } catch {
-            toast.error("Failed to generate diagram, try again later.");
-        } finally {
-            setGenerating(false);
-        }
-    };
+        `top-editor--title${selectedTab === tab ? " top-editor-selected--title" : ""}`
 
     return (
         <div className="editor-output-container">
@@ -61,7 +103,7 @@ const OutputPanel = ({ result, running, markdown, onMarkdownChange, lang, code, 
                     className={getButtonClass("console")}
                     onClick={() => setSelectedTab("console")}
                 >
-                    <Terminal />
+                    <Terminal size={16} />
                     Console
                 </button>
 
@@ -70,7 +112,7 @@ const OutputPanel = ({ result, running, markdown, onMarkdownChange, lang, code, 
                     className={getButtonClass("docs")}
                     onClick={() => setSelectedTab("docs")}
                 >
-                    <BookText />
+                    <BookText size={16} />
                     Documentation
                 </button>
 
@@ -79,41 +121,15 @@ const OutputPanel = ({ result, running, markdown, onMarkdownChange, lang, code, 
                     className={getButtonClass("diagram")}
                     onClick={() => setSelectedTab("diagram")}
                 >
-                    <Waypoints />
+                    <Waypoints size={16} />
                     Diagram View
                 </button>
             </div>
 
             <div className="output-result-container">
-                {selectedTab === "console" && (
-                    <div className="cont-editor-console">
-                        {running ? (
-                            "Running..."
-                        ) : !result ? (
-                            'Click "Run Code" to execute your snippet'
-                        ) : (
-                            result.output.map((block, i) => {
-                                let display = block;
-                                try {
-                                    const parsed = JSON.parse(block);
-                                    display = JSON.stringify(parsed, null, 2);
-                                } catch {
-                                    // is not a JSON, show it just like it is
-                                }
-
-                                return (
-                                    <p
-                                        key={i}
-                                        className={result.isError ? "output-error" : "output-line"}
-                                        style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
-                                    >
-                                        {display}
-                                    </p>
-                                );
-                            })
-                        )}
-                    </div>
-                )}
+                <div className="cont-editor-console" hidden={selectedTab !== "console"}>
+                    <ConsoleOutput result={result} running={running} />
+                </div>
 
                 {selectedTab === "docs" && (
                     <div className="editor-doc">
@@ -123,18 +139,9 @@ const OutputPanel = ({ result, running, markdown, onMarkdownChange, lang, code, 
                                 onChange={(e) => onMarkdownChange(e.target.value)}
                             />
                         </div>
-                        <div className="cont-editor-doc">
-                            {markdown.length === 0 ?
-                                "Here will appear the view of the markdown" :
-                                <ReactMarkdown
-                                    remarkPlugins={[remarkGfm]}
-                                    rehypePlugins={[rehypeRaw]}
-                                    components={MarkdownComponents}
-                                >
-                                    {markdown}
-                                </ReactMarkdown>
-                            }
-                        </div>
+                        <Suspense fallback={<MarkdownSkeleton />}>
+                            <MarkdownPreview markdown={markdown} />
+                        </Suspense>
                     </div>
                 )}
 
@@ -145,18 +152,20 @@ const OutputPanel = ({ result, running, markdown, onMarkdownChange, lang, code, 
                                 type="button"
                                 onClick={handleGenerateDiagram}
                                 className="generate-diagram-btn"
+                                disabled={generating || !code.trim()}
                             >
                                 {generating ? "Generating..." : "Generate Diagram with AI"}
-                                <Sparkles />
+                                <Sparkles size={16} />
                             </button>
                         </div>
                     ) : (
                         <div className="cont-editor-diagram">
                             <Suspense fallback={<div>Loading diagram...</div>}>
-                                <MermaidDiagram
-                                    chart={diagram}
+                                <FlowDiagram
+                                    diagram={diagram}
                                     regenerate={handleGenerateDiagram}
                                     generating={generating}
+                                    onDiagramChange={setDiagram}
                                 />
                             </Suspense>
                         </div>
@@ -164,7 +173,7 @@ const OutputPanel = ({ result, running, markdown, onMarkdownChange, lang, code, 
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export { OutputPanel };
+export { OutputPanel }

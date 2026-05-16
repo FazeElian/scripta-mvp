@@ -374,7 +374,7 @@ textarea:focus {
         width: 60px;
         height: 60px;
         stroke-width: 1.5;
-        color: var(--green-main);
+        color: var(--seagreen-main);
     }
 
     .no-snippets-txt {
@@ -387,7 +387,7 @@ textarea:focus {
     }
     
     .no-snippets a {
-        color: var(--green-main);
+        color: var(--seagreen-main);
         text-decoration: none;
         font-weight: 500;
     }

@@ -1,5 +1,8 @@
 import { FileText } from "lucide-react";
-import { Editor } from "./Editor";
+import { lazy, Suspense } from "react";
+
+// Lazy load for editor comp
+const Editor = lazy(() => import("@/components/app/molecules/Editor").then(m => ({ default: m.Editor })))
 
 type CodeEditorProps = {
     value: string;
@@ -16,13 +19,15 @@ const CodeEditor = ({ value, onChange, lang, theme = "dark", readOnly = false }:
                 <FileText />
                 Editor
             </div>
-            <Editor
-                value={value}
-                onChange={onChange}
-                lang={lang}
-                theme={theme}
-                readOnly={readOnly}
-            />
+            <Suspense fallback={<div className="code-editor-container" />}>
+                <Editor
+                    value={value}
+                    onChange={onChange}
+                    lang={lang}
+                    theme={theme}
+                    readOnly={readOnly}
+                />
+            </Suspense>
         </section>
     );
 };

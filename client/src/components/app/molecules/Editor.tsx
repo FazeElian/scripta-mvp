@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { EditorState } from "@codemirror/state";
 import { EditorView, lineNumbers, highlightActiveLine, keymap } from "@codemirror/view";
 import { syntaxHighlighting, defaultHighlightStyle, bracketMatching } from "@codemirror/language";
-import { oneDark } from "@codemirror/theme-one-dark";
 import { langToExtension } from "@/lib/editorLangs";
 import { closeBrackets, autocompletion } from "@codemirror/autocomplete";
 import { closeBracketsKeymap } from "@codemirror/autocomplete";
@@ -28,61 +27,71 @@ const Editor = ({ value, onChange, lang, theme = "dark", readOnly = false }: Edi
 
     useEffect(() => {
         if (!containerRef.current) return;
+        let destroyed = false;
 
-        const langExtension = langToExtension(lang);
+        Promise.all([
+            langToExtension(lang),
+            theme === "dark"
+                ? import("@codemirror/theme-one-dark").then(m => m.oneDark)
+                : Promise.resolve(null),
+        ]).then(([langExtension, themeExtension]) => {
+            if (destroyed || !containerRef.current) return;
 
-        const view = new EditorView({
-            state: EditorState.create({
-                doc: value,
-                extensions: [
-                    history(),
-                    indentUnit.of("    "),
-                    keymap.of([
-                        indentWithTab,
-                        ...historyKeymap,
-                        ...closeBracketsKeymap
-                    ]),
+            const view = new EditorView({
+                state: EditorState.create({
+                    doc: value,
+                    extensions: [
+                        history(),
+                        indentUnit.of("    "),
+                        keymap.of([
+                            indentWithTab,
+                            ...historyKeymap,
+                            ...closeBracketsKeymap
+                        ]),
 
-                    lineNumbers(),
-                    highlightActiveLine(),
-                    bracketMatching(),
-                    closeBrackets(),
-                    autocompletion(),
+                        lineNumbers(),
+                        highlightActiveLine(),
+                        bracketMatching(),
+                        closeBrackets(),
+                        autocompletion(),
 
-                    EditorView.updateListener.of((update) => {
-                        if (update.docChanged) {
-                            onChangeRef.current(update.state.doc.toString());
-                        }
-                    }),
+                        EditorView.updateListener.of((update) => {
+                            if (update.docChanged) {
+                                onChangeRef.current(update.state.doc.toString());
+                            }
+                        }),
 
-                    EditorView.editable.of(!readOnly),
-                    EditorView.theme({
-                        "&": { backgroundColor: "#0d0d0d", fontSize: "15px" },
-                        ".cm-gutters": {
-                            backgroundColor: "#0d0d0d",
-                            borderRight: "1px solid #1e1e1e"
-                        },
-                        ".cm-activeLineGutter": {
-                            backgroundColor: "#161616"
-                        },
-                        ".cm-activeLine": {
-                            backgroundColor: "#161616"
-                        },
-                    }, { dark: true }),
+                        EditorView.editable.of(!readOnly),
+                        EditorView.theme({
+                            "&": { backgroundColor: "#0d0d0d", fontSize: "15px" },
+                            ".cm-gutters": {
+                                backgroundColor: "#0d0d0d",
+                                borderRight: "1px solid #1e1e1e"
+                            },
+                            ".cm-activeLineGutter": {
+                                backgroundColor: "#161616"
+                            },
+                            ".cm-activeLine": {
+                                backgroundColor: "#161616"
+                            },
+                        }, { dark: true }),
 
-                    ...(theme === "dark"
-                        ? [oneDark]
-                        : [syntaxHighlighting(defaultHighlightStyle)]),
+                        ...(themeExtension
+                            ? [themeExtension]
+                            : [syntaxHighlighting(defaultHighlightStyle)]),
 
-                    ...(langExtension ? [langExtension] : []),
-                ]
-            }),
-            parent: containerRef.current,
+                        ...(langExtension ? [langExtension] : []),
+                    ]
+                }),
+                parent: containerRef.current,
+            });
+
+            viewRef.current = view;
         });
 
-        viewRef.current = view;
         return () => {
-            view.destroy();
+            destroyed = true;
+            viewRef.current?.destroy();
             viewRef.current = null;
         };
     }, [lang, theme, readOnly]);

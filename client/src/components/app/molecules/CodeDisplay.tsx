@@ -1,79 +1,49 @@
-import { useEffect, useRef } from "react";
-import { EditorState } from "@codemirror/state";
-import { EditorView, lineNumbers } from "@codemirror/view";
-import { syntaxHighlighting, defaultHighlightStyle } from "@codemirror/language";
-import { oneDark } from "@codemirror/theme-one-dark";
-import { langToExtension } from "@/lib/editorLangs";
+import hljs from "highlight.js/lib/core";
+
+// highlight lib langs
+import javascript from "highlight.js/lib/languages/javascript";
+import typescript from "highlight.js/lib/languages/typescript";
+import python from "highlight.js/lib/languages/python";
+import cpp from "highlight.js/lib/languages/cpp";
+import java from "highlight.js/lib/languages/java";
+import "highlight.js/styles/atom-one-dark.css";
+
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("typescript", typescript);
+hljs.registerLanguage("python", python);
+hljs.registerLanguage("c++", cpp);
+hljs.registerLanguage("java", java);
 
 type CodeDisplayProps = {
     value: string;
     lang: string;
-    theme?: "dark" | "light";
 };
 
-const CodeDisplay = ({ value, lang, theme = "dark" }: CodeDisplayProps) => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const viewRef = useRef<EditorView | null>(null);
+export const CodeDisplay = ({ value, lang }: CodeDisplayProps) => {
+    const lines = value.split("\n");
 
-    useEffect(() => {
-        if (!containerRef.current) return;
+    const highlighted = hljs.highlight(value, {
+        language: hljs.getLanguage(lang) ? lang : "plaintext",
+        ignoreIllegals: true,
+    }).value;
 
-        const langExtension = langToExtension(lang);
+    const highlightedLines = highlighted.split("\n");
 
-        const view = new EditorView({
-            state: EditorState.create({
-                doc: value,
-                extensions: [
-                    lineNumbers(),
-                    EditorView.editable.of(false),
-                    EditorView.theme({
-                        "&": { 
-                            backgroundColor: "transparent", 
-                            fontSize: "15px",
-                            borderRadius: "8px",
-                            userSelect: "none",
-                        },
-                        ".cm-scroller": { 
-                            overflow: "auto",
-                            maxHeight: "400px"
-                        },
-                        ".cm-gutters": {
-                            backgroundColor: "transparent",
-                            borderRight: "1px solid #1e1e1e",
-                            borderRadius: "8px 0 0 8px"
-                        },
-                    }, { dark: true }),
-                    ...(theme === "dark"
-                        ? [oneDark]
-                        : [syntaxHighlighting(defaultHighlightStyle)]),
-                    ...(langExtension ? [langExtension] : []),
-                ]
-            }),
-            parent: containerRef.current,
-        });
-
-        viewRef.current = view;
-        return () => {
-            view.destroy();
-            viewRef.current = null;
-        };
-    }, [lang, theme]);
-
-    useEffect(() => {
-        const view = viewRef.current;
-        if (!view) return;
-
-        const current = view.state.doc.toString();
-        const normalized = (value || "").replace(/\\n/g, '\n').replace(/\\"/g, '"');
-
-        if (current !== normalized) {
-            view.dispatch({
-                changes: { from: 0, to: current.length, insert: normalized }
-            });
-        }
-    }, [value]);
-
-    return <div ref={containerRef} className="public-snippet--editor" />;
+    return (
+        <div className="public-snippet--editor">
+            <table className="public-snippet--table">
+                <tbody>
+                    {lines.map((_, i) => (
+                        <tr key={i}>
+                            <td className="public-snippet--gutter">{i + 1}</td>
+                            <td
+                                className="public-snippet--line"
+                                dangerouslySetInnerHTML={{ __html: highlightedLines[i] ?? "" }}
+                            />
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
 };
-
-export { CodeDisplay };
