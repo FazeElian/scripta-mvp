@@ -28,13 +28,15 @@ const listSideBar = [
         name: "My Snippets",
         icon: Code,
         link: "/app/dashboard",
-        strokeWidth: 2.4
+        strokeWidth: 2.4,
+        withTarget: false
     },
     {
         name: "New Snippet",
         icon: FilePlus,
         link: "/app/snippets/new",
-        strokeWidth: 2.4
+        strokeWidth: 2.4,
+        withTarget: false
     },
     {
         name: "Explore Community",
@@ -47,7 +49,8 @@ const listSideBar = [
         name: "Manage Account",
         icon: UserRoundCog,
         link: "/app/account",
-        strokeWidth: 2.4
+        strokeWidth: 2.4,
+        withTarget: false
     },
 ];
 
@@ -96,7 +99,7 @@ const SideBar = () => {
                                 }`
                             }
                             key={item.name}
-                            target={`${item.withTarget === true && "_blank"}`}
+                            target={item.withTarget ? "_blank" : "_self"}
                         >
                             {<item.icon strokeWidth={item.strokeWidth} />}
                             {item.name}
