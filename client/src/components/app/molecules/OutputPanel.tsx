@@ -10,6 +10,7 @@ import { generateDiagram } from "@/services/snippets/api"
 
 // Types
 import type { FlowDiagram as FlowDiagramType } from "@/types/diagrams.type"
+import { EditorLoader } from "../atoms/EditorLoader"
 
 // Lazy comps
 const MarkdownPreview = lazy(() => import("./MarkdownPreview"))
@@ -29,12 +30,6 @@ type OutputPanelProps = {
 }
 
 type TabType = "console" | "docs" | "diagram"
-
-const MarkdownSkeleton = () => (
-    <div className="cont-editor-doc" aria-busy="true">
-        <span style={{ opacity: 0.4, fontSize: 14 }}>Loading preview...</span>
-    </div>
-)
 
 const ConsoleOutput = memo(
     ({ result, running }: Pick<OutputPanelProps, "result" | "running">) => {
@@ -139,7 +134,7 @@ const OutputPanel = ({
                                 onChange={(e) => onMarkdownChange(e.target.value)}
                             />
                         </div>
-                        <Suspense fallback={<MarkdownSkeleton />}>
+                        <Suspense fallback={<EditorLoader text="Loading documentation..." />}>
                             <MarkdownPreview markdown={markdown} />
                         </Suspense>
                     </div>
@@ -160,7 +155,7 @@ const OutputPanel = ({
                         </div>
                     ) : (
                         <div className="cont-editor-diagram">
-                            <Suspense fallback={<div>Loading diagram...</div>}>
+                            <Suspense fallback={<EditorLoader text="Loading diagram..." />}>
                                 <FlowDiagram
                                     diagram={diagram}
                                     regenerate={handleGenerateDiagram}

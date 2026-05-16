@@ -1,5 +1,6 @@
 import { FileText } from "lucide-react";
 import { lazy, Suspense } from "react";
+import { EditorLoader } from "../atoms/EditorLoader";
 
 // Lazy load for editor comp
 const Editor = lazy(() => import("@/components/app/molecules/Editor").then(m => ({ default: m.Editor })))
@@ -19,7 +20,7 @@ const CodeEditor = ({ value, onChange, lang, theme = "dark", readOnly = false }:
                 <FileText />
                 Editor
             </div>
-            <Suspense fallback={<div className="code-editor-container" />}>
+            <Suspense fallback={<EditorLoader text="Loading Editor..." />}>
                 <Editor
                     value={value}
                     onChange={onChange}

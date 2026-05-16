@@ -11,6 +11,7 @@ import { type FlowDiagram } from "@/types/diagrams.type";
 // Eager (lightweight, always needed)
 import { TopBarEditor } from "@/components/app/molecules/TopBarEditor";
 import { PageLoader } from "@/components/app/atoms/PageLoader";
+import { EditorLoader } from "@/components/app/atoms/EditorLoader";
 
 // Lazy (heavy, only needed once user is in editor)
 const CodeEditor = lazy(() =>
@@ -54,10 +55,6 @@ function normalizeDiagram(d: FlowDiagram | null) {
         edges: d.edges.map(({ id, source, target, label, animated }) => ({ id, source, target, label, animated })),
     };
 }
-
-const EditorFallback = () => (
-    <div style={{ flex: 1, background: "#0d0d0d" }} />
-);
 
 const EditorView = () => {
     const redirect = useNavigate();
@@ -142,7 +139,6 @@ const EditorView = () => {
     }, [code, lang]);
 
     const mutation = useUpdateEditorSnippetMutation(id as string);
-
     const handleSave = useCallback(() => {
         mutation.mutate({
             title,
@@ -175,7 +171,7 @@ const EditorView = () => {
                 running={running}
             />
             <div className="editor-wrapper">
-                <Suspense fallback={<EditorFallback />}>
+                <Suspense fallback={<EditorLoader text="Loading editor..." />}>
                     <CodeEditor
                         value={code}
                         onChange={setCode}
@@ -183,7 +179,7 @@ const EditorView = () => {
                         theme="dark"
                     />
                 </Suspense>
-                <Suspense fallback={<EditorFallback />}>
+                <Suspense fallback={null}>
                     <OutputPanel
                         lang={lang}
                         code={code}
