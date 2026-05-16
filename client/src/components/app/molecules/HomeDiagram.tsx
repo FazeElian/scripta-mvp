@@ -31,7 +31,14 @@ const HomeDiagram = () => {
                 </div>
                 <div className="home-diagram-result">
                     <h1>✦ Generated Diagram</h1>
-                    <img src={HomeGeneratedDiagram} alt="Generated diagram (home)" />
+                    <img 
+                        src={HomeGeneratedDiagram} 
+                        fetchPriority="high"
+                        loading="eager"
+                        width={800}
+                        height={500}
+                        alt="diagram preview"
+                    />
                 </div>
             </div>
         </section>

@@ -1,12 +1,14 @@
+import "@/assets/css/components/PublicSnippet.css";
+import "highlight.js/styles/atom-one-dark.css";
+
 import { Link } from "react-router-dom";
 import { ArrowRight, Play, Telescope } from "lucide-react";
 import { useState } from "react";
 
-// CodeMirror
-import CodeMirror from "@uiw/react-codemirror";
-import { python } from "@codemirror/lang-python";
-import { EditorView } from "@codemirror/view";
-// import { useTypewriter } from "@/hooks/useTypewriter";
+// highlight
+import hljs from "highlight.js/lib/core";
+import python from "highlight.js/lib/languages/python";
+hljs.registerLanguage("python", python);
 
 const INITIAL_CODE = `def fibonacci(n):
     if n <= 1:
@@ -17,17 +19,11 @@ const INITIAL_CODE = `def fibonacci(n):
 for i in range(10):
     print(fibonacci(i))`;
 
+const lines = INITIAL_CODE.split("\n");
+const highlighted = hljs.highlight(INITIAL_CODE, { language: "python", ignoreIllegals: true }).value;
+const highlightedLines = highlighted.split("\n");
+
 const INITIAL_OUTPUT = ["0", "1", "1", "2", "3", "5", "8", "13", "21", "34"];
-const transparentTheme = EditorView.theme({
-    "&": { background: "var(--bg-secondary) !important", height: "100%" },
-    ".cm-content": { padding: "0", fontFamily: '"Fira Code", "Cascadia Code", monospace', fontSize: "13px" },
-    ".cm-focused": { outline: "none" },
-    ".cm-scroller": { overflow: "auto" },
-    ".cm-gutters": { background: "var(--seagreen-dark) !important", border: "none", color: "var(--gray-main)" },
-    ".cm-activeLineGutter": { background: "transparent" },
-    ".cm-activeLine": { background: "rgba(255,255,255,0.04)" },
-    ".cm-selectionBackground": { background: "rgba(255,255,255,0.1) !important" },
-});
 
 const HomeBanner = () => {
     const [output, setOutput] = useState<string[]>(['Click "Run" to execute']);
@@ -88,28 +84,28 @@ const HomeBanner = () => {
                     <div className="code-window-panels">
                         <div className="code-window-editor">
                             <span className="panel-label">&lt;/&gt; Editor</span>
-                            <CodeMirror
-                                value={INITIAL_CODE}
-                                editable={false}
-                                extensions={[python(), transparentTheme]}
-                                theme="dark"
-                                basicSetup={{
-                                    lineNumbers: true,
-                                    foldGutter: false,
-                                    highlightActiveLine: false,
-                                }}
-                                style={{ fontSize: 13, height: "100%" }}
-                            />
+                            <div style={{ overflow: "auto", flex: 1 }}>
+                                <table className="public-snippet--table">
+                                    <tbody>
+                                        {lines.map((_, i) => (
+                                            <tr key={i}>
+                                                <td className="public-snippet--gutter">{i + 1}</td>
+                                                <td
+                                                    className="public-snippet--line"
+                                                    dangerouslySetInnerHTML={{ __html: highlightedLines[i] ?? "" }}
+                                                />
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        {/* Terminal */}
                         <div className="code-window-terminal">
                             <span className="panel-label">&gt;_ Terminal</span>
                             <p className="terminal-cmd">$ python fibonacci.py</p>
                             <pre className="terminal-output">
                                 {output.map((line, i) => (
-                                    <span key={i} className="terminal-line">
-                                        {line}
-                                    </span>
+                                    <span key={i} className="terminal-line">{line}</span>
                                 ))}
                             </pre>
                         </div>

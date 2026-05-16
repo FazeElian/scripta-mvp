@@ -6,13 +6,13 @@ import { visualizer } from "rollup-plugin-visualizer"
 export default defineConfig({
   plugins: [
     react(),
-    visualizer({
+    process.env.NODE_ENV !== "production" && visualizer({
       open: true,
       gzipSize: true,
       brotliSize: true,
       filename: "stats.html",
     }),
-  ],
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

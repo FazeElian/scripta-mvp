@@ -8,7 +8,7 @@ RUN corepack prepare pnpm@11.1.2 --activate
 
 COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --prod=false
 
 COPY . .
 

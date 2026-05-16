@@ -14,7 +14,7 @@ import {
     ExternalLink,
     Terminal,
 } from "lucide-react";
-import Logo from "@/assets/img/logo.png";
+import Logo from "@/assets/img/logo.webp";
 
 // lists
 import { avatars } from "@/lib/avatars";
@@ -83,7 +83,7 @@ const SideBar = () => {
         <>
             <nav className="side-bar">
                 <div className="top-side-bar">
-                    <img src={Logo} alt="" />
+                    <img src={Logo} alt="Logo" fetchPriority="high" loading="lazy" />
                 </div>
                 <ul className="list-side-bar">
                     {listSideBar.map((item) => (

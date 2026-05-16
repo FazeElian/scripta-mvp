@@ -308,6 +308,12 @@
     background-color: var(--bg-secondary);
 }
 
+.code-window-editor-pre {
+    display: block;
+    white-space: "pre";
+    background: transparent;
+}
+
 .panel-label {
     font-size: 13px;
     color: var(--gray-secondary);

@@ -1,19 +1,10 @@
 import hljs from "highlight.js/lib/core";
 
 // highlight lib langs
-import javascript from "highlight.js/lib/languages/javascript";
-import typescript from "highlight.js/lib/languages/typescript";
 import python from "highlight.js/lib/languages/python";
-import cpp from "highlight.js/lib/languages/cpp";
-import java from "highlight.js/lib/languages/java";
 import "highlight.js/styles/atom-one-dark.css";
 
-hljs.registerLanguage("javascript", javascript);
-hljs.registerLanguage("typescript", typescript);
 hljs.registerLanguage("python", python);
-hljs.registerLanguage("c++", cpp);
-hljs.registerLanguage("java", java);
-
 type CodeDisplayProps = {
     value: string;
     lang: string;

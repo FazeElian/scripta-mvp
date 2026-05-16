@@ -31,9 +31,7 @@ const Editor = ({ value, onChange, lang, theme = "dark", readOnly = false }: Edi
 
         Promise.all([
             langToExtension(lang),
-            theme === "dark"
-                ? import("@codemirror/theme-one-dark").then(m => m.oneDark)
-                : Promise.resolve(null),
+            import("@codemirror/theme-one-dark").then(m => m.oneDark)
         ]).then(([langExtension, themeExtension]) => {
             if (destroyed || !containerRef.current) return;
 

@@ -21,7 +21,7 @@ const HomeNavbar = () => {
         <>
             <nav className="home-nav">
                 <div className="home-nav-logo">
-                    <img src={Logo} alt="Scripta Logo" fetchPriority="high" width={120} height={40} />
+                    <img src={Logo} alt="Scripta Logo" fetchPriority="high" width={120} height={40} loading="lazy" />
                 </div>
                     
                 <ul className="home-nav-list">
