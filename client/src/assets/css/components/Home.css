@@ -856,13 +856,14 @@
 
 .home-footer-link {
     color: var(--seagreen-main);
-    text-decoration: none;
     transition: .2s ease-in-out;
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 .home-footer-link:hover {
     color: var(--seagreen-main);
-    text-decoration: underline;
+    text-decoration: none;
     transition: .2s ease-in;
 }
 

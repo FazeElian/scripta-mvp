@@ -11,7 +11,7 @@
     --brand-dark: #0A190F;
     --text-main: #F7F0EE;
     --gray-main: #2A2A2A;
-    --gray-secondary: #949295;
+    --gray-secondary: #99989A;
 
     --orange-main: #BF4904;
     --orange-dark: #2D1A0F;
@@ -122,6 +122,10 @@ textarea:focus {
     color: var(--gray-secondary);
     pointer-events: none;
     cursor: pointer;
+}
+
+.hljs-comment {
+    color: #7a8799 !important;
 }
 
 .input-group--select-clear {
