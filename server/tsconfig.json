@@ -12,7 +12,8 @@
         "declaration": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "typeRoots": ["./src/types", "./node_modules/@types"]
+        "typeRoots": ["./src/types", "./node_modules/@types"],
+        "types": ["node"]
     },
     "include": ["src/**/*", "src/types/**/*"]
 }
