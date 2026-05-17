@@ -23,7 +23,6 @@
     height: 45px;
     align-items: center;
     justify-content: center;
-    background-color: var(--seagreen-dark);
     font-size: 18px;
     padding: 10px;
     border-radius: 5px;
@@ -31,6 +30,11 @@
 
 .explore-stats-icon {
     color: var(--seagreen-main);
+    background-color: var(--seagreen-dark);
+}
+
+.explore-collection-icon {
+    background-color: var(--bg-main);
 }
 
 .explore-stats-txt {
@@ -109,7 +113,7 @@
     }
 
         .explore-collection-card:hover {
-            transform: scale(1.04);
+            transform: scale(1.02);
             transition: .15s ease-in;
         }
 
@@ -119,14 +123,15 @@
         gap: 10px;
     }
 
-    .explore-collection-card--blue .explore-collection-icon { background-color: var(--blue-dark); color: var(--blue-main); }
-    .explore-collection-card--orange .explore-collection-icon { background-color: var(--orange-dark); color: var(--orange-main); }
-    .explore-collection-card--seagreen .explore-collection-icon { background-color: var(--seagreen-dark); color: var(--seagreen-main); }
-    .explore-collection-card--purple .explore-collection-icon { background-color: var(--purple-dark); color: var(--purple-main); }
+
+    .explore-collection-card--blue { color: var(--blue-main); background-color: var(--blue-dark); }
+    .explore-collection-card--orange { color: var(--orange-main); background-color: var(--orange-dark); }
+    .explore-collection-card--seagreen { color: var(--seagreen-main); background-color: var(--seagreen-dark); }
+    .explore-collection-card--purple { color: var(--purple-main); background-color: var(--purple-dark); }
 
     .explore-collection-name {
         font-size: 15.5px;
-        font-weight: 450;
+        font-weight: 500;
         color: var(--text-main);
         line-height: 1.4;
     }
@@ -135,7 +140,7 @@
         font-size: 14px;
         color: var(--gray-secondary);
         line-height: 1.3;
-        font-weight: 400;
+        font-weight: 600;
         flex: 1;
         padding-bottom: 3px;
     }
@@ -144,7 +149,7 @@
         display: flex;
         flex-direction: column;
         gap: 5px;
-        font-weight: 450;
+        font-weight: 600;
         font-size: 13px;
         color: var(--gray-secondary);
         margin-top: auto;

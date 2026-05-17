@@ -2,13 +2,9 @@
     display: grid;
     width: 100%;
     height: auto;
-    gap: 18px;
+    gap: 1rem;
     margin-top: 1rem;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.snippets-gallery-explore {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
     .snippet-card {

@@ -1,7 +1,7 @@
-import { Code, Globe, TrendingUp, Users } from "lucide-react";
+import { FileCode, Globe, TrendingUp, Users } from "lucide-react";
 
 const stats = [
-    { icon: Code, label: "Total Snippets", value: 247 },
+    { icon: FileCode, label: "Total Snippets", value: 247 },
     { icon: Users, label: "Contributors", value: 42 },
     { icon: Globe, label: "Languages", value: 8 },
     { icon: TrendingUp, label: "New This Week", value: 18 },
