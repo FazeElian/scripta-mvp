@@ -38,11 +38,16 @@ const HomeNavbar = () => {
                     </button> */}
                     <div className="home-nav-btns-auth">
                         <div className="home-nav-btns-auth">
-                            {isLoading ? null : user ? (
+                            {user ? (
                                 <Link to="/app/dashboard" className="home-nav-dashboard-btn">
                                     Go to Dashboard
                                     <ArrowRight strokeWidth={2.2} />
                                 </Link>
+                            ) : isLoading ? (
+                                <div className="home-nav-skeleton">
+                                    <span className="home-nav-skeleton-btn" />
+                                    <span className="home-nav-skeleton-btn home-nav-skeleton-btn--wide" />
+                                </div>
                             ) : (
                                 <>
                                     <Link to="/auth/login" className="home-nav-login-btn">
@@ -75,11 +80,16 @@ const HomeNavbar = () => {
                             <Link to="/explore" onClick={() => setMenuOpen(false)}>Explore</Link>
                         </ul>
                         <div className="home-nav-mobile-auth">
-                            {isLoading ? null : user ? (
+                            {user ? (
                                 <Link to="/app/dashboard" className="home-nav-dashboard-btn" onClick={() => setMenuOpen(false)}>
                                     Go to Dashboard
                                     <ArrowRight strokeWidth={2.2} />
                                 </Link>
+                            ) : isLoading ? (
+                                <div className="home-nav-skeleton">
+                                    <span className="home-nav-skeleton-btn" />
+                                    <span className="home-nav-skeleton-btn home-nav-skeleton-btn--wide" />
+                                </div>
                             ) : (
                                 <>
                                     <Link to="/auth/login" className="home-nav-login-btn" onClick={() => setMenuOpen(false)}>

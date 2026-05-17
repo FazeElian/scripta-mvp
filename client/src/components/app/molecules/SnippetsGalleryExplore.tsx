@@ -6,7 +6,6 @@ import "@/assets/css/components/SnippetsGallery.css";
 
 // Sub components
 import { SnippetCardExplore } from "../atoms/SnippetCardExplore";
-import { ModuleLoader } from "../atoms/ModuleLoader";
 
 // Query
 import { useGetExploreSnippets } from "@/services/snippets/queries";
@@ -48,7 +47,20 @@ const SnippetsGalleryExplore = ({ query, sortRecency, sortLang, tagFilter }: {
     return (
         <>
             {isLoading && offset === 0 ? (
-                <ModuleLoader txt="Loading community snippets..." />
+                <section className="snippets-gallery snippets-gallery-explore">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                        <div key={i} className="snippet-card-skeleton">
+                            <div className="skeleton-line skeleton-line--title" />
+                            <div className="skeleton-line skeleton-line--subtitle" />
+                            <div className="skeleton-line skeleton-line--body" />
+                            <div className="skeleton-line skeleton-line--body skeleton-line--short" />
+                            <div className="snippet-card-skeleton-footer">
+                                <div className="skeleton-line skeleton-line--tag" />
+                                <div className="skeleton-line skeleton-line--tag" />
+                            </div>
+                        </div>
+                    ))}
+                </section>
             ) : snippets.length > 0 ? (
                 <>
                     <section className="snippets-gallery snippets-gallery-explore">

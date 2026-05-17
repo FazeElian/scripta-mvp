@@ -9,12 +9,9 @@ import "./assets/css/components/Home.css";
 // Router comp
 import Router from './Router';
 
-// Loader comp
-import { PageLoader } from './components/app/atoms/PageLoader';
-
 const ReactQueryDevtools = import.meta.env.DEV
-    ? lazy(() => import("@tanstack/react-query-devtools").then(m => ({ default: m.ReactQueryDevtools })))
-    : null;
+  ? lazy(() => import("@tanstack/react-query-devtools").then(m => ({ default: m.ReactQueryDevtools })))
+  : null;
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +24,7 @@ const queryClient = new QueryClient({
 
 createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
-    <Suspense fallback={<PageLoader />}>
+    <Suspense fallback={null}>
       <Router />
       <Toaster 
         position="top-center" 

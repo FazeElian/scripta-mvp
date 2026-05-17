@@ -129,6 +129,36 @@
                 filter: drop-shadow(0 2px 12px var(--seagreen-dark));
             }
 
+.home-nav-skeleton {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.home-nav-skeleton-btn {
+    display: block;
+    height: 36px;
+    width: 70px;
+    border-radius: 5px;
+    background: linear-gradient(
+        90deg,
+        var(--gray-main) 25%,
+        #3a3a3a 50%,
+        var(--gray-main) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+.home-nav-skeleton-btn--wide {
+    width: 110px;
+}
+
+@keyframes skeleton-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
 .home-banner {
     display: flex;
     width: 100%;
