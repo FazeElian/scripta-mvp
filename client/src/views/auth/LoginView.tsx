@@ -42,7 +42,7 @@ const LoginView = () => {
     }
 
     return (
-        <div className="auth-page">
+        <main className="auth-page">
             <AuthBackground />
             <ComeBackAuth />
             <form
@@ -57,11 +57,11 @@ const LoginView = () => {
                         <h2>Sign in to your account to continue</h2>
                         <div className="btns-head-form-auth">
                             <a href={`${import.meta.env.VITE_API_URL}/auth/google`}>
-                                <img src={Google} alt="Google" />
+                                <img src={Google} alt="" />
                                 Google
                             </a>
                             <a href={`${import.meta.env.VITE_API_URL}/auth/github`}>
-                                <img src={Github} alt="Github" />
+                                <img src={Github} alt="" />
                                 Github
                             </a>
                         </div>
@@ -106,7 +106,7 @@ const LoginView = () => {
                     </div>
                 </div>
             </form>
-        </div>
+        </main>
     )
 }
 

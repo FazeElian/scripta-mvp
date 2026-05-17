@@ -36,6 +36,7 @@ const InputPasswordGroup = <T extends FieldValues>({
                     type={showPassword ? "text" : "password"}
                     placeholder={placeholder}
                     {...register(name)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                 />
                 <button
                     type="button"

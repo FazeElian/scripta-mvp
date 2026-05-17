@@ -46,7 +46,7 @@ const RegisterView = () => {
     }
 
     return (
-        <div className="auth-page">
+        <main className="auth-page">
             <AuthBackground />
             <ComeBackAuth />
             <form
@@ -61,11 +61,11 @@ const RegisterView = () => {
                         <h2>Get started with Scripta today</h2>
                         <div className="btns-head-form-auth">
                             <a href={`${import.meta.env.VITE_API_URL}/auth/google`}>
-                                <img src={Google} alt="Google" />
+                                <img src={Google} alt="" />
                                 Google
                             </a>
                             <a href={`${import.meta.env.VITE_API_URL}/auth/github`}>
-                                <img src={Github} alt="Github" />
+                                <img src={Github} alt="" />
                                 Github
                             </a>
                         </div>
@@ -126,7 +126,7 @@ const RegisterView = () => {
                     </div>
                 </div>
             </form>
-        </div>
+        </main>
     )
 }
 
