@@ -1,6 +1,13 @@
 import { useState } from "react"
+
+// Styles
+import "@/assets/css/components/Explore.css";
+
+// Sub comps
 import { SnippetsHeaderExplore } from "./SnippetsHeaderExplore";
 import { SnippetsGalleryExplore } from "./SnippetsGalleryExplore";
+import { ExploreStats } from "./ExploreStats";
+import { ExploreCollections } from "./ExploreCollections";
 
 const ExploreSnippets = () => {
     const [query, setQuery] = useState("");
@@ -10,6 +17,8 @@ const ExploreSnippets = () => {
 
     return (
         <>
+            <ExploreStats />
+            <ExploreCollections />
             <SnippetsHeaderExplore
                 setQuery={setQuery}
                 sortRecency={sortRecency}
