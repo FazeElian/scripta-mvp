@@ -12,6 +12,7 @@ import {
 
 // Models
 import Snippet from "./Snippet";
+import Collection from "./Collection";
 
 @Table({
     tableName: "users"
@@ -22,6 +23,10 @@ class User extends Model {
     @Default(DataType.UUIDV4)
     @Column(DataType.UUID)
     declare id: string;
+
+    @Default("student")
+    @Column(DataType.ENUM("student", "educator", "admin"))
+    declare role: string;
 
     @Unique
     @AllowNull(false)
@@ -56,6 +61,10 @@ class User extends Model {
     // Relations with snippet
     @HasMany(() => Snippet)
     declare snippets: Snippet[];
+
+    // Relations with collection
+    @HasMany(() => Collection)
+    declare collections: Collection[];
 }
 
 export default User;

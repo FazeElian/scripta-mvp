@@ -21,6 +21,7 @@ import authRouter from "./routes/auth.router";
 import userRouter from "./routes/user.router";
 import snippetRouter from "./routes/snippet.router";
 import tagRouter from "./routes/tag.router";
+import collectionRouter from "./routes/collection.router";
 
 async function connectDB () {
     try {
@@ -52,7 +53,8 @@ app.use("/api/v1",
     authRouter,
     userRouter,
     snippetRouter,
-    tagRouter
+    tagRouter,
+    collectionRouter
 );
 
 export default app

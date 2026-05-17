@@ -1,4 +1,4 @@
-import { BookOpenText, Code, Puzzle, Pyramid, Settings } from "lucide-react";
+import { BookOpenText, Code, Boxes, Network, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const collections = [
@@ -9,19 +9,19 @@ const collections = [
         snippets: 12, docs: 5, diagrams: 3, color: "blue"
     },
     {
-        icon: Puzzle,
+        icon: Boxes,
         label: "Object-Oriented Programming",
         description: "Inheritance, polymorphism, encapsulation, and design patterns for scalable code.",
         snippets: 18, docs: 8, diagrams: 6, color: "purple"
     },
     {
-        icon: Pyramid,
+        icon: Network,
         label: "Data Structures",
         description: "Arrays, linked lists, trees, graphs, and stacks. Know your data, master your code.",
         snippets: 24, docs: 10, diagrams: 8, color: "seagreen"
     },
     {
-        icon: Settings,
+        icon: Zap,
         label: "Algorithms",
         description: "Sorting, searching, recursion, and complexity analysis. Think algorithmically.",
         snippets: 15, docs: 12, diagrams: 7, color: "orange"
