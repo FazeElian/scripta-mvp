@@ -157,6 +157,42 @@
         padding-top: 12px;
     }
 
+.coming-soon-wrapper {
+    position: relative;
+}
+
+.coming-soon-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    border: 1px solid var(--seagreen-main);
+    border-radius: 8px;
+    background-color: color-mix(in srgb, var(--seagreen-dark) 10%, transparent);
+}
+
+.coming-soon-badge {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--seagreen-main);
+    animation: blink 3s ease-in-out infinite;
+}
+
+.coming-soon-dimmed {
+    opacity: 0.35;
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
 /* Responsive 1280px */
 @media (max-width: 1280px) {
     .explore-stats,

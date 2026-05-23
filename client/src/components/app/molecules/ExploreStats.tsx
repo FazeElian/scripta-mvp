@@ -8,15 +8,20 @@ const stats = [
 ];
 
 export const ExploreStats = () => (
-    <div className="explore-stats">
-        {stats.map((s) => (
-            <div key={s.label} className="explore-stats-card">
-                <span className="explore-stats-icon">{<s.icon />}</span>
-                <div className="explore-stats-txt">
-                    <span className="explore-stats-value">{s.value}</span>
-                    <span className="explore-stats-label">{s.label}</span>
+    <div className="coming-soon-wrapper">
+        <div className="explore-stats coming-soon-dimmed">
+            {stats.map((s) => (
+                <div key={s.label} className="explore-stats-card">
+                    <span className="explore-stats-icon">{<s.icon />}</span>
+                    <div className="explore-stats-txt">
+                        <span className="explore-stats-value">{s.value}</span>
+                        <span className="explore-stats-label">{s.label}</span>
+                    </div>
                 </div>
-            </div>
-        ))}
+            ))}
+        </div>
+        <div className="coming-soon-overlay">
+            <span className="coming-soon-badge">Coming soon...</span>
+        </div>
     </div>
 );

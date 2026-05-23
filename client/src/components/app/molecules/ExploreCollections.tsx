@@ -34,28 +34,31 @@ export const ExploreCollections = () => (
             <h2 className="explore-section-title">
                 <BookOpenText /> Featured Knowledge Collections
             </h2>
-            {/* <Link to="#" className="explore-section-link">Browse all →</Link> */}
         </div>
-        <div className="explore-collections-grid">
-            {collections.map((c) => (
-                <Link
-                    to="#"
-                    key={c.label}
-                    className={`explore-collection-card explore-collection-card--${c.color}`}
-                >
-                    <div className="top-explore-collection-card">
-                        <span className="explore-collection-icon">{<c.icon />}</span>
-                        <p className="explore-collection-name">{c.label}</p>
-                    </div>
-                    <p className="explore-collection-description">{c.description}</p>
-
-                    <div className="explore-collection-meta">
-                        <span>{"</>"} {c.snippets} snippets</span>
-                        <span>📄 {c.docs} docs</span>
-                        <span>⎇ {c.diagrams} diagrams</span>
-                    </div>
-                </Link>
-            ))}
+        <div className="coming-soon-wrapper">
+            <div className="explore-collections-grid coming-soon-dimmed">
+                {collections.map((c) => (
+                    <Link
+                        to="#"
+                        key={c.label}
+                        className={`explore-collection-card explore-collection-card--${c.color}`}
+                    >
+                        <div className="top-explore-collection-card">
+                            <span className="explore-collection-icon">{<c.icon />}</span>
+                            <p className="explore-collection-name">{c.label}</p>
+                        </div>
+                        <p className="explore-collection-description">{c.description}</p>
+                        <div className="explore-collection-meta">
+                            <span>{"</>"} {c.snippets} snippets</span>
+                            <span>📄 {c.docs} docs</span>
+                            <span>⎇ {c.diagrams} diagrams</span>
+                        </div>
+                    </Link>
+                ))}
+            </div>
+            <div className="coming-soon-overlay">
+                <span className="coming-soon-badge">Coming soon...</span>
+            </div>
         </div>
     </section>
 );
