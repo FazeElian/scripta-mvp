@@ -56,9 +56,9 @@ export const ExploreCollections = () => (
                     </Link>
                 ))}
             </div>
-            <div className="coming-soon-overlay">
+            {/* <div className="coming-soon-overlay">
                 <span className="coming-soon-badge">Coming soon...</span>
-            </div>
+            </div> */}
         </div>
     </section>
 );
