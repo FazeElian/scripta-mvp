@@ -10,11 +10,14 @@ import { ConflictError, NotFoundError, UnauthorizedError } from '../utils/handle
 
 declare global {
     namespace Express {
+        interface User extends InstanceType<typeof User> {}
         interface Request {
             user?: User
         }
     }
 }
+
+export {};
 
 export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
     const bearer = req.headers.authorization;

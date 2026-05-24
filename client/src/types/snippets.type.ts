@@ -18,6 +18,7 @@ export interface SnippetByIdByOwner {
     description?: string;
     lang: string;
     visibility: string;
+    stdin?: string | "";
     snippetContent: {
         code: string,
         documentation: string,
@@ -29,6 +30,7 @@ export interface EditorSnippetForm {
     title: string;
     description?: string;
     lang: string;
+    stdin?: string | "";
     visibility: string;
     snippetContent: {
         code: string,

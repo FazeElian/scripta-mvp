@@ -69,6 +69,7 @@ export interface SnippetByIdByOwnerResponse {
     description: string;
     lang: string;
     visibility: string;
+    stdin: string | "";
     snippetContent: {
         code: string;
         documentation: string;

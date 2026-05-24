@@ -48,6 +48,10 @@ class Snippet extends Model {
     @Column(DataType.ENUM("public", "private", "unListed"))
     declare visibility: string;
 
+    @AllowNull(true)
+    @Column(DataType.STRING)
+    declare stdin: string;
+
     // User relation
     @ForeignKey(() => User)
     @AllowNull(false)

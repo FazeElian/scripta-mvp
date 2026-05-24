@@ -158,6 +158,7 @@ export default class SnippetService {
             lang: snippet.lang,
             description: snippet.description,
             visibility: snippet.visibility,
+            stdin: snippet.stdin,
             snippetContent: {
                 code: snippetContent.code,
                 documentation: snippetContent.documentation,
@@ -207,6 +208,7 @@ export default class SnippetService {
                 description: newData.description,
                 lang: newData.lang,
                 visibility: newData.visibility,
+                stdin: newData.stdin
             }, { transaction: transaction });
 
             const content = await SnippetContent.findOne({ 

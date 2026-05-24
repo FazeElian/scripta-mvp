@@ -82,6 +82,7 @@ const EditorView = () => {
         setVisibility(snippet.visibility);
         setMarkdown(snippet.snippetContent.documentation);
         setDiagram(parseDiagramData(snippet.snippetContent.diagramData));
+        setStdin(snippet.stdin ?? "");
         setInitializedId(id ?? null);
     }
 
@@ -97,9 +98,10 @@ const EditorView = () => {
             title      !== snippet.title ||
             markdown   !== snippet.snippetContent.documentation ||
             visibility !== snippet.visibility ||
+            stdin      !== (snippet.stdin ?? "") ||
             JSON.stringify(diagram) !== JSON.stringify(savedDiagram)
         ),
-        [snippet, code, title, markdown, visibility, diagram, savedDiagram]
+        [snippet, code, title, markdown, visibility, diagram, stdin, savedDiagram]
     );
 
     // Block in-app navigation
@@ -132,10 +134,6 @@ const EditorView = () => {
     // Stable callbacks (avoid child re-renders)
     const handleRun = useCallback(async () => {
         if (!code.trim()) return;
-        if(!stdin.trim()) {
-            toast.error("Write some code before running.");
-            return;
-        }
         setRunning(true);
         setResult(null);
         const output = await runCode(code, lang, stdin);
@@ -149,6 +147,7 @@ const EditorView = () => {
             title,
             lang: cleanLangName(lang),
             visibility: visibility as "public" | "private" | "unListed",
+            stdin: stdin || "",
             snippetContent: {
                 code,
                 documentation: markdown,
@@ -157,7 +156,7 @@ const EditorView = () => {
                     : "",
             },
         });
-    }, [mutation, title, lang, visibility, code, markdown, diagram]);
+    }, [mutation, title, lang, visibility, code, markdown, stdin, diagram]);
 
     if (isLoading) return <PageLoader />;
 
