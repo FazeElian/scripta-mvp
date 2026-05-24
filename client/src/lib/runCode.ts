@@ -14,7 +14,11 @@ export type RunResult = {
     isError: boolean;
 };
 
-export const runCode = async (code: string, lang: string): Promise<RunResult> => {
+export const runCode = async (
+    code: string,
+    lang: string,
+    stdin?: string
+): Promise<RunResult> => {
     const clean = cleanLangName(lang).toLowerCase();
     const language = LANG_MAP[clean];
 
@@ -26,7 +30,11 @@ export const runCode = async (code: string, lang: string): Promise<RunResult> =>
     }
 
     try {
-        const { data } = await api.post("/snippets/execute", { language, code });
+        const { data } = await api.post("/snippets/execute", {
+            language,
+            code,
+            ...(stdin?.trim() && { stdin }),   // 👈 solo si hay contenido
+        });
 
         const stdout = data.stdout ?? "";
         const stderr = data.stderr ?? "";

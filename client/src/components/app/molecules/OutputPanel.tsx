@@ -27,6 +27,8 @@ type OutputPanelProps = {
     markdown: string
     onMarkdownChange: (val: string) => void
     setDiagram: (val: FlowDiagramType | null) => void
+    stdin: string
+    onStdinChange: (val: string) => void
 }
 
 type TabType = "console" | "docs" | "diagram"
@@ -70,6 +72,8 @@ const OutputPanel = ({
     code,
     setDiagram,
     diagram,
+    stdin,
+    onStdinChange
 }: OutputPanelProps) => {
     const [selectedTab, setSelectedTab] = useState<TabType>("console")
     const [generating, setGenerating] = useState(false)
@@ -125,6 +129,19 @@ const OutputPanel = ({
                 <div className="cont-editor-console" hidden={selectedTab !== "console"}>
                     <ConsoleOutput result={result} running={running} />
                 </div>
+
+                {selectedTab === "console" && (
+                    <div className="cont-editor-stdin">
+                        <span className="stdin-label">Enter Input</span>
+                        <textarea
+                            className="stdin-textarea"
+                            value={stdin}
+                            onChange={(e) => onStdinChange(e.target.value)}
+                            placeholder="Enter a input for your program..."
+                            spellCheck={false}
+                        />
+                    </div>
+                )}
 
                 {selectedTab === "docs" && (
                     <div className="editor-doc">

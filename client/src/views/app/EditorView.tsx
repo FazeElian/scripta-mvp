@@ -72,6 +72,7 @@ const EditorView = () => {
     const [result, setResult]         = useState<RunResult | null>(null);
     const [running, setRunning]       = useState(false);
     const [initializedId, setInitializedId] = useState<string | null>(null);
+    const [stdin, setStdin] = useState("")
 
     // Initialize state from fetched snippet (once per id)
     if (snippet && initializedId !== id) {
@@ -131,12 +132,16 @@ const EditorView = () => {
     // Stable callbacks (avoid child re-renders)
     const handleRun = useCallback(async () => {
         if (!code.trim()) return;
+        if(!stdin.trim()) {
+            toast.error("Write some code before running.");
+            return;
+        }
         setRunning(true);
         setResult(null);
-        const output = await runCode(code, lang);
+        const output = await runCode(code, lang, stdin);
         setResult(output);
         setRunning(false);
-    }, [code, lang]);
+    }, [code, lang, stdin]);
 
     const mutation = useUpdateEditorSnippetMutation(id as string);
     const handleSave = useCallback(() => {
@@ -189,6 +194,8 @@ const EditorView = () => {
                         running={running}
                         markdown={markdown}
                         onMarkdownChange={setMarkdown}
+                        stdin={stdin}
+                        onStdinChange={setStdin}
                     />
                 </Suspense>
             </div>

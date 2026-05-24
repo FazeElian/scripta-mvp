@@ -154,6 +154,7 @@
         overflow: auto;
         color: var(--seagreen-main);
         flex-direction: column;
+        justify-content: space-between;
     }
 
     .cont-editor-console {
@@ -543,6 +544,46 @@
 
 .react-flow__background {
     background-color: transparent;
+}
+
+.cont-editor-stdin {
+    display: flex;
+    width: auto;
+    min-height: 250px;
+    flex-direction: column;
+    border-top: 1px solid var(--gray-main);
+    flex-shrink: 0;
+}
+
+.stdin-label {
+    padding: 9px 1rem 9px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--gray-secondary);
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--gray-main);
+    user-select: none;
+}
+
+.cont-editor-stdin textarea {
+    display: flex;
+    min-width: 100%;
+    min-height: 250px;
+    max-height: 250px;
+    resize: vertical;
+    outline: none;
+    background: transparent;
+    color: var(--gray-secondary);
+    border: none;
+    padding: 1rem 1rem 9px;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: none;
+}
+
+.cont-editor-stdin textarea:focus {
+    color: var(--text-main);
 }
 
 /* Responsive 1600px */
