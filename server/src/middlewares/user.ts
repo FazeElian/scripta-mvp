@@ -69,7 +69,8 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
             res.status(401).json({ error: "Token not valid" });
         }
     } catch (error) {
-        res.status(500).json({ error: "Token not valid" })
+        console.log("AUTH ERROR:", error);
+        res.status(401).json({ error: "Token not valid" })
     }
 }
 

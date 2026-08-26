@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import { lazy, Suspense } from 'react';
+import { lazy, StrictMode, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from 'sonner';
 // Global styles
@@ -23,26 +23,28 @@ const queryClient = new QueryClient({
 });
 
 createRoot(document.getElementById('root')!).render(
-  <QueryClientProvider client={queryClient}>
-    <Suspense fallback={null}>
-      <Router />
-      <Toaster 
-        position="top-center" 
-        richColors 
-        toastOptions={{
-          style: {
-            fontFamily: "var(--font-mono)",
-            backgroundColor: "var(--bg-secondary)",
-            border: "1px solid var(--gray-main)",
-            fontWeight: "500",
-          }
-        }}
-      />
-    </Suspense>
-    {ReactQueryDevtools && (
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
       <Suspense fallback={null}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        <Router />
+        <Toaster 
+          position="top-center" 
+          richColors 
+          toastOptions={{
+            style: {
+              fontFamily: "var(--font-mono)",
+              backgroundColor: "var(--bg-secondary)",
+              border: "1px solid var(--gray-main)",
+              fontWeight: "500",
+            }
+          }}
+        />
       </Suspense>
-    )}
-  </QueryClientProvider>
+      {ReactQueryDevtools && (
+        <Suspense fallback={null}>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </Suspense>
+      )}
+    </QueryClientProvider>
+  </StrictMode>
 )
