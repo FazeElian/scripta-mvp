@@ -24,7 +24,7 @@ export type FlowDiagram = {
 export default class DiagramService {
     async generateDiagram(code: string, lang: string): Promise<FlowDiagram> {
         const response = await groq.chat.completions.create({
-            model: "llama-3.3-70b-versatile",
+            model: "openai/gpt-oss-120b",
             messages: [
                 {
                     role: "system",
@@ -50,7 +50,10 @@ export default class DiagramService {
                 },
             ],
             temperature: 0.1, // lower = more deterministic JSON
-            max_tokens: 1500, // more tokens for complex diagrams
+            max_tokens: 4096, // more tokens for complex diagrams
+            reasoning_effort: "low",
+            reasoning_format: "hidden", // hide the internal reasoning of the model
+            response_format: { type: "json_object" } // force the native JSON format
         });
 
         const raw = response.choices[0]?.message?.content ?? "{}";
